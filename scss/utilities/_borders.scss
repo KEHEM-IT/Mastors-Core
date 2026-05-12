@@ -1,0 +1,35 @@
+// =============================================================================
+// Mastors-Core | Utilities: Borders
+// =============================================================================
+
+@use 'sass:map';
+@use '../tokens/borders' as t;
+@use '../config/settings' as cfg;
+
+@if cfg.$enable-utilities {
+  // Border width
+  @each $key, $value in t.$mastors-border-widths {
+    .border-#{$key} { border-width: $value !important; }
+    .border-t-#{$key} { border-top-width: $value !important; }
+    .border-r-#{$key} { border-right-width: $value !important; }
+    .border-b-#{$key} { border-bottom-width: $value !important; }
+    .border-l-#{$key} { border-left-width: $value !important; }
+  }
+
+  // Border styles
+  .border-solid   { border-style: solid !important; }
+  .border-dashed  { border-style: dashed !important; }
+  .border-dotted  { border-style: dotted !important; }
+  .border-none    { border-style: none !important; }
+
+  // Shorthand
+  .border { border: 1px solid var(--mastors-border-default) !important; }
+  .border-t { border-top: 1px solid var(--mastors-border-default) !important; }
+  .border-r { border-right: 1px solid var(--mastors-border-default) !important; }
+  .border-b { border-bottom: 1px solid var(--mastors-border-default) !important; }
+  .border-l { border-left: 1px solid var(--mastors-border-default) !important; }
+
+  // Outline
+  .outline-none   { outline: none !important; }
+  .outline        { outline: 2px solid var(--mastors-border-focus) !important; }
+}

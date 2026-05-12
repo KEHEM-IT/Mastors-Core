@@ -1,0 +1,90 @@
+// =============================================================================
+// Mastors-Core | Abstracts: Placeholders
+// Reusable silent classes (extend-only selectors)
+// =============================================================================
+
+// --- Clearfix ---
+%mastors-clearfix {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+// --- Visually Hidden ---
+%mastors-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// --- Cover Layer ---
+%mastors-cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// --- Flex Center ---
+%mastors-flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// --- Absolute Center ---
+%mastors-absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// --- Truncate ---
+%mastors-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// --- Reset Button ---
+%mastors-reset-button {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  line-height: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+// --- Reset List ---
+%mastors-reset-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+// --- Reset Input ---
+%mastors-reset-input {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+}

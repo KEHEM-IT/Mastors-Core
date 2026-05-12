@@ -1,0 +1,77 @@
+// =============================================================================
+// Mastors-Core | Mixins: CSS Variable Engine
+// Generates CSS custom properties from token maps
+// =============================================================================
+
+@use 'sass:map';
+@use 'sass:string';
+@use '../config/settings' as cfg;
+@use '../tokens/colors' as t-colors;
+@use '../tokens/shadows' as t-shadows;
+@use '../tokens/radius' as t-radius;
+@use '../tokens/zindex' as t-z;
+@use '../tokens/opacity' as t-opacity;
+@use '../tokens/motion' as t-motion;
+@use '../tokens/borders' as t-borders;
+
+// --- Generate CSS vars from any map ---
+@mixin generate-vars($map, $prefix, $root: ':root') {
+  #{$root} {
+    @each $key, $value in $map {
+      --#{cfg.$mastors-prefix}-#{$prefix}-#{$key}: #{$value};
+    }
+  }
+}
+
+// --- Generate all core CSS variables (unconditional) ---
+@mixin generate-all-vars {
+  :root {
+    // Colors
+    @each $key, $value in t-colors.$mastors-colors {
+      --#{cfg.$mastors-prefix}-color-#{$key}: #{$value};
+    }
+
+    // Semantic
+    @each $key, $value in t-colors.$mastors-semantic {
+      --#{cfg.$mastors-prefix}-#{$key}: #{$value};
+    }
+
+    // Shadows
+    @each $key, $value in t-shadows.$mastors-shadows {
+      --#{cfg.$mastors-prefix}-shadow-#{$key}: #{$value};
+    }
+
+    // Radius
+    @each $key, $value in t-radius.$mastors-radius {
+      --#{cfg.$mastors-prefix}-radius-#{$key}: #{$value};
+    }
+
+    // Z-Index
+    @each $key, $value in t-z.$mastors-z-index {
+      --#{cfg.$mastors-prefix}-z-#{$key}: #{$value};
+    }
+
+    // Opacity
+    @each $key, $value in t-opacity.$mastors-opacity {
+      --#{cfg.$mastors-prefix}-opacity-#{$key}: #{$value};
+    }
+
+    // Durations
+    @each $key, $value in t-motion.$mastors-durations {
+      --#{cfg.$mastors-prefix}-duration-#{$key}: #{$value};
+    }
+
+    // Easings
+    @each $key, $value in t-motion.$mastors-easings {
+      --#{cfg.$mastors-prefix}-easing-#{$key}: #{$value};
+    }
+  }
+}
+
+// --- Conditionally generate all CSS variables (checks $enable-css-variables) ---
+// Used by mastors-core.scss to avoid @use inside @if.
+@mixin generate-all-vars-if-enabled {
+  @if cfg.$enable-css-variables {
+    @include generate-all-vars;
+  }
+}

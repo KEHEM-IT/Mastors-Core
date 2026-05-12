@@ -1,0 +1,13 @@
+// =============================================================================
+// Mastors-Core | Generators: Shadow Utilities
+// =============================================================================
+
+@use 'sass:map';
+@use '../tokens/shadows' as t;
+@use '../config/settings' as cfg;
+
+@if cfg.$enable-utilities {
+  @each $key, $value in t.$mastors-shadows {
+    .shadow-#{$key} { box-shadow: $value !important; }
+  }
+}

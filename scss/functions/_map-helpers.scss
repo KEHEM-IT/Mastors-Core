@@ -1,0 +1,30 @@
+// =============================================================================
+// Mastors-Core | Functions: Map Helpers
+// Safe map access with validation and warnings
+// =============================================================================
+
+@use 'sass:map';
+@use 'sass:meta';
+
+// --- Safe map.get with error warning ---
+@function mastors-map-get($map, $key, $fallback: null, $context: 'mastors') {
+  @if not meta.type-of($map) == 'map' {
+    @warn '[#{$context}] Expected a map, got #{meta.type-of($map)}.';
+    @return $fallback;
+  }
+
+  @if not map.has-key($map, $key) {
+    @if $fallback != null {
+      @return $fallback;
+    }
+    @warn '[#{$context}] Key "#{$key}" not found in map. Available keys: #{map.keys($map)}';
+    @return null;
+  }
+
+  @return map.get($map, $key);
+}
+
+// --- Merge maps deeply ---
+@function mastors-map-merge($map1, $map2) {
+  @return map.merge($map1, $map2);
+}

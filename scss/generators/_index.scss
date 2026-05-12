@@ -1,0 +1,18 @@
+// =============================================================================
+// Mastors-Core | Generators: Index
+// Conditionally outputs utility generator classes based on config flags.
+// Guard lives here so mastors-core.scss can @use 'generators' unconditionally.
+// =============================================================================
+
+@use '../config/settings' as cfg;
+@use 'sass:meta';
+
+@if cfg.$enable-utilities {
+  @include meta.load-css('colors');
+  @include meta.load-css('shadows');
+  @include meta.load-css('radius');
+  @include meta.load-css('opacity');
+  @include meta.load-css('transitions');
+  @include meta.load-css('zindex');
+  @include meta.load-css('display');
+}

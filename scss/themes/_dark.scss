@@ -1,0 +1,53 @@
+// =============================================================================
+// Mastors-Core | Themes: Dark Theme
+// =============================================================================
+
+@use '../config/settings' as cfg;
+
+@mixin dark-theme {
+  --mastors-text-primary:     #f9fafb;
+  --mastors-text-secondary:   #e5e7eb;
+  --mastors-text-muted:       #9ca3af;
+  --mastors-text-disabled:    #6b7280;
+  --mastors-text-inverse:     #111827;
+
+  --mastors-bg-body:          #0f172a;
+  --mastors-bg-subtle:        #1e293b;
+  --mastors-bg-muted:         #334155;
+  --mastors-bg-inverse:       #f9fafb;
+
+  --mastors-border-default:   #334155;
+  --mastors-border-strong:    #475569;
+  --mastors-border-focus:     #60a5fa;
+
+  --mastors-surface:          #1e293b;
+  --mastors-surface-raised:   #334155;
+  --mastors-surface-overlay:  rgba(15, 23, 42, 0.95);
+
+  --mastors-shadow-ambient:   0 1px 3px rgba(0, 0, 0, 0.50);
+
+  --mastors-color-primary:    #60a5fa;
+  --mastors-color-secondary:  #a78bfa;
+  --mastors-color-accent:     #38bdf8;
+  --mastors-color-success:    #4ade80;
+  --mastors-color-warning:    #fbbf24;
+  --mastors-color-danger:     #f87171;
+  --mastors-color-info:       #22d3ee;
+
+  --mastors-scrollbar-thumb:  rgba(255, 255, 255, 0.2);
+  --mastors-scrollbar-track:  transparent;
+}
+
+// Attribute-based dark mode
+@if cfg.$enable-dark-theme {
+  [#{cfg.$mastors-theme-attr}='dark'] {
+    @include dark-theme;
+  }
+
+  // OS-level dark mode
+  @media (prefers-color-scheme: dark) {
+    :root:not([#{cfg.$mastors-theme-attr}='light']) {
+      @include dark-theme;
+    }
+  }
+}

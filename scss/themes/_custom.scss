@@ -1,0 +1,32 @@
+// =============================================================================
+// Mastors-Core | Themes: Custom Theme API
+// Allows building custom themes for ERP, eCommerce, SaaS products
+// =============================================================================
+
+// Usage:
+// @use 'mastors-core/themes/custom' with (
+//   $theme-name: 'enterprise',
+//   $custom-tokens: (
+//     '--mastors-color-primary': #0f4c75,
+//     '--mastors-bg-body': #1b262c,
+//   )
+// );
+
+@use 'sass:map';
+@use '../config/settings' as cfg;
+
+$theme-name:    'custom' !default;
+$custom-tokens: () !default;
+
+@mixin apply-custom-theme($name: $theme-name, $tokens: $custom-tokens) {
+  [#{cfg.$mastors-theme-attr}='#{$name}'] {
+    @each $prop, $value in $tokens {
+      #{$prop}: #{$value};
+    }
+  }
+}
+
+// Auto-apply if custom tokens provided
+@if map.length($custom-tokens) > 0 {
+  @include apply-custom-theme;
+}

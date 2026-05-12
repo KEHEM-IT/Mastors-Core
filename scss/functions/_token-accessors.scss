@@ -1,0 +1,85 @@
+// =============================================================================
+// Mastors-Core | Functions: Token Accessors
+// Public API functions for reading design tokens
+// =============================================================================
+
+@use 'sass:map';
+@use '../tokens/colors' as t-colors;
+@use '../tokens/shadows' as t-shadows;
+@use '../tokens/radius' as t-radius;
+@use '../tokens/zindex' as t-z;
+@use '../tokens/opacity' as t-opacity;
+@use '../tokens/breakpoints' as t-bp;
+@use '../tokens/motion' as t-motion;
+@use '../tokens/borders' as t-borders;
+@use 'map-helpers' as helpers;
+
+// --- color($key, $fallback) ---
+@function color($key, $fallback: null) {
+  @return helpers.mastors-map-get(t-colors.$mastors-colors, $key, $fallback, 'color()');
+}
+
+// --- semantic($key, $fallback) ---
+@function semantic($key, $fallback: null) {
+  @return helpers.mastors-map-get(t-colors.$mastors-semantic, $key, $fallback, 'semantic()');
+}
+
+// --- shadow($key, $fallback) ---
+@function shadow($key, $fallback: null) {
+  @return helpers.mastors-map-get(t-shadows.$mastors-shadows, $key, $fallback, 'shadow()');
+}
+
+// --- radius($key, $fallback) ---
+@function radius($key, $fallback: null) {
+  @return helpers.mastors-map-get(t-radius.$mastors-radius, $key, $fallback, 'radius()');
+}
+
+// --- z($key, $fallback) ---
+@function z($key, $fallback: null) {
+  @return helpers.mastors-map-get(t-z.$mastors-z-index, $key, $fallback, 'z()');
+}
+
+// --- layer($key, $fallback) ---
+@function layer($key, $fallback: null) {
+  @return helpers.mastors-map-get(t-z.$mastors-layers, $key, $fallback, 'layer()');
+}
+
+// --- opacity($key, $fallback) ---
+@function opacity($key, $fallback: null) {
+  @return helpers.mastors-map-get(t-opacity.$mastors-opacity, $key, $fallback, 'opacity()');
+}
+
+// --- breakpoint($key, $fallback) ---
+@function breakpoint($key, $fallback: null) {
+  @return helpers.mastors-map-get(t-bp.$mastors-breakpoints, $key, $fallback, 'breakpoint()');
+}
+
+// --- container($key, $fallback) ---
+@function container($key, $fallback: null) {
+  @return helpers.mastors-map-get(t-bp.$mastors-containers, $key, $fallback, 'container()');
+}
+
+// --- duration($key, $fallback) ---
+@function duration($key, $fallback: null) {
+  @return helpers.mastors-map-get(t-motion.$mastors-durations, $key, $fallback, 'duration()');
+}
+
+// --- easing($key, $fallback) ---
+@function easing($key, $fallback: null) {
+  @return helpers.mastors-map-get(t-motion.$mastors-easings, $key, $fallback, 'easing()');
+}
+
+// --- transition($key, $fallback) ---
+@function transition($key, $fallback: null) {
+  @return helpers.mastors-map-get(t-motion.$mastors-transitions, $key, $fallback, 'transition()');
+}
+
+// --- border-width($key, $fallback) ---
+@function border-width($key, $fallback: null) {
+  @return helpers.mastors-map-get(t-borders.$mastors-border-widths, $key, $fallback, 'border-width()');
+}
+
+// --- aspect-ratio($key, $fallback) ---
+@function aspect-ratio($key, $fallback: null) {
+  @return helpers.mastors-map-get(t-borders.$mastors-aspect-ratios, $key, $fallback, 'aspect-ratio()');
+}

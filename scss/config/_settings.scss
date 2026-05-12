@@ -1,0 +1,29 @@
+// =============================================================================
+// Mastors-Core | Config: Settings
+// Global feature flags and configuration switches
+// =============================================================================
+
+// --- Feature Flags ---
+$enable-dark-theme:        true  !default;
+$enable-light-theme:       true  !default;
+$enable-css-variables:     true  !default;
+$enable-utilities:         true  !default;
+$enable-reset:             true  !default;
+$enable-base:              true  !default;
+$enable-accessibility:     true  !default;
+$enable-reduced-motion:    true  !default;
+$enable-focus-visible:     true  !default;
+$enable-smooth-scroll:     true  !default;
+$enable-print-styles:      false !default;
+
+// --- Prefix ---
+$mastors-prefix:           'mastors' !default;
+
+// --- Root Element ---
+$mastors-root-selector:    ':root' !default;
+
+// --- Theme Attribute ---
+$mastors-theme-attr:       'data-theme' !default;
+
+// --- Debug Mode ---
+$mastors-debug:            false !default;

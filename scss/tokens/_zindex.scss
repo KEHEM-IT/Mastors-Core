@@ -1,0 +1,27 @@
+// =============================================================================
+// Mastors-Core | Tokens: Z-Index & Layers
+// =============================================================================
+
+$mastors-z-index: (
+  'base':       0,
+  'raised':     10,
+  'dropdown':   100,
+  'sticky':     200,
+  'fixed':      300,
+  'overlay':    400,
+  'modal':      500,
+  'popover':    600,
+  'tooltip':    700,
+  'toast':      800,
+  'spinner':    900,
+  'max':        9999,
+) !default;
+
+$mastors-layers: (
+  'page':       0,
+  'ui':         1,
+  'nav':        2,
+  'panel':      3,
+  'dialog':     4,
+  'critical':   5,
+) !default;

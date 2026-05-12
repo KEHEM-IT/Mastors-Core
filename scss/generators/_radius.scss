@@ -1,0 +1,33 @@
+// =============================================================================
+// Mastors-Core | Generators: Border Radius Utilities
+// =============================================================================
+
+@use 'sass:map';
+@use '../tokens/radius' as t;
+@use '../config/settings' as cfg;
+
+@if cfg.$enable-utilities {
+  @each $key, $value in t.$mastors-radius {
+    .rounded-#{$key} { border-radius: $value !important; }
+  }
+
+  // Directional
+  @each $key, $value in t.$mastors-radius {
+    .rounded-t-#{$key} {
+      border-top-left-radius: $value !important;
+      border-top-right-radius: $value !important;
+    }
+    .rounded-b-#{$key} {
+      border-bottom-left-radius: $value !important;
+      border-bottom-right-radius: $value !important;
+    }
+    .rounded-l-#{$key} {
+      border-top-left-radius: $value !important;
+      border-bottom-left-radius: $value !important;
+    }
+    .rounded-r-#{$key} {
+      border-top-right-radius: $value !important;
+      border-bottom-right-radius: $value !important;
+    }
+  }
+}

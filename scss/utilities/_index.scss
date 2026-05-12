@@ -1,0 +1,14 @@
+// =============================================================================
+// Mastors-Core | Utilities: Index
+// Conditionally outputs utility classes based on config flags.
+// Guard lives here so mastors-core.scss can @use 'utilities' unconditionally.
+// =============================================================================
+
+@use '../config/settings' as cfg;
+@use 'sass:meta';
+
+@if cfg.$enable-utilities {
+  @include meta.load-css('spacing');
+  @include meta.load-css('sizing');
+  @include meta.load-css('borders');
+}

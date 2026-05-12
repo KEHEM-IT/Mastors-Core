@@ -1,0 +1,34 @@
+// =============================================================================
+// Mastors-Core | Helpers: Container
+// Mastors container system — integrates with Mastors-Gridder
+// =============================================================================
+
+@use 'sass:map';
+@use '../tokens/breakpoints' as t;
+@use '../config/settings' as cfg;
+
+.mastors-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  @each $bp, $width in t.$mastors-containers {
+    $min: map.get(t.$mastors-breakpoints, $bp);
+    @if $min and $min != 0 {
+      @media (min-width: #{$min}) {
+        max-width: $width;
+      }
+    }
+  }
+}
+
+// Fluid container
+.mastors-container-fluid {
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}

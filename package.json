@@ -1,0 +1,65 @@
+{
+  "name": "@mastors/core",
+  "version": "1.0.0",
+  "description": "Mastors-Core — foundational SCSS architecture for the Mastors CDN ecosystem",
+  "keywords": [
+    "mastors",
+    "scss",
+    "css",
+    "design-system",
+    "ui-framework",
+    "tokens",
+    "theming",
+    "responsive",
+    "utilities",
+    "sass"
+  ],
+  "author": "Mastors CDN",
+  "license": "MIT",
+  "main": "dist/mastors-core.css",
+  "sass": "scss/_index.scss",
+  "style": "dist/mastors-core.css",
+  "exports": {
+    ".": {
+      "sass": "./scss/_index.scss",
+      "style": "./dist/mastors-core.css"
+    },
+    "./dist/mastors-core.css": "./dist/mastors-core.css",
+    "./dist/mastors-core.min.css": "./dist/mastors-core.min.css"
+  },
+  "files": [
+    "dist/",
+    "scss/",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "sass:build": "sass scss/mastors-core.scss dist/mastors-core.css --style expanded --source-map",
+    "sass:min": "sass scss/mastors-core.scss dist/mastors-core.min.css --style compressed --no-source-map",
+    "sass:watch": "sass --watch scss/mastors-core.scss:dist/mastors-core.css --style expanded --source-map",
+    "sass:all": "npm run sass:build && npm run sass:min",
+    "build:all": "npm run sass:all && npm run build",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean"
+  },
+  "devDependencies": {
+    "sass": "^1.77.0",
+    "vite": "^5.3.0",
+    "rimraf": "^5.0.0"
+  },
+  "peerDependencies": {
+    "sass": ">=1.70.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mastors-cdn/mastors-core"
+  },
+  "bugs": {
+    "url": "https://github.com/mastors-cdn/mastors-core/issues"
+  },
+  "homepage": "https://masterors.dev"
+}

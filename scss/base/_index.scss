@@ -1,0 +1,16 @@
+// =============================================================================
+// Mastors-Core | Base: Index
+// Conditionally outputs reset and motion styles based on config flags.
+// Guards live here so mastors-core.scss can @use 'base' unconditionally.
+// =============================================================================
+
+@use '../config/settings' as cfg;
+@use 'sass:meta';
+
+@if cfg.$enable-reset {
+  @include meta.load-css('reset');
+}
+
+@if cfg.$enable-reduced-motion {
+  @include meta.load-css('motion');
+}

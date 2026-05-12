@@ -1,0 +1,24 @@
+// =============================================================================
+// Mastors-Core | Tokens: Breakpoints & Containers
+// =============================================================================
+
+$mastors-breakpoints: (
+  'xs':   0,
+  'sm':   576px,
+  'md':   768px,
+  'lg':   992px,
+  'xl':   1200px,
+  '2xl':  1400px,
+  '3xl':  1600px,
+) !default;
+
+$mastors-containers: (
+  'xs':   100%,
+  'sm':   540px,
+  'md':   720px,
+  'lg':   960px,
+  'xl':   1140px,
+  '2xl':  1320px,
+  '3xl':  1520px,
+  'fluid': 100%,
+) !default;

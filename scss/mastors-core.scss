@@ -1,0 +1,50 @@
+// =============================================================================
+// Mastors-Core | mastors-core.scss
+// Main compiled output entry — produces the full CSS bundle
+//
+// Compile this file to get mastors-core.css
+// All runtime CSS is generated here. _index.scss is for SCSS @use only.
+//
+// NOTE: @use rules must always be at the top level in Sass.
+// Conditional output is handled inside each module's own _index.scss.
+// =============================================================================
+
+@use 'sass:meta';
+
+// ── 1. Configuration ────────────────────────────────────────────────────────
+@use 'config' as cfg;
+
+// ── 2. Tokens (SCSS variables only, no CSS output) ──────────────────────────
+@use 'tokens';
+
+// ── 3. Functions & Mixins (no CSS output) ───────────────────────────────────
+@use 'functions';
+@use 'mixins';
+@use 'abstracts';
+
+// ── 4. Vendors ───────────────────────────────────────────────────────────────
+@use 'vendors';
+
+// ── 5. Base & Reset ──────────────────────────────────────────────────────────
+// Output is conditionally guarded inside base/_index.scss
+@use 'base';
+
+// ── 6. CSS Variable Engine ───────────────────────────────────────────────────
+// Output is conditionally guarded inside mixins/_css-vars.scss
+@use 'mixins/css-vars' as cvars;
+@include cvars.generate-all-vars-if-enabled;
+
+// ── 7. Themes ────────────────────────────────────────────────────────────────
+@use 'themes';
+
+// ── 8. Accessibility ─────────────────────────────────────────────────────────
+// Output is conditionally guarded inside accessibility/_index.scss
+@use 'accessibility';
+
+// ── 9. Helpers ───────────────────────────────────────────────────────────────
+@use 'helpers';
+
+// ── 10. Generators (utility classes) ────────────────────────────────────────
+// Output is conditionally guarded inside generators/_index.scss and utilities/_index.scss
+@use 'generators';
+@use 'utilities';

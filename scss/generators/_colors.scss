@@ -1,0 +1,30 @@
+// =============================================================================
+// Mastors-Core | Generators: Color Utilities
+// Generates .text-*, .bg-*, .border-color-* utility classes
+// =============================================================================
+
+@use 'sass:map';
+@use '../tokens/colors' as t;
+@use '../config/settings' as cfg;
+
+@if cfg.$enable-utilities {
+  // --- Text Colors ---
+  @each $key, $value in t.$mastors-colors {
+    .text-#{$key} { color: $value !important; }
+  }
+
+  // --- Background Colors ---
+  @each $key, $value in t.$mastors-colors {
+    .bg-#{$key} { background-color: $value !important; }
+  }
+
+  // --- Border Colors ---
+  @each $key, $value in t.$mastors-colors {
+    .border-color-#{$key} { border-color: $value !important; }
+  }
+
+  // --- Semantic text ---
+  @each $key, $value in t.$mastors-semantic {
+    .text-#{$key} { color: $value !important; }
+  }
+}

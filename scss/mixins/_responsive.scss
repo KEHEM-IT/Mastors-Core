@@ -1,0 +1,112 @@
+// =============================================================================
+// Mastors-Core | Mixins: Responsive Engine
+// Modern media query system for Mastors CDN
+// =============================================================================
+
+@use 'sass:map';
+@use 'sass:list';
+@use '../tokens/breakpoints' as t;
+
+// --- up($bp) — min-width (mobile first) ---
+@mixin up($bp) {
+  @if map.has-key(t.$mastors-breakpoints, $bp) {
+    $value: map.get(t.$mastors-breakpoints, $bp);
+    @if $value == 0 {
+      @content;
+    } @else {
+      @media (min-width: #{$value}) {
+        @content;
+      }
+    }
+  } @else {
+    // Custom pixel value passed
+    @media (min-width: #{$bp}) {
+      @content;
+    }
+  }
+}
+
+// --- down($bp) — max-width ---
+@mixin down($bp) {
+  @if map.has-key(t.$mastors-breakpoints, $bp) {
+    $value: map.get(t.$mastors-breakpoints, $bp);
+    $max: $value - 0.02px;
+    @if $value == 0 {
+      @warn '[mastors] down(xs) targets nothing. Use up(sm) instead.';
+    } @else {
+      @media (max-width: #{$max}) {
+        @content;
+      }
+    }
+  } @else {
+    @media (max-width: #{$bp}) {
+      @content;
+    }
+  }
+}
+
+// --- between($lower, $upper) ---
+@mixin between($lower, $upper) {
+  $min: map.get(t.$mastors-breakpoints, $lower);
+  $max: map.get(t.$mastors-breakpoints, $upper);
+
+  @if $min == null or $max == null {
+    @warn '[mastors] between() requires valid breakpoint keys.';
+  } @else {
+    @media (min-width: #{$min}) and (max-width: #{$max - 0.02px}) {
+      @content;
+    }
+  }
+}
+
+// --- only($bp) — single breakpoint range ---
+@mixin only($bp) {
+  $keys: map.keys(t.$mastors-breakpoints);
+  $index: list.index($keys, $bp);
+
+  @if $index == null {
+    @warn '[mastors] only() requires a valid breakpoint key.';
+  } @else if $index == list.length($keys) {
+    @include up($bp) { @content; }
+  } @else {
+    $next: list.nth($keys, $index + 1);
+    @include between($bp, $next) { @content; }
+  }
+}
+
+// --- hover (pointer device check) ---
+@mixin hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover { @content; }
+  }
+}
+
+// --- dark media query ---
+@mixin prefers-dark {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+// --- reduced motion ---
+@mixin prefers-reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+// --- print ---
+@mixin print {
+  @media print {
+    @content;
+  }
+}
+
+// --- portrait / landscape ---
+@mixin portrait {
+  @media (orientation: portrait) { @content; }
+}
+
+@mixin landscape {
+  @media (orientation: landscape) { @content; }
+}

@@ -1,0 +1,44 @@
+// =============================================================================
+// Mastors-Core | Tokens: Motion (Durations, Easings, Transitions)
+// =============================================================================
+
+$mastors-durations: (
+  'instant':    0ms,
+  'fast':       100ms,
+  'normal':     200ms,
+  'moderate':   300ms,
+  'slow':       500ms,
+  'slower':     700ms,
+  'slowest':    1000ms,
+) !default;
+
+$mastors-easings: (
+  'linear':         cubic-bezier(0, 0, 1, 1),
+  'ease':           cubic-bezier(0.25, 0.1, 0.25, 1),
+  'ease-in':        cubic-bezier(0.4, 0, 1, 1),
+  'ease-out':       cubic-bezier(0, 0, 0.2, 1),
+  'ease-in-out':    cubic-bezier(0.4, 0, 0.2, 1),
+  'spring':         cubic-bezier(0.34, 1.56, 0.64, 1),
+  'bounce':         cubic-bezier(0.68, -0.55, 0.265, 1.55),
+  'smooth':         cubic-bezier(0.23, 1, 0.32, 1),
+  'sharp':          cubic-bezier(0.4, 0, 0.6, 1),
+) !default;
+
+$mastors-transitions: (
+  'none':     none,
+  'all':      all 200ms cubic-bezier(0.4, 0, 0.2, 1),
+  'fast':     all 100ms cubic-bezier(0.4, 0, 0.2, 1),
+  'colors':   color 200ms cubic-bezier(0.4, 0, 0.2, 1), background-color 200ms cubic-bezier(0.4, 0, 0.2, 1), border-color 200ms cubic-bezier(0.4, 0, 0.2, 1),
+  'opacity':  opacity 200ms cubic-bezier(0.4, 0, 0.2, 1),
+  'shadow':   box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1),
+  'transform': transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
+) !default;
+
+// Motion tokens
+$mastors-motion: (
+  'scale-hover':      scale(1.02),
+  'scale-active':     scale(0.98),
+  'scale-press':      scale(0.96),
+  'translate-up':     translateY(-4px),
+  'translate-down':   translateY(4px),
+) !default;

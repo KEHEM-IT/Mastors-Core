@@ -1,0 +1,109 @@
+// =============================================================================
+// Mastors-Core | _index.scss
+// Main forward barrel — exposes entire Mastors-Core public API
+//
+// Usage in other Mastors libraries:
+//   @use 'mastors-core' as mc;
+//   .element { color: mc.color('primary'); }
+//
+// Usage with config overrides:
+//   @use 'mastors-core' with (
+//     $enable-dark-theme: true,
+//     $enable-utilities: false
+//   );
+// =============================================================================
+
+// --- Configuration ---
+@forward 'config' show
+  $enable-dark-theme,
+  $enable-light-theme,
+  $enable-css-variables,
+  $enable-utilities,
+  $enable-reset,
+  $enable-base,
+  $enable-accessibility,
+  $enable-reduced-motion,
+  $enable-focus-visible,
+  $enable-smooth-scroll,
+  $enable-print-styles,
+  $mastors-prefix,
+  $mastors-root-selector,
+  $mastors-theme-attr,
+  $mastors-debug;
+
+// --- Tokens ---
+@forward 'tokens' show
+  $mastors-colors,
+  $mastors-semantic,
+  $mastors-shadows,
+  $mastors-radius,
+  $mastors-z-index,
+  $mastors-layers,
+  $mastors-opacity,
+  $mastors-breakpoints,
+  $mastors-containers,
+  $mastors-durations,
+  $mastors-easings,
+  $mastors-transitions,
+  $mastors-motion,
+  $mastors-border-widths,
+  $mastors-aspect-ratios;
+
+// --- Functions (public API) ---
+@forward 'functions' show
+  color,
+  semantic,
+  shadow,
+  radius,
+  z,
+  layer,
+  opacity,
+  breakpoint,
+  container,
+  duration,
+  easing,
+  transition,
+  border-width,
+  aspect-ratio,
+  rem,
+  em,
+  fluid,
+  strip-unit,
+  percent,
+  mastors-map-get,
+  mastors-map-merge;
+
+// --- Mixins (public API) ---
+@forward 'mixins' show
+  up,
+  down,
+  between,
+  only,
+  hover,
+  prefers-dark,
+  prefers-reduced-motion,
+  print,
+  portrait,
+  landscape,
+  absolute-center,
+  flex-center,
+  truncate,
+  line-clamp,
+  aspect-ratio,
+  glassmorphism,
+  neumorphism,
+  custom-scrollbar,
+  focus-ring,
+  focus-visible,
+  smooth-transition,
+  hover-lift,
+  loading-state,
+  skeleton-loading,
+  cover,
+  visually-hidden,
+  visually-visible,
+  generate-vars,
+  generate-all-vars;
+
+// --- Abstracts ---
+@forward 'abstracts';

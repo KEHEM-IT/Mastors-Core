@@ -1,0 +1,97 @@
+// =============================================================================
+// Mastors-Core | Accessibility: Core A11y Helpers
+// =============================================================================
+
+@use '../config/settings' as cfg;
+
+// --- Visually Hidden (screen reader only) ---
+.mastors-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// --- Focusable sr-only (skip links) ---
+.mastors-sr-only-focusable {
+  @extend .mastors-sr-only;
+
+  &:focus,
+  &:focus-within {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+}
+
+// --- Skip Link ---
+.mastors-skip-link {
+  position: absolute;
+  top: -9999px;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--mastors-color-primary, #2563eb);
+  color: #ffffff;
+  border-radius: 0 0 8px 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:focus {
+    top: 0;
+    outline: 3px solid #ffffff;
+    outline-offset: 2px;
+  }
+}
+
+// --- Focus Visible: global keyboard nav ---
+@if cfg.$enable-focus-visible {
+  :focus-visible {
+    outline: 3px solid var(--mastors-border-focus, #2563eb);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+// --- High Contrast Support ---
+@media (forced-colors: active) {
+  *:focus-visible {
+    outline: 3px solid ButtonText;
+  }
+}
+
+// --- ARIA hidden pointer fix ---
+[aria-hidden='true'] {
+  pointer-events: none;
+}
+
+// --- Reduced Motion ---
+@if cfg.$enable-reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    .mastors-animate {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}
+
+// --- Keyboard navigation indicator ---
+.mastors-keyboard-nav *:focus {
+  outline: 3px solid var(--mastors-border-focus, #2563eb);
+  outline-offset: 2px;
+}

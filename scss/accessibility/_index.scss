@@ -1,0 +1,12 @@
+// =============================================================================
+// Mastors-Core | Accessibility: Index
+// Conditionally outputs a11y styles based on config flags.
+// Guard lives here so mastors-core.scss can @use 'accessibility' unconditionally.
+// =============================================================================
+
+@use '../config/settings' as cfg;
+@use 'sass:meta';
+
+@if cfg.$enable-accessibility {
+  @include meta.load-css('a11y');
+}

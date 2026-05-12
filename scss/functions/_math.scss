@@ -1,0 +1,35 @@
+// =============================================================================
+// Mastors-Core | Functions: Math & Unit Helpers
+// =============================================================================
+
+@use 'sass:math';
+@use 'sass:string';
+
+// --- px to rem ---
+@function rem($px, $base: 16) {
+  @return math.div($px, $base) * 1rem;
+}
+
+// --- px to em ---
+@function em($px, $base: 16) {
+  @return math.div($px, $base) * 1em;
+}
+
+// --- Strip unit ---
+@function strip-unit($value) {
+  @return math.div($value, ($value * 0 + 1));
+}
+
+// --- Clamp utility ---
+@function fluid($min, $max, $min-vw: 320px, $max-vw: 1440px) {
+  $min-rem: rem(strip-unit($min));
+  $max-rem: rem(strip-unit($max));
+  $slope: math.div(strip-unit($max) - strip-unit($min), strip-unit($max-vw) - strip-unit($min-vw));
+  $intercept: strip-unit($min) - $slope * strip-unit($min-vw);
+  @return clamp(#{$min-rem}, #{$intercept * 0.0625rem} + #{$slope * 100vw}, #{$max-rem});
+}
+
+// --- Percentage helper ---
+@function percent($value, $total: 100) {
+  @return math.percentage(math.div($value, $total));
+}

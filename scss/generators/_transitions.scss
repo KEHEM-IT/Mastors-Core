@@ -1,0 +1,13 @@
+// =============================================================================
+// Mastors-Core | Generators: Transition Utilities
+// =============================================================================
+
+@use 'sass:map';
+@use '../tokens/motion' as t;
+@use '../config/settings' as cfg;
+
+@if cfg.$enable-utilities {
+  @each $key, $value in t.$mastors-transitions {
+    .transition-#{$key} { transition: $value !important; }
+  }
+}

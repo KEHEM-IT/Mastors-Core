@@ -1,0 +1,83 @@
+// =============================================================================
+// Mastors-Core | Tokens: Colors
+// Complete color palette — primitive + extended
+// =============================================================================
+
+$mastors-colors: (
+  // --- Brand ---
+  'primary':          #2563eb,
+  'primary-light':    #60a5fa,
+  'primary-dark':     #1d4ed8,
+
+  'secondary':        #7c3aed,
+  'secondary-light':  #a78bfa,
+  'secondary-dark':   #5b21b6,
+
+  'accent':           #0ea5e9,
+  'accent-light':     #38bdf8,
+  'accent-dark':      #0284c7,
+
+  // --- Status ---
+  'success':          #16a34a,
+  'success-light':    #4ade80,
+  'success-dark':     #15803d,
+
+  'warning':          #d97706,
+  'warning-light':    #fbbf24,
+  'warning-dark':     #b45309,
+
+  'danger':           #dc2626,
+  'danger-light':     #f87171,
+  'danger-dark':      #b91c1c,
+
+  'info':             #0891b2,
+  'info-light':       #22d3ee,
+  'info-dark':        #0e7490,
+
+  // --- Neutrals ---
+  'white':            #ffffff,
+  'black':            #000000,
+
+  'neutral-50':       #f9fafb,
+  'neutral-100':      #f3f4f6,
+  'neutral-200':      #e5e7eb,
+  'neutral-300':      #d1d5db,
+  'neutral-400':      #9ca3af,
+  'neutral-500':      #6b7280,
+  'neutral-600':      #4b5563,
+  'neutral-700':      #374151,
+  'neutral-800':      #1f2937,
+  'neutral-900':      #111827,
+  'neutral-950':      #030712,
+
+  // --- Surface ---
+  'surface':          #ffffff,
+  'surface-raised':   #f9fafb,
+  'surface-overlay':  #f3f4f6,
+  'surface-sunken':   #e5e7eb,
+
+  // --- Transparent ---
+  'transparent':      transparent,
+) !default;
+
+// --- Semantic Color Map ---
+$mastors-semantic: (
+  'text-primary':       #111827,
+  'text-secondary':     #374151,
+  'text-muted':         #6b7280,
+  'text-disabled':      #9ca3af,
+  'text-inverse':       #ffffff,
+
+  'bg-body':            #ffffff,
+  'bg-subtle':          #f9fafb,
+  'bg-muted':           #f3f4f6,
+  'bg-inverse':         #111827,
+
+  'border-default':     #e5e7eb,
+  'border-strong':      #d1d5db,
+  'border-focus':       #2563eb,
+
+  'link':               #2563eb,
+  'link-hover':         #1d4ed8,
+  'link-visited':       #7c3aed,
+) !default;

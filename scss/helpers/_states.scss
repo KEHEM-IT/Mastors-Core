@@ -1,0 +1,120 @@
+// =============================================================================
+// Mastors-Core | Helpers: Interaction States
+// Reusable state classes for hover, focus, active, disabled
+// =============================================================================
+
+// --- Interactive base ---
+.mastors-interactive {
+  cursor: pointer;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover { opacity: 0.85; }
+  }
+
+  &:active { transform: scale(0.98); }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+// --- Hover opacity ---
+.mastors-hover-opacity {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover { opacity: 0.8; }
+  }
+}
+
+// --- Hover lift ---
+.mastors-hover-lift {
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+// --- Hover scale ---
+.mastors-hover-scale {
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover { transform: scale(1.02); }
+  }
+  &:active { transform: scale(0.98); }
+}
+
+// --- Loading skeleton ---
+.mastors-skeleton {
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 200% 100%;
+  animation: mastors-skeleton-pulse 1.5s ease-in-out infinite;
+  border-radius: 4px;
+
+  @keyframes mastors-skeleton-pulse {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  [data-theme='dark'] & {
+    background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
+    background-size: 200% 100%;
+  }
+}
+
+// --- Pulse animation ---
+.mastors-pulse {
+  animation: mastors-pulse-anim 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  @keyframes mastors-pulse-anim {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.5; }
+  }
+}
+
+// --- Spin animation ---
+.mastors-spin {
+  animation: mastors-spin-anim 1s linear infinite;
+
+  @keyframes mastors-spin-anim {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+}
+
+// --- Ping animation ---
+.mastors-ping {
+  animation: mastors-ping-anim 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+
+  @keyframes mastors-ping-anim {
+    75%, 100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+}
+
+// --- Bounce animation ---
+.mastors-bounce {
+  animation: mastors-bounce-anim 1s infinite;
+
+  @keyframes mastors-bounce-anim {
+    0%, 100% {
+      transform: translateY(-25%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: none;
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+}

@@ -1,0 +1,13 @@
+// =============================================================================
+// Mastors-Core | Generators: Z-Index Utilities
+// =============================================================================
+
+@use 'sass:map';
+@use '../tokens/zindex' as t;
+@use '../config/settings' as cfg;
+
+@if cfg.$enable-utilities {
+  @each $key, $value in t.$mastors-z-index {
+    .z-#{$key} { z-index: $value !important; }
+  }
+}

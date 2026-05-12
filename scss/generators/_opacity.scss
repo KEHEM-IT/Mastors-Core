@@ -1,0 +1,13 @@
+// =============================================================================
+// Mastors-Core | Generators: Opacity Utilities
+// =============================================================================
+
+@use 'sass:map';
+@use '../tokens/opacity' as t;
+@use '../config/settings' as cfg;
+
+@if cfg.$enable-utilities {
+  @each $key, $value in t.$mastors-opacity {
+    .opacity-#{$key} { opacity: $value !important; }
+  }
+}

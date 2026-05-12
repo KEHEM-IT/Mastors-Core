@@ -1,0 +1,22 @@
+// =============================================================================
+// Mastors-Core | Tokens: Borders & Aspect Ratios
+// =============================================================================
+
+$mastors-border-widths: (
+  '0':    0,
+  '1':    1px,
+  '2':    2px,
+  '4':    4px,
+  '8':    8px,
+) !default;
+
+$mastors-aspect-ratios: (
+  'square':     1 / 1,
+  'video':      16 / 9,
+  'cinema':     21 / 9,
+  'portrait':   3 / 4,
+  'landscape':  4 / 3,
+  'golden':     1.618 / 1,
+  'wide':       2 / 1,
+  'tall':       1 / 2,
+) !default;
