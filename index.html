@@ -1,0 +1,2726 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mastors Core — Documentation</title>
+
+  <!-- Mastors Core CSS -->
+  <link rel="stylesheet" href="/dist/mastors-core.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <!-- Prism.js (syntax highlighting) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+
+  <style>
+    /* ─── Base Variables ─────────────────────────────────────── */
+    :root {
+      --doc-font: 'Sora', sans-serif;
+      --doc-mono: 'JetBrains Mono', monospace;
+      --doc-sidebar-w: 272px;
+      --doc-header-h: 60px;
+      --doc-accent: #2563eb;
+      --doc-accent-glow: rgba(37, 99, 235, 0.25);
+      --doc-radius: 10px;
+      --doc-transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ─── Global ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+    body {
+      font-family: var(--doc-font);
+      background-color: var(--mastors-bg-body, #0f172a);
+      color: var(--mastors-text-primary, #f9fafb);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Typography ─────────────────────────────────────────── */
+    .doc-h1 { font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.03em; }
+    .doc-h2 { font-size: clamp(1.4rem, 2.5vw, 1.875rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+    .doc-h3 { font-size: 1.2rem; font-weight: 700; line-height: 1.3; }
+    .doc-h4 { font-size: 1rem; font-weight: 600; }
+
+    .doc-lead {
+      font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+      color: var(--mastors-text-secondary, #94a3b8);
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    /* ─── Header ─────────────────────────────────────────────── */
+    .doc-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--doc-header-h);
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      align-items: center;
+      padding: 0 1.5rem;
+      gap: 1rem;
+    }
+
+    .doc-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .doc-logo-badge {
+      width: 32px; height: 32px;
+      background: var(--doc-accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    .doc-logo-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--mastors-text-primary, #f9fafb);
+    }
+
+    .doc-logo-name span {
+      color: var(--doc-accent);
+    }
+
+    .doc-header-version {
+      font-family: var(--doc-mono);
+      font-size: 0.7rem;
+      background: rgba(37, 99, 235, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(37, 99, 235, 0.3);
+      padding: 2px 8px;
+      border-radius: 9999px;
+    }
+
+    .doc-header-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      margin-left: auto;
+    }
+
+    .doc-header-nav a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--mastors-text-muted, #9ca3af);
+      text-decoration: none;
+      padding: 5px 10px;
+      border-radius: 6px;
+      transition: all var(--doc-transition);
+    }
+
+    .doc-header-nav a:hover {
+      color: var(--mastors-text-primary, #f9fafb);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .doc-github-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #fff;
+      background: var(--doc-accent);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 7px;
+      transition: all var(--doc-transition);
+      margin-left: 0.5rem;
+    }
+
+    .doc-github-btn:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+    }
+
+    .doc-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--mastors-text-primary, #f9fafb);
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: auto;
+    }
+
+    /* ─── Layout ─────────────────────────────────────────────── */
+    .doc-layout {
+      display: flex;
+      padding-top: var(--doc-header-h);
+      min-height: 100vh;
+    }
+
+    /* ─── Sidebar ────────────────────────────────────────────── */
+    .doc-sidebar {
+      width: var(--doc-sidebar-w);
+      flex-shrink: 0;
+      position: sticky;
+      top: var(--doc-header-h);
+      height: calc(100vh - var(--doc-header-h));
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 1.5rem 1rem;
+      border-right: 1px solid rgba(255,255,255,0.07);
+      background: rgba(15, 23, 42, 0.5);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.1) transparent;
+    }
+
+    .doc-sidebar::-webkit-scrollbar { width: 4px; }
+    .doc-sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 9999px; }
+
+    .doc-nav-group { margin-bottom: 1.75rem; }
+
+    .doc-nav-group-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--mastors-text-muted, #9ca3af);
+      padding: 0 0.625rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .doc-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--mastors-text-secondary, #94a3b8);
+      text-decoration: none;
+      padding: 0.375rem 0.625rem;
+      border-radius: 6px;
+      transition: all var(--doc-transition);
+      line-height: 1.4;
+    }
+
+    .doc-nav-link i {
+      width: 14px;
+      font-size: 0.7rem;
+      opacity: 0.7;
+      flex-shrink: 0;
+    }
+
+    .doc-nav-link:hover,
+    .doc-nav-link.active {
+      color: #fff;
+      background: rgba(37, 99, 235, 0.12);
+    }
+
+    .doc-nav-link.active {
+      color: #60a5fa;
+      background: rgba(37, 99, 235, 0.15);
+      border-left: 2px solid var(--doc-accent);
+      padding-left: calc(0.625rem - 2px);
+    }
+
+    /* ─── Main Content ───────────────────────────────────────── */
+    .doc-main {
+      flex: 1;
+      min-width: 0;
+      padding: 2.5rem 2rem 4rem;
+      max-width: 900px;
+    }
+
+    /* ─── Section ────────────────────────────────────────────── */
+    .doc-section {
+      margin-bottom: 4rem;
+      scroll-margin-top: 80px;
+    }
+
+    .doc-section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .doc-section-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+      flex-shrink: 0;
+    }
+
+    /* ─── Hero ───────────────────────────────────────────────── */
+    .doc-hero {
+      position: relative;
+      padding: 3rem 0 2rem;
+      margin-bottom: 3rem;
+      overflow: hidden;
+    }
+
+    .doc-hero-glow {
+      position: absolute;
+      top: -80px; left: -100px;
+      width: 500px; height: 400px;
+      background: radial-gradient(ellipse, rgba(37,99,235,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .doc-hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .doc-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--doc-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      border: 1px solid currentColor;
+      opacity: 0.75;
+    }
+
+    .doc-badge-blue { color: #60a5fa; border-color: rgba(96,165,250,0.3); background: rgba(96,165,250,0.08); }
+    .doc-badge-green { color: #4ade80; border-color: rgba(74,222,128,0.3); background: rgba(74,222,128,0.08); }
+    .doc-badge-purple { color: #a78bfa; border-color: rgba(167,139,250,0.3); background: rgba(167,139,250,0.08); }
+    .doc-badge-orange { color: #fb923c; border-color: rgba(251,146,60,0.3); background: rgba(251,146,60,0.08); }
+
+    /* ─── Feature Grid ───────────────────────────────────────── */
+    .doc-feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .doc-feature-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--doc-radius);
+      padding: 1.125rem;
+      transition: all var(--doc-transition);
+    }
+
+    .doc-feature-card:hover {
+      background: rgba(255,255,255,0.055);
+      border-color: rgba(37,99,235,0.35);
+      transform: translateY(-2px);
+    }
+
+    .doc-feature-card-icon {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.875rem;
+      margin-bottom: 0.625rem;
+    }
+
+    .doc-feature-card h4 {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: var(--mastors-text-primary, #f9fafb);
+    }
+
+    .doc-feature-card p {
+      font-size: 0.75rem;
+      color: var(--mastors-text-muted, #9ca3af);
+      line-height: 1.5;
+    }
+
+    /* ─── Code blocks ────────────────────────────────────────── */
+    .doc-code-wrap {
+      position: relative;
+      margin: 1rem 0;
+      border-radius: var(--doc-radius);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .doc-code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .doc-code-lang {
+      font-family: var(--doc-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--mastors-text-muted, #9ca3af);
+    }
+
+    .doc-copy-btn {
+      font-family: var(--doc-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--mastors-text-muted, #9ca3af);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 3px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all var(--doc-transition);
+    }
+
+    .doc-copy-btn:hover { color: #fff; background: rgba(255,255,255,0.1); }
+    .doc-copy-btn.copied { color: #4ade80; border-color: rgba(74,222,128,0.3); }
+
+    .doc-code-wrap pre[class*="language-"] {
+      margin: 0 !important;
+      border-radius: 0 !important;
+      background: #0d1117 !important;
+      font-size: 0.84rem !important;
+      line-height: 1.65 !important;
+      font-family: var(--doc-mono) !important;
+      padding: 1.25rem 1.25rem !important;
+      max-height: 420px;
+      overflow: auto;
+    }
+
+    /* ─── Token Table ────────────────────────────────────────── */
+    .doc-table-wrap {
+      overflow-x: auto;
+      border-radius: var(--doc-radius);
+      border: 1px solid rgba(255,255,255,0.08);
+      margin: 1rem 0;
+    }
+
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    .doc-table thead tr {
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .doc-table th {
+      padding: 0.625rem 1rem;
+      text-align: left;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--mastors-text-muted, #9ca3af);
+    }
+
+    .doc-table td {
+      padding: 0.5rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--mastors-text-secondary, #94a3b8);
+      vertical-align: middle;
+    }
+
+    .doc-table tbody tr:last-child td { border-bottom: none; }
+
+    .doc-table tbody tr:hover td {
+      background: rgba(255,255,255,0.025);
+    }
+
+    .doc-table code {
+      font-family: var(--doc-mono);
+      font-size: 0.75rem;
+      background: rgba(255,255,255,0.07);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #e2e8f0;
+    }
+
+    /* ─── Color Swatches ─────────────────────────────────────── */
+    .doc-swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 0.625rem;
+      margin: 1rem 0;
+    }
+
+    .doc-swatch {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: transform var(--doc-transition);
+    }
+
+    .doc-swatch:hover { transform: scale(1.04); }
+
+    .doc-swatch-color {
+      height: 52px;
+      width: 100%;
+    }
+
+    .doc-swatch-info {
+      padding: 5px 7px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .doc-swatch-name {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--mastors-text-secondary, #94a3b8);
+      display: block;
+      margin-bottom: 1px;
+    }
+
+    .doc-swatch-hex {
+      font-family: var(--doc-mono);
+      font-size: 0.6rem;
+      color: var(--mastors-text-muted, #9ca3af);
+    }
+
+    /* ─── Demo Cards ─────────────────────────────────────────── */
+    .doc-demo-area {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--doc-radius);
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .doc-demo-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mastors-text-muted, #9ca3af);
+      margin-bottom: 1rem;
+    }
+
+    /* ─── Shadow Demos ───────────────────────────────────────── */
+    .doc-shadow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+
+    .doc-shadow-demo {
+      background: var(--mastors-surface, #1e293b);
+      border-radius: 8px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all var(--doc-transition);
+    }
+
+    .doc-shadow-demo:hover { transform: translateY(-2px); }
+
+    .doc-shadow-label {
+      font-family: var(--doc-mono);
+      font-size: 0.68rem;
+      color: var(--mastors-text-muted, #9ca3af);
+      font-weight: 600;
+    }
+
+    /* ─── Radius Demos ───────────────────────────────────────── */
+    .doc-radius-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .doc-radius-demo {
+      width: 64px; height: 64px;
+      background: rgba(37, 99, 235, 0.2);
+      border: 2px solid rgba(37, 99, 235, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--doc-mono);
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: #60a5fa;
+      transition: all var(--doc-transition);
+    }
+
+    .doc-radius-demo:hover {
+      background: rgba(37, 99, 235, 0.35);
+      transform: scale(1.08);
+    }
+
+    /* ─── Mixin Cards ────────────────────────────────────────── */
+    .doc-mixin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .doc-mixin-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--doc-radius);
+      padding: 1rem 1.125rem;
+      transition: all var(--doc-transition);
+    }
+
+    .doc-mixin-card:hover {
+      border-color: rgba(37,99,235,0.3);
+      background: rgba(37,99,235,0.05);
+    }
+
+    .doc-mixin-sig {
+      font-family: var(--doc-mono);
+      font-size: 0.79rem;
+      color: #60a5fa;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .doc-mixin-desc {
+      font-size: 0.83rem;
+      color: var(--mastors-text-muted, #9ca3af);
+      line-height: 1.5;
+    }
+
+    .doc-mixin-params {
+      margin-top: 0.5rem;
+      font-family: var(--doc-mono);
+      font-size: 0.7rem;
+      color: #94a3b8;
+    }
+
+    .doc-mixin-params span {
+      color: #a78bfa;
+    }
+
+    /* ─── Utility Class Pills ────────────────────────────────── */
+    .doc-pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.75rem 0;
+    }
+
+    .doc-pill {
+      font-family: var(--doc-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 5px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      color: #e2e8f0;
+      cursor: default;
+      transition: all var(--doc-transition);
+    }
+
+    .doc-pill:hover {
+      background: rgba(37,99,235,0.15);
+      border-color: rgba(37,99,235,0.35);
+      color: #93c5fd;
+    }
+
+    /* ─── Theme Demo ─────────────────────────────────────────── */
+    .doc-theme-demo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .doc-theme-card {
+      border-radius: var(--doc-radius);
+      padding: 1.25rem;
+      border: 1px solid;
+    }
+
+    .doc-theme-card.light {
+      background: #ffffff;
+      border-color: #e5e7eb;
+      color: #111827;
+    }
+
+    .doc-theme-card.dark {
+      background: #1e293b;
+      border-color: #334155;
+      color: #f9fafb;
+    }
+
+    .doc-theme-card h4 { font-size: 0.875rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .doc-theme-card p  { font-size: 0.78rem; margin-bottom: 0.5rem; }
+
+    .doc-theme-swatch-row {
+      display: flex;
+      gap: 5px;
+      margin-top: 0.75rem;
+    }
+
+    .doc-theme-swatch {
+      width: 20px; height: 20px;
+      border-radius: 4px;
+    }
+
+    /* ─── Breakpoint Visual ──────────────────────────────────── */
+    .doc-bp-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+
+    .doc-bp-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .doc-bp-key {
+      font-family: var(--doc-mono);
+      font-size: 0.73rem;
+      font-weight: 700;
+      width: 40px;
+      color: #60a5fa;
+    }
+
+    .doc-bp-bar-wrap {
+      flex: 1;
+      height: 28px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .doc-bp-bar {
+      height: 100%;
+      background: linear-gradient(90deg, rgba(37,99,235,0.5), rgba(37,99,235,0.2));
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      padding-left: 0.5rem;
+      font-family: var(--doc-mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #93c5fd;
+      transition: all 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .doc-bp-val {
+      font-family: var(--doc-mono);
+      font-size: 0.7rem;
+      color: var(--mastors-text-muted, #9ca3af);
+      width: 70px;
+      text-align: right;
+    }
+
+    /* ─── Motion Demo ────────────────────────────────────────── */
+    .doc-motion-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .doc-motion-demo-btn {
+      padding: 0.5rem 1rem;
+      font-family: var(--doc-font);
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: rgba(37,99,235,0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(37,99,235,0.3);
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all var(--doc-transition);
+    }
+
+    .doc-motion-demo-btn:hover { background: rgba(37,99,235,0.3); transform: translateY(-2px); }
+
+    /* ─── Live Interactive Demo ──────────────────────────────── */
+    .doc-glass-demo {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      border-radius: 14px;
+      padding: 1.5rem;
+    }
+
+    /* ─── Callout / Alert ────────────────────────────────────── */
+    .doc-callout {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.875rem 1rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    .doc-callout i { font-size: 0.875rem; margin-top: 2px; flex-shrink: 0; }
+
+    .doc-callout-info {
+      background: rgba(37,99,235,0.1);
+      border: 1px solid rgba(37,99,235,0.25);
+      color: #93c5fd;
+    }
+
+    .doc-callout-tip {
+      background: rgba(22,163,74,0.1);
+      border: 1px solid rgba(22,163,74,0.25);
+      color: #86efac;
+    }
+
+    .doc-callout-warn {
+      background: rgba(217,119,6,0.1);
+      border: 1px solid rgba(217,119,6,0.25);
+      color: #fcd34d;
+    }
+
+    /* ─── TOC Scrollspy ──────────────────────────────────────── */
+    .doc-toc-right {
+      width: 210px;
+      flex-shrink: 0;
+      position: sticky;
+      top: calc(var(--doc-header-h) + 1.5rem);
+      height: fit-content;
+      padding: 0 1rem;
+      display: none;
+    }
+
+    .doc-toc-right-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mastors-text-muted, #9ca3af);
+      margin-bottom: 0.5rem;
+    }
+
+    .doc-toc-link {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--mastors-text-muted, #9ca3af);
+      text-decoration: none;
+      padding: 3px 0;
+      border-left: 2px solid transparent;
+      padding-left: 0.625rem;
+      transition: all var(--doc-transition);
+      line-height: 1.4;
+    }
+
+    .doc-toc-link:hover, .doc-toc-link.active {
+      color: #60a5fa;
+      border-color: var(--doc-accent);
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────── */
+    .doc-footer {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--mastors-text-muted, #9ca3af);
+    }
+
+    .doc-footer a { color: #60a5fa; text-decoration: none; }
+    .doc-footer a:hover { text-decoration: underline; }
+
+    /* ─── Divider ────────────────────────────────────────────── */
+    .doc-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+      margin: 2rem 0;
+    }
+
+    /* ─── Inline code ────────────────────────────────────────── */
+    .doc-ic {
+      font-family: var(--doc-mono);
+      font-size: 0.8em;
+      background: rgba(255,255,255,0.08);
+      padding: 1px 5px;
+      border-radius: 4px;
+      color: #e2e8f0;
+    }
+
+    /* ─── Installation Steps ─────────────────────────────────── */
+    .doc-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+
+    .doc-step {
+      display: flex;
+      gap: 0.875rem;
+      align-items: flex-start;
+    }
+
+    .doc-step-num {
+      width: 26px; height: 26px;
+      background: var(--doc-accent);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .doc-step-content h4 {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--mastors-text-primary, #f9fafb);
+      margin-bottom: 0.25rem;
+    }
+
+    .doc-step-content p {
+      font-size: 0.83rem;
+      color: var(--mastors-text-muted, #9ca3af);
+    }
+
+    /* ─── Responsive ─────────────────────────────────────────── */
+    @media (min-width: 1280px) {
+      .doc-toc-right { display: block; }
+      .doc-main { padding-right: 1rem; }
+    }
+
+    @media (max-width: 900px) {
+      .doc-sidebar {
+        position: fixed;
+        left: -280px;
+        top: var(--doc-header-h);
+        height: calc(100vh - var(--doc-header-h));
+        z-index: 900;
+        transition: left var(--doc-transition);
+        background: #0f172a;
+        border-right: 1px solid rgba(255,255,255,0.1);
+      }
+      .doc-sidebar.open { left: 0; }
+      .doc-menu-toggle { display: flex; }
+      .doc-header-nav { display: none; }
+      .doc-main { padding: 1.5rem 1rem 3rem; }
+    }
+
+    @media (max-width: 600px) {
+      .doc-feature-grid { grid-template-columns: 1fr 1fr; }
+      .doc-theme-demo { grid-template-columns: 1fr; }
+      .doc-swatch-grid { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); }
+    }
+
+    /* ─── Prism overrides ────────────────────────────────────── */
+    .token.keyword { color: #c678dd !important; }
+    .token.string  { color: #98c379 !important; }
+    .token.comment { color: #5c6370 !important; }
+    .token.function { color: #61afef !important; }
+    .token.number { color: #d19a66 !important; }
+    .token.selector { color: #e06c75 !important; }
+    .token.property { color: #61afef !important; }
+
+    /* ─── Sidebar overlay ────────────────────────────────────── */
+    .doc-sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 850;
+      top: var(--doc-header-h);
+    }
+    .doc-sidebar-overlay.active { display: block; }
+
+    /* ─── Motion Demo Boxes ────────────────────────────────────── */
+    .doc-motion-box {
+      width: 70px; height: 70px;
+      background: rgba(37,99,235,0.14);
+      border: 2px solid rgba(37,99,235,0.4);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--doc-mono); font-size: 0.58rem; font-weight: 700; color: #60a5fa;
+      cursor: pointer; text-align: center; padding: 4px;
+      transition: background var(--dur,200ms) var(--ease,ease),
+                  transform var(--dur,200ms) var(--ease,ease),
+                  box-shadow var(--dur,200ms) var(--ease,ease);
+    }
+    .doc-motion-box:hover {
+      background: rgba(37,99,235,0.45);
+      transform: translateY(-10px) scale(1.12);
+      box-shadow: 0 14px 28px rgba(37,99,235,0.32);
+    }
+    .doc-easing-box {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg,#7c3aed,#2563eb);
+      border-radius: 8px; cursor: pointer;
+      transition: transform var(--dur,600ms) var(--ease,ease),
+                  border-radius var(--dur,600ms) var(--ease,ease);
+    }
+    .doc-easing-box:hover { transform: rotate(180deg) scale(1.35); border-radius: 50%; }
+    /* ─── Opacity Swatches ──────────────────────────────────────── */
+    .doc-opacity-row { display: flex; flex-wrap: wrap; gap: 0.625rem; margin: 0.75rem 0; }
+    .doc-opacity-swatch {
+      width: 54px; height: 54px; background: #2563eb;
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-family: var(--doc-mono); font-size: 0.58rem; font-weight: 800; color: #fff;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    /* ─── Z-Index Stack Visual ──────────────────────────────────── */
+    .doc-z-stack-wrap { position: relative; height: 115px; margin: 1rem 0 0.5rem; }
+    .doc-z-block {
+      position: absolute; border-radius: 8px; padding: 5px 12px;
+      font-family: var(--doc-mono); font-size: 0.63rem; font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.15); white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+    }
+    /* ─── Transition Live Demo ──────────────────────────────────── */
+    .doc-trans-demo {
+      width: 90px; height: 58px;
+      background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.28);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-family: var(--doc-mono); font-size: 0.6rem; font-weight: 700;
+      color: #60a5fa; cursor: pointer; text-align: center; padding: 4px;
+    }
+    .doc-trans-demo.t-all    { transition: all 300ms ease-in-out; }
+    .doc-trans-demo.t-colors { transition: color 300ms ease-in-out, background 300ms ease-in-out, border-color 300ms ease-in-out; }
+    .doc-trans-demo.t-op     { transition: opacity 300ms ease-in-out; }
+    .doc-trans-demo.t-shadow { transition: box-shadow 300ms ease-in-out; }
+    .doc-trans-demo.t-xform  { transition: transform 300ms ease-in-out; }
+    .doc-trans-demo.t-all:hover    { background: rgba(37,99,235,0.48); transform: scale(1.08) rotate(-2deg); color:#fff; box-shadow: 0 8px 20px rgba(37,99,235,0.38); }
+    .doc-trans-demo.t-colors:hover { background: rgba(124,58,237,0.42); border-color: rgba(124,58,237,0.6); color: #c4b5fd; }
+    .doc-trans-demo.t-op:hover     { opacity: 0.25; }
+    .doc-trans-demo.t-shadow:hover { box-shadow: 0 0 0 3px rgba(37,99,235,0.5), 0 12px 30px rgba(37,99,235,0.32); }
+    .doc-trans-demo.t-xform:hover  { transform: translateX(14px) rotate(7deg); }
+    /* ─── Spacing Visual ────────────────────────────────────────── */
+    .doc-spacing-visual { display: flex; flex-direction: column; gap: 5px; margin: 1rem 0; }
+    .doc-spacing-row { display: flex; align-items: center; gap: 0.75rem; }
+    .doc-spacing-bar { background: linear-gradient(90deg, rgba(37,99,235,0.42), rgba(37,99,235,0.12)); border-radius: 4px; height: 20px; }
+    .doc-spacing-key { font-family: var(--doc-mono); font-size: 0.65rem; font-weight: 700; color: #60a5fa; width: 28px; }
+    .doc-spacing-val { font-family: var(--doc-mono); font-size: 0.62rem; color: #9ca3af; width: 62px; }
+    /* ─── Mixin Extra Demos ─────────────────────────────────────── */
+    .doc-neomorph-demo {
+      background: #dde1e7;
+      border-radius: 12px;
+      box-shadow: 5px 5px 10px #b8bec7, -5px -5px 10px #ffffff;
+      color: #475569; font-family: var(--doc-font);
+      font-size: 0.83rem; font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="doc-header">
+  <a href="#intro" class="doc-logo">
+    <div class="doc-logo-badge">M</div>
+    <span class="doc-logo-name">Mastors<span>Core</span></span>
+  </a>
+  <span class="doc-header-version">v1.0</span>
+
+  <nav class="doc-header-nav">
+    <a href="#tokens">Tokens</a>
+    <a href="#mixins">Mixins</a>
+    <a href="#utilities">Utilities</a>
+    <a href="#themes">Themes</a>
+    <a href="#responsive">Responsive</a>
+    <a href="#accessibility">A11y</a>
+  </nav>
+
+  <a class="doc-github-btn" href="https://www.npmjs.com/package/@mastors/core" target="_blank" rel="noopener">
+    <i class="fab fa-npm"></i> @mastors/core
+  </a>
+
+  <button class="doc-menu-toggle" id="menuToggle" aria-label="Toggle menu">
+    <i class="fas fa-bars"></i>
+  </button>
+</header>
+
+<div class="doc-sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="doc-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="doc-sidebar" id="sidebar">
+    <div class="doc-nav-group">
+      <div class="doc-nav-group-label">Getting Started</div>
+      <a href="#intro" class="doc-nav-link active"><i class="fas fa-home"></i>Introduction</a>
+      <a href="#install" class="doc-nav-link"><i class="fas fa-download"></i>Installation</a>
+      <a href="#quickstart" class="doc-nav-link"><i class="fas fa-bolt"></i>Quick Start</a>
+      <a href="#architecture" class="doc-nav-link"><i class="fas fa-sitemap"></i>Architecture</a>
+    </div>
+    <div class="doc-nav-group">
+      <div class="doc-nav-group-label">Design Tokens</div>
+      <a href="#tokens" class="doc-nav-link"><i class="fas fa-palette"></i>Overview</a>
+      <a href="#colors" class="doc-nav-link"><i class="fas fa-circle-half-stroke"></i>Colors</a>
+      <a href="#shadows" class="doc-nav-link"><i class="fas fa-layer-group"></i>Shadows</a>
+      <a href="#radius" class="doc-nav-link"><i class="fas fa-border-all"></i>Radius</a>
+      <a href="#motion-tokens" class="doc-nav-link"><i class="fas fa-play"></i>Motion</a>
+      <a href="#zindex" class="doc-nav-link"><i class="fas fa-stack-overflow"></i>Z-Index</a>
+      <a href="#opacity" class="doc-nav-link"><i class="fas fa-droplet"></i>Opacity</a>
+    </div>
+    <div class="doc-nav-group">
+      <div class="doc-nav-group-label">SCSS API</div>
+      <a href="#functions" class="doc-nav-link"><i class="fas fa-function"></i>Token Functions</a>
+      <a href="#mixins" class="doc-nav-link"><i class="fas fa-code"></i>Helper Mixins</a>
+      <a href="#responsive" class="doc-nav-link"><i class="fas fa-mobile-screen"></i>Responsive Mixins</a>
+    </div>
+    <div class="doc-nav-group">
+      <div class="doc-nav-group-label">Utilities</div>
+      <a href="#utilities" class="doc-nav-link"><i class="fas fa-cube"></i>Overview</a>
+      <a href="#spacing" class="doc-nav-link"><i class="fas fa-ruler-combined"></i>Spacing</a>
+      <a href="#sizing" class="doc-nav-link"><i class="fas fa-expand"></i>Sizing</a>
+      <a href="#display" class="doc-nav-link"><i class="fas fa-eye"></i>Display</a>
+      <a href="#borders" class="doc-nav-link"><i class="fas fa-square"></i>Borders</a>
+    </div>
+    <div class="doc-nav-group">
+      <div class="doc-nav-group-label">Theming</div>
+      <a href="#themes" class="doc-nav-link"><i class="fas fa-moon"></i>Theme System</a>
+      <a href="#cssVars" class="doc-nav-link"><i class="fas fa-variable"></i>CSS Variables</a>
+    </div>
+    <div class="doc-nav-group">
+      <div class="doc-nav-group-label">System</div>
+      <a href="#accessibility" class="doc-nav-link"><i class="fas fa-universal-access"></i>Accessibility</a>
+      <a href="#states" class="doc-nav-link"><i class="fas fa-hand-pointer"></i>States &amp; Animations</a>
+      <a href="#container" class="doc-nav-link"><i class="fas fa-table-columns"></i>Container</a>
+      <a href="#build" class="doc-nav-link"><i class="fas fa-terminal"></i>Build Commands</a>
+      <a href="#ecosystem" class="doc-nav-link"><i class="fas fa-diagram-project"></i>Ecosystem</a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="doc-main">
+
+    <!-- HERO / INTRO -->
+    <section id="intro" class="doc-section">
+      <div class="doc-hero">
+        <div class="doc-hero-glow"></div>
+        <div class="doc-hero-badges">
+          <span class="doc-badge doc-badge-blue"><i class="fab fa-npm"></i>@mastors/core</span>
+          <span class="doc-badge doc-badge-green"><i class="fas fa-check-circle"></i>MIT License</span>
+          <span class="doc-badge doc-badge-purple"><i class="fas fa-wand-magic-sparkles"></i>Dart Sass 1.70+</span>
+          <span class="doc-badge doc-badge-orange"><i class="fas fa-bolt"></i>Zero Side-Effects</span>
+        </div>
+        <h1 class="doc-h1 mb-4" style="background: linear-gradient(135deg, #f9fafb 0%, #60a5fa 60%, #a78bfa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+          Mastors Core
+        </h1>
+        <p class="doc-lead mb-8" style="max-width: 620px;">
+          The enterprise-grade SCSS foundational architecture powering the entire Mastors CDN ecosystem.
+          Design tokens, CSS variables, responsive engine, theming, and utility generators — all in one zero-side-effect package.
+        </p>
+      </div>
+
+      <div class="doc-feature-grid">
+        <div class="doc-feature-card">
+          <div class="doc-feature-card-icon" style="background:rgba(37,99,235,0.15)"><i class="fas fa-palette" style="color:#60a5fa"></i></div>
+          <h4>Design Token System</h4>
+          <p>50+ brand + neutral + semantic colors, shadows, radius, z-index, opacity, motion tokens.</p>
+        </div>
+        <div class="doc-feature-card">
+          <div class="doc-feature-card-icon" style="background:rgba(124,58,237,0.15)"><i class="fas fa-variable" style="color:#a78bfa"></i></div>
+          <h4>CSS Variable Engine</h4>
+          <p>Every token auto-synced to <code class="doc-ic">--mastors-*</code> custom properties for runtime theming.</p>
+        </div>
+        <div class="doc-feature-card">
+          <div class="doc-feature-card-icon" style="background:rgba(22,163,74,0.15)"><i class="fas fa-moon" style="color:#4ade80"></i></div>
+          <h4>Theme Engine</h4>
+          <p>Light, dark &amp; custom themes with <code class="doc-ic">data-theme</code> switching. OS preference aware.</p>
+        </div>
+        <div class="doc-feature-card">
+          <div class="doc-feature-card-icon" style="background:rgba(14,165,233,0.15)"><i class="fas fa-mobile-screen" style="color:#38bdf8"></i></div>
+          <h4>Responsive Engine</h4>
+          <p>7 breakpoints. <code class="doc-ic">up()</code>, <code class="doc-ic">down()</code>, <code class="doc-ic">between()</code>, <code class="doc-ic">only()</code> mixins. Mobile-first by default.</p>
+        </div>
+        <div class="doc-feature-card">
+          <div class="doc-feature-card-icon" style="background:rgba(217,119,6,0.15)"><i class="fas fa-cube" style="color:#fbbf24"></i></div>
+          <h4>Utility Generators</h4>
+          <p>Scoped utility classes for colors, shadows, spacing, sizing, display, borders &amp; more.</p>
+        </div>
+        <div class="doc-feature-card">
+          <div class="doc-feature-card-icon" style="background:rgba(220,38,38,0.15)"><i class="fas fa-universal-access" style="color:#f87171"></i></div>
+          <h4>Accessibility System</h4>
+          <p>Focus visible, sr-only, skip links, reduced motion support. WCAG-aligned defaults.</p>
+        </div>
+        <div class="doc-feature-card">
+          <div class="doc-feature-card-icon" style="background:rgba(37,99,235,0.12)"><i class="fas fa-code" style="color:#93c5fd"></i></div>
+          <h4>Helper Mixins</h4>
+          <p>Glassmorphism, neumorphism, skeleton loading, truncate, hover-lift, smooth transitions.</p>
+        </div>
+        <div class="doc-feature-card">
+          <div class="doc-feature-card-icon" style="background:rgba(124,58,237,0.12)"><i class="fas fa-file-code" style="color:#c4b5fd"></i></div>
+          <h4>Modern Sass Only</h4>
+          <p>Dart Sass <code class="doc-ic">@use</code> / <code class="doc-ic">@forward</code> exclusively. No deprecated <code class="doc-ic">@import</code>. Fully tree-shakeable.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="doc-divider"></div>
+
+    <!-- INSTALLATION -->
+    <section id="install" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(37,99,235,0.15)"><i class="fas fa-download" style="color:#60a5fa"></i></div>
+        <h2 class="doc-h2">Installation</h2>
+      </div>
+
+      <div class="doc-steps">
+        <div class="doc-step">
+          <div class="doc-step-num">1</div>
+          <div class="doc-step-content">
+            <h4>Install via npm or yarn</h4>
+            <p>Add Mastors Core as a dependency to your project.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-code-wrap">
+        <div class="doc-code-header">
+          <span class="doc-code-lang">bash</span>
+          <button class="doc-copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre class="language-bash"><code>npm install @mastors/core
+# or
+yarn add @mastors/core</code></pre>
+      </div>
+
+      <div class="doc-steps">
+        <div class="doc-step">
+          <div class="doc-step-num">2</div>
+          <div class="doc-step-content">
+            <h4>Use the prebuilt CSS (CDN / direct)</h4>
+            <p>Drop the compiled CSS into your HTML for zero-config usage.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-code-wrap">
+        <div class="doc-code-header">
+          <span class="doc-code-lang">html</span>
+          <button class="doc-copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre class="language-html"><code>&lt;link rel="stylesheet" href="dist/mastors-core.css" /&gt;</code></pre>
+      </div>
+
+      <div class="doc-steps">
+        <div class="doc-step">
+          <div class="doc-step-num">3</div>
+          <div class="doc-step-content">
+            <h4>Import the SCSS API (functions + mixins only)</h4>
+            <p>Use in your SCSS files for a zero-CSS-output API entry point.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-code-wrap">
+        <div class="doc-code-header">
+          <span class="doc-code-lang">scss</span>
+          <button class="doc-copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre class="language-scss"><code>// Zero CSS output — only functions, mixins, tokens
+@use '@mastors/core' as mc;</code></pre>
+      </div>
+    </section>
+
+    <!-- QUICK START -->
+    <section id="quickstart" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(22,163,74,0.15)"><i class="fas fa-bolt" style="color:#4ade80"></i></div>
+        <h2 class="doc-h2">Quick Start</h2>
+      </div>
+
+      <div class="doc-code-wrap">
+        <div class="doc-code-header">
+          <span class="doc-code-lang">scss</span>
+          <button class="doc-copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre class="language-scss"><code>@use '@mastors/core' as mc;
+
+.my-card {
+  background-color: mc.color('surface');
+  border-radius: mc.radius('lg');
+  box-shadow: mc.shadow('md');
+  color: mc.semantic('text-primary');
+  padding: mc.rem(24);
+
+  @include mc.up('md') {
+    padding: mc.rem(32);
+  }
+}
+
+// Glassmorphism card
+.glass-card {
+  @include mc.glassmorphism(20px, rgba(255,255,255,0.12), rgba(255,255,255,0.2));
+}
+
+// Hover lift
+.interactive-card {
+  @include mc.hover-lift;
+}</code></pre>
+      </div>
+
+      <div class="doc-callout doc-callout-tip">
+        <i class="fas fa-lightbulb"></i>
+        <span>Always use <strong>@use</strong> with a namespace alias like <code class="doc-ic">as mc</code> to avoid name collisions in large projects.</span>
+      </div>
+
+      <p style="font-size:0.85rem;color:var(--mastors-text-muted,#9ca3af);margin-top:1rem;">With feature flags:</p>
+      <div class="doc-code-wrap">
+        <div class="doc-code-header">
+          <span class="doc-code-lang">scss</span>
+          <button class="doc-copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre class="language-scss"><code>@use '@mastors/core' with (
+  $enable-dark-theme:    true,
+  $enable-utilities:     true,
+  $enable-accessibility: true,
+  $mastors-prefix:       'mc'
+);</code></pre>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE -->
+    <section id="architecture" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(124,58,237,0.15)"><i class="fas fa-sitemap" style="color:#a78bfa"></i></div>
+        <h2 class="doc-h2">Architecture</h2>
+      </div>
+
+      <p style="color:var(--mastors-text-secondary,#94a3b8);font-size:0.875rem;margin-bottom:1.25rem;">
+        Mastors Core follows a strict module hierarchy with clear separation of concerns.
+        <code class="doc-ic">_index.scss</code> is the zero-CSS API entry; <code class="doc-ic">mastors-core.scss</code> is the compile entry that outputs the full CSS bundle.
+      </p>
+
+      <div class="doc-code-wrap">
+        <div class="doc-code-header">
+          <span class="doc-code-lang">text — module graph</span>
+        </div>
+        <pre class="language-text"><code>mastors-core.scss  ← Compile entry (full CSS output)
+│
+├── config/           Feature flags, prefix, debug ($enable-*)
+├── tokens/           Token maps (colors, shadows, radius, z, opacity, bp, motion, borders)
+│
+├── functions/        Token accessor functions + math helpers
+│   ├── color($key)   shadow($key)   radius($key)   z($key)
+│   ├── duration($k)  easing($k)     breakpoint($k) container($k)
+│   └── rem($px)      em($px)        fluid($min,$max)
+│
+├── mixins/           Responsive engine + helper mixins + CSS var generator
+│   ├── up() down() between() only()
+│   └── glassmorphism() neumorphism() hover-lift() skeleton-loading()…
+│
+├── themes/           Light + dark + custom theme CSS var output
+├── base/             CSS reset + motion defaults
+├── accessibility/    sr-only, skip-links, focus-visible
+├── helpers/          .mastors-container, state classes
+├── generators/       Utility class output (colors, shadows, radius, display…)
+└── utilities/        Spacing, sizing, border utilities</code></pre>
+      </div>
+
+      <div class="doc-callout doc-callout-info">
+        <i class="fas fa-info-circle"></i>
+        <span><strong>Design Principle:</strong> <code class="doc-ic">_index.scss</code> emits <em>zero CSS</em>. It is the pure SCSS API (functions, mixins, tokens). Only <code class="doc-ic">mastors-core.scss</code> compiles actual CSS output.</span>
+      </div>
+    </section>
+
+    <div class="doc-divider"></div>
+
+    <!-- TOKENS OVERVIEW -->
+    <section id="tokens" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(37,99,235,0.15)"><i class="fas fa-palette" style="color:#60a5fa"></i></div>
+        <h2 class="doc-h2">Design Tokens</h2>
+      </div>
+      <p style="color:var(--mastors-text-secondary,#94a3b8);font-size:0.875rem;margin-bottom:1.5rem;">
+        All design decisions are encoded as SCSS maps and automatically synced to CSS custom properties via the CSS variable engine.
+        Never use magic numbers — always reference a token.
+      </p>
+
+      <div class="doc-table-wrap">
+        <table class="doc-table">
+          <thead><tr><th>Token Group</th><th>SCSS Variable</th><th>CSS Custom Props</th><th>Count</th></tr></thead>
+          <tbody>
+            <tr><td>Colors (brand + neutral)</td><td><code>$mastors-colors</code></td><td><code>--mastors-color-*</code></td><td>40+</td></tr>
+            <tr><td>Semantic Colors</td><td><code>$mastors-semantic</code></td><td><code>--mastors-text-* --mastors-bg-*</code></td><td>16</td></tr>
+            <tr><td>Shadows</td><td><code>$mastors-shadows</code></td><td><code>--mastors-shadow-*</code></td><td>15</td></tr>
+            <tr><td>Border Radius</td><td><code>$mastors-radius</code></td><td><code>--mastors-radius-*</code></td><td>9</td></tr>
+            <tr><td>Z-Index</td><td><code>$mastors-z-index</code></td><td><code>--mastors-z-*</code></td><td>10+</td></tr>
+            <tr><td>Opacity</td><td><code>$mastors-opacity</code></td><td><code>--mastors-opacity-*</code></td><td>16</td></tr>
+            <tr><td>Breakpoints</td><td><code>$mastors-breakpoints</code></td><td>—</td><td>7</td></tr>
+            <tr><td>Durations</td><td><code>$mastors-durations</code></td><td><code>--mastors-duration-*</code></td><td>7</td></tr>
+            <tr><td>Easings</td><td><code>$mastors-easings</code></td><td><code>--mastors-easing-*</code></td><td>9</td></tr>
+            <tr><td>Transitions</td><td><code>$mastors-transitions</code></td><td><code>--mastors-transition-*</code></td><td>7</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- COLORS -->
+    <section id="colors" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(37,99,235,0.15)"><i class="fas fa-circle-half-stroke" style="color:#60a5fa"></i></div>
+        <h2 class="doc-h2">Colors</h2>
+      </div>
+
+      <p style="color:var(--mastors-text-secondary,#94a3b8);font-size:0.875rem;margin-bottom:1rem;">
+        Accessed via <code class="doc-ic">mc.color($key)</code> in SCSS or <code class="doc-ic">var(--mastors-color-*)</code> in CSS.
+      </p>
+
+      <h3 class="doc-h3 mb-4" style="margin-top:1.25rem;margin-bottom:.75rem;">Brand Colors</h3>
+      <div class="doc-swatch-grid">
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#2563eb"></div><div class="doc-swatch-info"><span class="doc-swatch-name">primary</span><span class="doc-swatch-hex">#2563eb</span></div></div>
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#60a5fa"></div><div class="doc-swatch-info"><span class="doc-swatch-name">primary-light</span><span class="doc-swatch-hex">#60a5fa</span></div></div>
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#1d4ed8"></div><div class="doc-swatch-info"><span class="doc-swatch-name">primary-dark</span><span class="doc-swatch-hex">#1d4ed8</span></div></div>
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#7c3aed"></div><div class="doc-swatch-info"><span class="doc-swatch-name">secondary</span><span class="doc-swatch-hex">#7c3aed</span></div></div>
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#a78bfa"></div><div class="doc-swatch-info"><span class="doc-swatch-name">secondary-light</span><span class="doc-swatch-hex">#a78bfa</span></div></div>
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#0ea5e9"></div><div class="doc-swatch-info"><span class="doc-swatch-name">accent</span><span class="doc-swatch-hex">#0ea5e9</span></div></div>
+      </div>
+
+      <h3 class="doc-h3" style="margin-top:1.25rem;margin-bottom:.75rem;">Status Colors</h3>
+      <div class="doc-swatch-grid">
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#16a34a"></div><div class="doc-swatch-info"><span class="doc-swatch-name">success</span><span class="doc-swatch-hex">#16a34a</span></div></div>
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#d97706"></div><div class="doc-swatch-info"><span class="doc-swatch-name">warning</span><span class="doc-swatch-hex">#d97706</span></div></div>
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#dc2626"></div><div class="doc-swatch-info"><span class="doc-swatch-name">danger</span><span class="doc-swatch-hex">#dc2626</span></div></div>
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#0891b2"></div><div class="doc-swatch-info"><span class="doc-swatch-name">info</span><span class="doc-swatch-hex">#0891b2</span></div></div>
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#4ade80"></div><div class="doc-swatch-info"><span class="doc-swatch-name">success-light</span><span class="doc-swatch-hex">#4ade80</span></div></div>
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#f87171"></div><div class="doc-swatch-info"><span class="doc-swatch-name">danger-light</span><span class="doc-swatch-hex">#f87171</span></div></div>
+      </div>
+
+      <h3 class="doc-h3" style="margin-top:1.25rem;margin-bottom:.75rem;">Neutral Scale</h3>
+      <div class="doc-swatch-grid">
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#f9fafb;border:1px solid #e5e7eb"></div><div class="doc-swatch-info"><span class="doc-swatch-name">neutral-50</span><span class="doc-swatch-hex">#f9fafb</span></div></div>
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#f3f4f6"></div><div class="doc-swatch-info"><span class="doc-swatch-name">neutral-100</span><span class="doc-swatch-hex">#f3f4f6</span></div></div>
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#e5e7eb"></div><div class="doc-swatch-info"><span class="doc-swatch-name">neutral-200</span><span class="doc-swatch-hex">#e5e7eb</span></div></div>
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#9ca3af"></div><div class="doc-swatch-info"><span class="doc-swatch-name">neutral-400</span><span class="doc-swatch-hex">#9ca3af</span></div></div>
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#6b7280"></div><div class="doc-swatch-info"><span class="doc-swatch-name">neutral-500</span><span class="doc-swatch-hex">#6b7280</span></div></div>
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#374151"></div><div class="doc-swatch-info"><span class="doc-swatch-name">neutral-700</span><span class="doc-swatch-hex">#374151</span></div></div>
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#1f2937"></div><div class="doc-swatch-info"><span class="doc-swatch-name">neutral-800</span><span class="doc-swatch-hex">#1f2937</span></div></div>
+        <div class="doc-swatch"><div class="doc-swatch-color" style="background:#111827"></div><div class="doc-swatch-info"><span class="doc-swatch-name">neutral-900</span><span class="doc-swatch-hex">#111827</span></div></div>
+      </div>
+
+      <div class="doc-code-wrap" style="margin-top:1.25rem">
+        <div class="doc-code-header">
+          <span class="doc-code-lang">scss</span>
+          <button class="doc-copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre class="language-scss"><code>@use '@mastors/core' as mc;
+
+.element {
+  color:            mc.color('primary');        // #2563eb
+  background:       mc.color('neutral-100');    // #f3f4f6
+  border-color:     mc.color('danger');         // #dc2626
+  // Semantic
+  color:            mc.semantic('text-muted');  // #6b7280
+  background:       mc.semantic('bg-body');     // #ffffff
+}</code></pre>
+      </div>
+
+      <h3 class="doc-h3" style="margin-top:1.5rem;margin-bottom:.75rem;">Color Utility Classes</h3>
+      <div class="doc-pill-group">
+        <span class="doc-pill">.text-primary</span><span class="doc-pill">.text-secondary</span><span class="doc-pill">.text-danger</span><span class="doc-pill">.text-success</span><span class="doc-pill">.text-warning</span><span class="doc-pill">.text-info</span>
+        <span class="doc-pill">.text-neutral-500</span><span class="doc-pill">.text-neutral-900</span>
+        <span class="doc-pill">.bg-primary</span><span class="doc-pill">.bg-neutral-100</span><span class="doc-pill">.bg-danger</span><span class="doc-pill">.bg-success</span>
+        <span class="doc-pill">.border-color-primary</span><span class="doc-pill">.border-color-danger</span>
+      </div>
+    </section>
+
+    <!-- SHADOWS -->
+    <section id="shadows" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(124,58,237,0.15)"><i class="fas fa-layer-group" style="color:#a78bfa"></i></div>
+        <h2 class="doc-h2">Shadows</h2>
+      </div>
+
+      <div class="doc-demo-area">
+        <div class="doc-demo-label">Live Shadow Preview</div>
+        <div class="doc-shadow-grid">
+          <div class="doc-shadow-demo shadow-xs"><span class="doc-shadow-label">.shadow-xs</span></div>
+          <div class="doc-shadow-demo shadow-sm"><span class="doc-shadow-label">.shadow-sm</span></div>
+          <div class="doc-shadow-demo shadow-md"><span class="doc-shadow-label">.shadow-md</span></div>
+          <div class="doc-shadow-demo shadow-lg"><span class="doc-shadow-label">.shadow-lg</span></div>
+          <div class="doc-shadow-demo shadow-xl"><span class="doc-shadow-label">.shadow-xl</span></div>
+          <div class="doc-shadow-demo shadow-2xl"><span class="doc-shadow-label">.shadow-2xl</span></div>
+          <div class="doc-shadow-demo shadow-primary"><span class="doc-shadow-label">.shadow-primary</span></div>
+          <div class="doc-shadow-demo shadow-danger"><span class="doc-shadow-label">.shadow-danger</span></div>
+          <div class="doc-shadow-demo shadow-success"><span class="doc-shadow-label">.shadow-success</span></div>
+          <div class="doc-shadow-demo shadow-inner"><span class="doc-shadow-label">.shadow-inner</span></div>
+          <div class="doc-shadow-demo shadow-dark-md"><span class="doc-shadow-label">.shadow-dark-md</span></div>
+          <div class="doc-shadow-demo shadow-dark-lg"><span class="doc-shadow-label">.shadow-dark-lg</span></div>
+        </div>
+      </div>
+
+      <div class="doc-code-wrap">
+        <div class="doc-code-header">
+          <span class="doc-code-lang">scss</span>
+          <button class="doc-copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre class="language-scss"><code>// SCSS token function
+.card { box-shadow: mc.shadow('md'); }
+.btn  { box-shadow: mc.shadow('primary'); }
+
+// CSS custom property
+.card { box-shadow: var(--mastors-shadow-lg); }
+
+// Utility class
+&lt;div class="shadow-xl"&gt;</code></pre>
+      </div>
+
+      <div class="doc-pill-group">
+        <span class="doc-pill">.shadow-none</span><span class="doc-pill">.shadow-xs</span><span class="doc-pill">.shadow-sm</span><span class="doc-pill">.shadow-md</span><span class="doc-pill">.shadow-lg</span><span class="doc-pill">.shadow-xl</span><span class="doc-pill">.shadow-2xl</span><span class="doc-pill">.shadow-inner</span><span class="doc-pill">.shadow-primary</span><span class="doc-pill">.shadow-success</span><span class="doc-pill">.shadow-danger</span><span class="doc-pill">.shadow-warning</span><span class="doc-pill">.shadow-dark-sm</span><span class="doc-pill">.shadow-dark-md</span><span class="doc-pill">.shadow-dark-lg</span>
+      </div>
+    </section>
+
+    <!-- RADIUS -->
+    <section id="radius" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(14,165,233,0.15)"><i class="fas fa-border-all" style="color:#38bdf8"></i></div>
+        <h2 class="doc-h2">Border Radius</h2>
+      </div>
+
+      <div class="doc-demo-area">
+        <div class="doc-demo-label">Radius Scale</div>
+        <div class="doc-radius-grid">
+          <div class="doc-radius-demo" style="border-radius:0">none<br>0</div>
+          <div class="doc-radius-demo" style="border-radius:2px">xs<br>2px</div>
+          <div class="doc-radius-demo" style="border-radius:4px">sm<br>4px</div>
+          <div class="doc-radius-demo" style="border-radius:8px">md<br>8px</div>
+          <div class="doc-radius-demo" style="border-radius:12px">lg<br>12px</div>
+          <div class="doc-radius-demo" style="border-radius:16px">xl<br>16px</div>
+          <div class="doc-radius-demo" style="border-radius:24px">2xl<br>24px</div>
+          <div class="doc-radius-demo" style="border-radius:32px">3xl<br>32px</div>
+          <div class="doc-radius-demo" style="border-radius:9999px">full<br>9999px</div>
+        </div>
+      </div>
+
+      <div class="doc-code-wrap">
+        <div class="doc-code-header"><span class="doc-code-lang">scss</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre class="language-scss"><code>border-radius: mc.radius('lg');   // 12px
+border-radius: mc.radius('full'); // 9999px (pill)
+border-radius: mc.radius('xl');   // 16px</code></pre>
+      </div>
+
+      <p style="font-size:0.8rem;color:var(--mastors-text-muted,#9ca3af);margin-bottom:.5rem;">Directional classes also available:</p>
+      <div class="doc-pill-group">
+        <span class="doc-pill">.rounded-none</span><span class="doc-pill">.rounded-sm</span><span class="doc-pill">.rounded-md</span><span class="doc-pill">.rounded-lg</span><span class="doc-pill">.rounded-xl</span><span class="doc-pill">.rounded-2xl</span><span class="doc-pill">.rounded-full</span>
+        <span class="doc-pill">.rounded-t-lg</span><span class="doc-pill">.rounded-b-xl</span><span class="doc-pill">.rounded-l-md</span><span class="doc-pill">.rounded-r-full</span>
+      </div>
+    </section>
+
+    <!-- MOTION TOKENS -->
+    <section id="motion-tokens" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(22,163,74,0.15)"><i class="fas fa-play" style="color:#4ade80"></i></div>
+        <h2 class="doc-h2">Motion Tokens</h2>
+      </div>
+
+      <div class="doc-table-wrap">
+        <table class="doc-table">
+          <thead><tr><th>Key</th><th>Duration</th><th>SCSS Access</th></tr></thead>
+          <tbody>
+            <tr><td><code>instant</code></td><td>0ms</td><td><code>mc.duration('instant')</code></td></tr>
+            <tr><td><code>fast</code></td><td>100ms</td><td><code>mc.duration('fast')</code></td></tr>
+            <tr><td><code>normal</code></td><td>200ms</td><td><code>mc.duration('normal')</code></td></tr>
+            <tr><td><code>moderate</code></td><td>300ms</td><td><code>mc.duration('moderate')</code></td></tr>
+            <tr><td><code>slow</code></td><td>500ms</td><td><code>mc.duration('slow')</code></td></tr>
+            <tr><td><code>slower</code></td><td>700ms</td><td><code>mc.duration('slower')</code></td></tr>
+            <tr><td><code>slowest</code></td><td>1000ms</td><td><code>mc.duration('slowest')</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="doc-table-wrap" style="margin-top:1rem">
+        <table class="doc-table">
+          <thead><tr><th>Easing Key</th><th>Curve</th></tr></thead>
+          <tbody>
+            <tr><td><code>ease-in-out</code></td><td>cubic-bezier(0.4, 0, 0.2, 1) — default smooth</td></tr>
+            <tr><td><code>spring</code></td><td>cubic-bezier(0.34, 1.56, 0.64, 1) — overshoot spring</td></tr>
+            <tr><td><code>bounce</code></td><td>cubic-bezier(0.68, -0.55, 0.265, 1.55) — bouncy</td></tr>
+            <tr><td><code>smooth</code></td><td>cubic-bezier(0.23, 1, 0.32, 1) — expo out</td></tr>
+            <tr><td><code>sharp</code></td><td>cubic-bezier(0.4, 0, 0.6, 1) — material sharp</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="doc-code-wrap" style="margin-top:1rem">
+        <div class="doc-code-header"><span class="doc-code-lang">scss</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre class="language-scss"><code>transition: mc.transition('colors');    // color + bg + border transitions
+transition: mc.transition('all');       // all 200ms ease-in-out
+transition-duration: mc.duration('moderate'); // 300ms
+transition-timing-function: mc.easing('spring');</code></pre>
+      </div>
+
+      <div class="doc-demo-area" style="margin-top:1.25rem">
+        <div class="doc-demo-label">Duration Scale — Hover each box to compare speeds</div>
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;margin-bottom:1.25rem">
+          <div style="text-align:center"><div class="doc-motion-box" style="--dur:100ms;--ease:ease">fast</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">100ms</div></div>
+          <div style="text-align:center"><div class="doc-motion-box" style="--dur:200ms;--ease:ease">normal</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">200ms</div></div>
+          <div style="text-align:center"><div class="doc-motion-box" style="--dur:300ms;--ease:ease">moderate</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">300ms</div></div>
+          <div style="text-align:center"><div class="doc-motion-box" style="--dur:500ms;--ease:ease">slow</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">500ms</div></div>
+          <div style="text-align:center"><div class="doc-motion-box" style="--dur:700ms;--ease:ease">slower</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">700ms</div></div>
+          <div style="text-align:center"><div class="doc-motion-box" style="--dur:1000ms;--ease:ease">slowest</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">1000ms</div></div>
+        </div>
+        <div class="doc-demo-label" style="margin-bottom:0.75rem">Easing Curves — Same 600ms duration, different feel</div>
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end">
+          <div style="text-align:center"><div class="doc-easing-box" style="--dur:600ms;--ease:cubic-bezier(0.4,0,0.2,1)"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">ease-in-out</div></div>
+          <div style="text-align:center"><div class="doc-easing-box" style="--dur:600ms;--ease:cubic-bezier(0.34,1.56,0.64,1)"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">spring</div></div>
+          <div style="text-align:center"><div class="doc-easing-box" style="--dur:600ms;--ease:cubic-bezier(0.68,-0.55,0.265,1.55)"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">bounce</div></div>
+          <div style="text-align:center"><div class="doc-easing-box" style="--dur:600ms;--ease:cubic-bezier(0.23,1,0.32,1)"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">smooth</div></div>
+          <div style="text-align:center"><div class="doc-easing-box" style="--dur:600ms;--ease:cubic-bezier(0.4,0,0.6,1)"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">sharp</div></div>
+        </div>
+        <div style="margin-top:1.5rem">
+          <div class="doc-demo-label" style="margin-bottom:0.75rem">Transition Utility Classes — Hover each box</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.625rem">
+            <div class="doc-trans-demo t-all">.transition&#8209;all</div>
+            <div class="doc-trans-demo t-colors">.transition&#8209;colors</div>
+            <div class="doc-trans-demo t-op">.transition&#8209;opacity</div>
+            <div class="doc-trans-demo t-shadow">.transition&#8209;shadow</div>
+            <div class="doc-trans-demo t-xform">.transition&#8209;transform</div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-pill-group">
+        <span class="doc-pill">.transition-none</span><span class="doc-pill">.transition-all</span><span class="doc-pill">.transition-fast</span><span class="doc-pill">.transition-colors</span><span class="doc-pill">.transition-opacity</span><span class="doc-pill">.transition-shadow</span><span class="doc-pill">.transition-transform</span>
+      </div>
+    </section>
+
+    <!-- Z-INDEX + OPACITY -->
+    <section id="zindex" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(217,119,6,0.15)"><i class="fas fa-stack-overflow" style="color:#fbbf24"></i></div>
+        <h2 class="doc-h2">Z-Index &amp; Opacity</h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+        <div>
+          <h3 class="doc-h3" style="margin-bottom:.75rem">Z-Index Scale</h3>
+          <div class="doc-table-wrap">
+            <table class="doc-table">
+              <thead><tr><th>Key</th><th>Value</th></tr></thead>
+              <tbody>
+                <tr><td><code>dropdown</code></td><td>100</td></tr>
+                <tr><td><code>sticky</code></td><td>200</td></tr>
+                <tr><td><code>fixed</code></td><td>300</td></tr>
+                <tr><td><code>modal-backdrop</code></td><td>400</td></tr>
+                <tr><td><code>modal</code></td><td>500</td></tr>
+                <tr><td><code>popover</code></td><td>600</td></tr>
+                <tr><td><code>tooltip</code></td><td>700</td></tr>
+                <tr><td><code>toast</code></td><td>800</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <h3 class="doc-h3" style="margin-bottom:.75rem">Opacity Scale</h3>
+          <div class="doc-table-wrap">
+            <table class="doc-table">
+              <thead><tr><th>Class</th><th>Value</th></tr></thead>
+              <tbody>
+                <tr><td><code>.opacity-0</code></td><td>0</td></tr>
+                <tr><td><code>.opacity-5</code></td><td>0.05</td></tr>
+                <tr><td><code>.opacity-10</code></td><td>0.1</td></tr>
+                <tr><td><code>.opacity-25</code></td><td>0.25</td></tr>
+                <tr><td><code>.opacity-50</code></td><td>0.5</td></tr>
+                <tr><td><code>.opacity-75</code></td><td>0.75</td></tr>
+                <tr><td><code>.opacity-90</code></td><td>0.9</td></tr>
+                <tr><td><code>.opacity-100</code></td><td>1</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-demo-area" style="margin-top:1rem">
+        <div class="doc-demo-label">Z-Index Stacking — Higher value sits on top</div>
+        <div class="doc-z-stack-wrap">
+          <div class="doc-z-block" style="background:rgba(37,99,235,0.14);top:68px;left:0;z-index:1;color:#60a5fa">dropdown · z:100</div>
+          <div class="doc-z-block" style="background:rgba(22,163,74,0.15);top:46px;left:100px;z-index:2;color:#4ade80">modal-backdrop · z:400</div>
+          <div class="doc-z-block" style="background:rgba(124,58,237,0.18);top:24px;left:200px;z-index:3;color:#a78bfa">modal · z:500</div>
+          <div class="doc-z-block" style="background:rgba(217,119,6,0.17);top:4px;left:300px;z-index:4;color:#fbbf24">tooltip · z:700</div>
+        </div>
+      </div>
+      <div class="doc-demo-area">
+        <div class="doc-demo-label">Opacity Scale — Same blue, different transparency</div>
+        <div class="doc-opacity-row">
+          <div style="text-align:center"><div class="doc-opacity-swatch" style="opacity:0.05">5</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.opacity-5</div></div>
+          <div style="text-align:center"><div class="doc-opacity-swatch" style="opacity:0.1">10</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.opacity-10</div></div>
+          <div style="text-align:center"><div class="doc-opacity-swatch" style="opacity:0.25">25</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.opacity-25</div></div>
+          <div style="text-align:center"><div class="doc-opacity-swatch" style="opacity:0.5">50</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.opacity-50</div></div>
+          <div style="text-align:center"><div class="doc-opacity-swatch" style="opacity:0.75">75</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.opacity-75</div></div>
+          <div style="text-align:center"><div class="doc-opacity-swatch" style="opacity:0.9">90</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.opacity-90</div></div>
+          <div style="text-align:center"><div class="doc-opacity-swatch" style="opacity:1">100</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.opacity-100</div></div>
+        </div>
+      </div>
+      <div class="doc-code-wrap" style="margin-top:1rem">
+        <div class="doc-code-header"><span class="doc-code-lang">scss</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre class="language-scss"><code>z-index: mc.z('modal');      // 500
+z-index: mc.z('tooltip');   // 700
+z-index: mc.layer('dialog'); // layer map accessor</code></pre>
+      </div>
+    </section>
+
+    <div class="doc-divider"></div>
+
+    <!-- TOKEN FUNCTIONS -->
+    <section id="functions" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(37,99,235,0.15)"><i class="fas fa-function" style="color:#60a5fa"></i></div>
+        <h2 class="doc-h2">Token Functions</h2>
+      </div>
+
+      <div class="doc-callout doc-callout-tip">
+        <i class="fas fa-lightbulb"></i>
+        <span>All functions are available via <code class="doc-ic">@use '@mastors/core' as mc;</code>. Every function accepts a string key and an optional fallback.</span>
+      </div>
+
+      <div class="doc-code-wrap" style="margin-top:1rem">
+        <div class="doc-code-header"><span class="doc-code-lang">scss — complete function reference</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre class="language-scss"><code>@use '@mastors/core' as mc;
+
+// ── Colors ───────────────────────────────────────────────────
+color:            mc.color('primary');             // #2563eb
+color:            mc.color('neutral-700');          // #374151
+color:            mc.semantic('text-muted');        // #6b7280
+
+// ── Shadows ──────────────────────────────────────────────────
+box-shadow:       mc.shadow('lg');                 // multi-layer shadow
+box-shadow:       mc.shadow('primary');            // brand colored shadow
+
+// ── Radius ───────────────────────────────────────────────────
+border-radius:    mc.radius('xl');                 // 16px
+border-radius:    mc.radius('full');               // 9999px
+
+// ── Z-Index ──────────────────────────────────────────────────
+z-index:          mc.z('modal');                   // 500
+z-index:          mc.layer('dialog');              // layer map
+
+// ── Opacity ──────────────────────────────────────────────────
+opacity:          mc.opacity('50');                // 0.5
+
+// ── Motion ───────────────────────────────────────────────────
+transition-duration:        mc.duration('normal');     // 200ms
+transition-timing-function: mc.easing('spring');
+transition:                 mc.transition('colors');
+
+// ── Breakpoints ──────────────────────────────────────────────
+$bp:              mc.breakpoint('md');             // 768px
+max-width:        mc.container('xl');              // 1140px
+
+// ── Math Helpers ─────────────────────────────────────────────
+font-size:        mc.rem(18);                      // 1.125rem
+font-size:        mc.em(14);                       // 0.875em
+font-size:        mc.fluid(16px, 24px);            // clamp() fluid scale
+$raw:             mc.strip-unit(16px);             // 16
+$pct:             mc.percent(3, 12);               // 25%</code></pre>
+      </div>
+
+      <div class="doc-demo-area" style="margin-top:1.25rem">
+        <div class="doc-demo-label">Function Output Preview</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:0.75rem">
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.75rem">
+            <div style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;margin-bottom:6px">mc.color('primary')</div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:22px;height:22px;border-radius:5px;background:#2563eb;flex-shrink:0"></div><span style="font-family:var(--doc-mono);font-size:0.72rem;color:#e2e8f0">#2563eb</span></div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.75rem">
+            <div style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;margin-bottom:6px">mc.color('danger')</div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:22px;height:22px;border-radius:5px;background:#dc2626;flex-shrink:0"></div><span style="font-family:var(--doc-mono);font-size:0.72rem;color:#e2e8f0">#dc2626</span></div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.75rem">
+            <div style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;margin-bottom:6px">mc.radius('xl')</div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:30px;height:30px;border-radius:16px;background:rgba(37,99,235,0.25);border:2px solid rgba(37,99,235,0.5);flex-shrink:0"></div><span style="font-family:var(--doc-mono);font-size:0.72rem;color:#e2e8f0">16px</span></div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.75rem">
+            <div style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;margin-bottom:6px">mc.shadow('lg')</div>
+            <div style="background:#1e293b;border-radius:6px;padding:8px;font-size:0.68rem;color:#94a3b8;box-shadow:0 10px 15px -3px rgba(0,0,0,.35),0 4px 6px -4px rgba(0,0,0,.25)">shadow applied</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.75rem">
+            <div style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;margin-bottom:6px">mc.rem(18)</div>
+            <div style="font-size:1.125rem;font-weight:700;color:#60a5fa;line-height:1.1">Aa</div>
+            <div style="font-family:var(--doc-mono);font-size:0.63rem;color:#94a3b8;margin-top:2px">→ 1.125rem</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.75rem">
+            <div style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;margin-bottom:6px">mc.z('modal')</div>
+            <span style="font-family:var(--doc-mono);font-size:1.2rem;font-weight:800;color:#a78bfa">500</span>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.75rem">
+            <div style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;margin-bottom:6px">mc.duration('slow')</div>
+            <span style="font-family:var(--doc-mono);font-size:1.2rem;font-weight:800;color:#4ade80">500ms</span>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.75rem">
+            <div style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;margin-bottom:6px">mc.fluid(16px, 24px)</div>
+            <span style="font-family:var(--doc-mono);font-size:0.68rem;color:#fbbf24">clamp(1rem, 2vw, 1.5rem)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="doc-divider"></div>
+
+    <!-- HELPER MIXINS -->
+    <section id="mixins" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(124,58,237,0.15)"><i class="fas fa-code" style="color:#a78bfa"></i></div>
+        <h2 class="doc-h2">Helper Mixins</h2>
+      </div>
+
+      <div class="doc-mixin-grid">
+        <div class="doc-mixin-card">
+          <div class="doc-mixin-sig">@include mc.glassmorphism()</div>
+          <div class="doc-mixin-desc">Creates a glassmorphism effect with backdrop-filter blur.</div>
+          <div class="doc-mixin-params"><span>$blur</span>:16px · <span>$bg</span>:rgba(255,255,255,.12) · <span>$border</span> · <span>$shadow</span></div>
+        </div>
+        <div class="doc-mixin-card">
+          <div class="doc-mixin-sig">@include mc.neumorphism()</div>
+          <div class="doc-mixin-desc">Soft UI neumorphism with light and dark shadow pair.</div>
+          <div class="doc-mixin-params"><span>$bg</span>:#e0e5ec · <span>$light</span> · <span>$dark</span> · <span>$intensity</span>:6px</div>
+        </div>
+        <div class="doc-mixin-card">
+          <div class="doc-mixin-sig">@include mc.hover-lift()</div>
+          <div class="doc-mixin-desc">Pointer-device hover: translateY up + shadow. Respects <code class="doc-ic">hover: hover</code>.</div>
+          <div class="doc-mixin-params"><span>$y</span>:-4px · <span>$shadow</span></div>
+        </div>
+        <div class="doc-mixin-card">
+          <div class="doc-mixin-sig">@include mc.skeleton-loading()</div>
+          <div class="doc-mixin-desc">Shimmer skeleton animation using gradient sweep.</div>
+          <div class="doc-mixin-params"><span>$bg-from</span> · <span>$bg-to</span> · <span>$duration</span>:1.5s</div>
+        </div>
+        <div class="doc-mixin-card">
+          <div class="doc-mixin-sig">@include mc.truncate()</div>
+          <div class="doc-mixin-desc">Single-line text truncation with ellipsis.</div>
+        </div>
+        <div class="doc-mixin-card">
+          <div class="doc-mixin-sig">@include mc.line-clamp($n)</div>
+          <div class="doc-mixin-desc">Multi-line CSS clamp truncation. Works cross-browser.</div>
+          <div class="doc-mixin-params"><span>$lines</span>:2</div>
+        </div>
+        <div class="doc-mixin-card">
+          <div class="doc-mixin-sig">@include mc.focus-ring()</div>
+          <div class="doc-mixin-desc">Custom accessible focus ring with color, width, offset.</div>
+          <div class="doc-mixin-params"><span>$color</span>:#2563eb · <span>$width</span>:3px · <span>$offset</span>:2px</div>
+        </div>
+        <div class="doc-mixin-card">
+          <div class="doc-mixin-sig">@include mc.custom-scrollbar()</div>
+          <div class="doc-mixin-desc">Styled scrollbar for Chrome + Firefox with thin width support.</div>
+          <div class="doc-mixin-params"><span>$width</span>:6px · <span>$track</span> · <span>$thumb</span> · <span>$thumb-hover</span></div>
+        </div>
+        <div class="doc-mixin-card">
+          <div class="doc-mixin-sig">@include mc.smooth-transition()</div>
+          <div class="doc-mixin-desc">Single-line configurable CSS transition shorthand.</div>
+          <div class="doc-mixin-params"><span>$props</span>:all · <span>$dur</span>:200ms · <span>$ease</span></div>
+        </div>
+        <div class="doc-mixin-card">
+          <div class="doc-mixin-sig">@include mc.absolute-center()</div>
+          <div class="doc-mixin-desc">Absolute position center via transform translate(-50%, -50%).</div>
+        </div>
+        <div class="doc-mixin-card">
+          <div class="doc-mixin-sig">@include mc.flex-center()</div>
+          <div class="doc-mixin-desc">display:flex + align-items:center + justify-content:center.</div>
+        </div>
+        <div class="doc-mixin-card">
+          <div class="doc-mixin-sig">@include mc.visually-hidden()</div>
+          <div class="doc-mixin-desc">WCAG-compliant screen-reader-only text hiding technique.</div>
+        </div>
+        <div class="doc-mixin-card">
+          <div class="doc-mixin-sig">@include mc.cover()</div>
+          <div class="doc-mixin-desc">position:absolute; inset:0; width:100%; height:100%.</div>
+        </div>
+        <div class="doc-mixin-card">
+          <div class="doc-mixin-sig">@include mc.loading-state()</div>
+          <div class="doc-mixin-desc">Pointer-events none + opacity dim + cursor:wait for loading UI.</div>
+        </div>
+      </div>
+
+      <h3 class="doc-h3" style="margin-top:2rem;margin-bottom:1rem">Glassmorphism Demo</h3>
+      <div class="doc-demo-area" style="background:linear-gradient(135deg,#1e40af22,#7c3aed22,#0ea5e922);position:relative;min-height:160px;display:flex;align-items:center;justify-content:center;">
+        <div class="doc-glass-demo" style="max-width:340px;width:100%">
+          <h4 style="font-size:0.9375rem;font-weight:700;margin-bottom:0.5rem">Glassmorphism Card</h4>
+          <p style="font-size:0.8rem;color:rgba(255,255,255,0.7);line-height:1.6">Generated with <code class="doc-ic">@include mc.glassmorphism(20px)</code>. Uses backdrop-filter blur with semi-transparent border.</p>
+        </div>
+      </div>
+
+      <div class="doc-code-wrap" style="margin-top:1rem">
+        <div class="doc-code-header"><span class="doc-code-lang">scss</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre class="language-scss"><code>@use '@mastors/core' as mc;
+
+.glass-card {
+  @include mc.glassmorphism(
+    $blur:   20px,
+    $bg:     rgba(255, 255, 255, 0.12),
+    $border: rgba(255, 255, 255, 0.20)
+  );
+  border-radius: mc.radius('xl');
+  padding: mc.rem(24);
+}
+
+.soft-button {
+  @include mc.neumorphism(#e0e5ec);
+  border-radius: mc.radius('md');
+}
+
+.card {
+  @include mc.hover-lift($y: -6px);
+}
+
+.excerpt {
+  @include mc.line-clamp(3);
+}</code></pre>
+      </div>
+
+      <h3 class="doc-h3" style="margin-top:2rem;margin-bottom:1rem">More Mixin Demos</h3>
+
+      <div class="doc-demo-area">
+        <div class="doc-demo-label">Neumorphism — @include mc.neumorphism()</div>
+        <div style="display:flex;flex-wrap:wrap;gap:1.25rem;align-items:center">
+          <div class="doc-neomorph-demo" style="padding:1.25rem 2rem">Soft UI Card</div>
+          <div class="doc-neomorph-demo" style="padding:0.75rem 1.5rem;border-radius:9999px">Pill Button</div>
+          <div class="doc-neomorph-demo" style="width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem">⬡</div>
+        </div>
+      </div>
+
+      <div class="doc-demo-area" style="margin-top:1rem">
+        <div class="doc-demo-label">hover-lift — @include mc.hover-lift() — Hover the cards</div>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap">
+          <div style="background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.25);border-radius:10px;padding:1rem 1.5rem;font-size:0.83rem;font-weight:600;color:#60a5fa;cursor:pointer;transition:transform 250ms cubic-bezier(0.4,0,0.2,1),box-shadow 250ms cubic-bezier(0.4,0,0.2,1)" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 32px rgba(37,99,235,0.25)'" onmouseout="this.style.transform='';this.style.boxShadow=''">hover-lift($y:&minus;4px)</div>
+          <div style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);border-radius:10px;padding:1rem 1.5rem;font-size:0.83rem;font-weight:600;color:#a78bfa;cursor:pointer;transition:transform 280ms cubic-bezier(0.4,0,0.2,1),box-shadow 280ms cubic-bezier(0.4,0,0.2,1)" onmouseover="this.style.transform='translateY(-10px)';this.style.boxShadow='0 22px 42px rgba(124,58,237,0.25)'" onmouseout="this.style.transform='';this.style.boxShadow=''">hover-lift($y:&minus;10px)</div>
+        </div>
+      </div>
+
+      <div class="doc-demo-area" style="margin-top:1rem">
+        <div class="doc-demo-label">skeleton-loading — @include mc.skeleton-loading()</div>
+        <div style="max-width:400px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;gap:10px;align-items:center;margin-bottom:2px">
+            <div class="mastors-skeleton" style="width:44px;height:44px;border-radius:50%;flex-shrink:0"></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:6px">
+              <div class="mastors-skeleton" style="height:13px;border-radius:5px;width:58%"></div>
+              <div class="mastors-skeleton" style="height:11px;border-radius:5px;width:38%"></div>
+            </div>
+          </div>
+          <div class="mastors-skeleton" style="height:13px;border-radius:5px"></div>
+          <div class="mastors-skeleton" style="height:13px;border-radius:5px;width:82%"></div>
+          <div class="mastors-skeleton" style="height:13px;border-radius:5px;width:66%"></div>
+          <div class="mastors-skeleton" style="height:100px;border-radius:8px;margin-top:4px"></div>
+        </div>
+      </div>
+
+      <div class="doc-demo-area" style="margin-top:1rem">
+        <div class="doc-demo-label">truncate &amp; line-clamp</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+          <div>
+            <div style="font-family:var(--doc-mono);font-size:0.65rem;color:#9ca3af;margin-bottom:5px">@include mc.truncate()</div>
+            <div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:0.5rem 0.75rem;font-size:0.83rem;color:#e2e8f0">This very long sentence gets cut off with an ellipsis at the right edge of its container.</div>
+          </div>
+          <div>
+            <div style="font-family:var(--doc-mono);font-size:0.65rem;color:#9ca3af;margin-bottom:5px">@include mc.line-clamp(2)</div>
+            <div style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:0.5rem 0.75rem;font-size:0.83rem;color:#e2e8f0;line-height:1.55">Multi-line clamping limits visible lines and adds an ellipsis. This hidden text extends beyond the second line and won't be shown.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-demo-area" style="margin-top:1rem">
+        <div class="doc-demo-label">focus-ring &amp; custom-scrollbar</div>
+        <div style="display:flex;gap:1.5rem;flex-wrap:wrap;align-items:flex-start">
+          <div>
+            <div style="font-family:var(--doc-mono);font-size:0.65rem;color:#9ca3af;margin-bottom:6px">@include mc.focus-ring() — Click the input</div>
+            <input type="text" placeholder="Click to see focus ring…" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:8px 12px;color:#f9fafb;font-size:0.83rem;outline:none;width:230px;font-family:var(--doc-font)" onfocus="this.style.outline='3px solid #2563eb';this.style.outlineOffset='2px';this.style.borderColor='transparent'" onblur="this.style.outline='none';this.style.outlineOffset='0';this.style.borderColor=''" />
+          </div>
+          <div>
+            <div style="font-family:var(--doc-mono);font-size:0.65rem;color:#9ca3af;margin-bottom:6px">@include mc.custom-scrollbar(6px) — Scroll inside</div>
+            <div style="height:80px;overflow-y:auto;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:8px 12px;font-size:0.8rem;color:#94a3b8;width:230px;scrollbar-width:thin;scrollbar-color:rgba(37,99,235,0.45) transparent">Scroll me ↓<br>Line 2 — custom scrollbar<br>Line 3<br>Line 4<br>Line 5<br>Line 6<br>Line 7 — end of content</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="doc-divider"></div>
+
+    <!-- RESPONSIVE MIXINS -->
+    <section id="responsive" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(14,165,233,0.15)"><i class="fas fa-mobile-screen" style="color:#38bdf8"></i></div>
+        <h2 class="doc-h2">Responsive Mixins</h2>
+      </div>
+
+      <h3 class="doc-h3" style="margin-bottom:1rem">Breakpoint Scale</h3>
+      <div class="doc-bp-visual">
+        <div class="doc-bp-row"><span class="doc-bp-key">xs</span><div class="doc-bp-bar-wrap"><div class="doc-bp-bar" style="width:3%">xs</div></div><span class="doc-bp-val">0px</span></div>
+        <div class="doc-bp-row"><span class="doc-bp-key">sm</span><div class="doc-bp-bar-wrap"><div class="doc-bp-bar" style="width:36%">sm</div></div><span class="doc-bp-val">576px</span></div>
+        <div class="doc-bp-row"><span class="doc-bp-key">md</span><div class="doc-bp-bar-wrap"><div class="doc-bp-bar" style="width:48%">md</div></div><span class="doc-bp-val">768px</span></div>
+        <div class="doc-bp-row"><span class="doc-bp-key">lg</span><div class="doc-bp-bar-wrap"><div class="doc-bp-bar" style="width:62%">lg</div></div><span class="doc-bp-val">992px</span></div>
+        <div class="doc-bp-row"><span class="doc-bp-key">xl</span><div class="doc-bp-bar-wrap"><div class="doc-bp-bar" style="width:75%">xl</div></div><span class="doc-bp-val">1200px</span></div>
+        <div class="doc-bp-row"><span class="doc-bp-key">2xl</span><div class="doc-bp-bar-wrap"><div class="doc-bp-bar" style="width:87.5%">2xl</div></div><span class="doc-bp-val">1400px</span></div>
+        <div class="doc-bp-row"><span class="doc-bp-key">3xl</span><div class="doc-bp-bar-wrap"><div class="doc-bp-bar" style="width:100%">3xl</div></div><span class="doc-bp-val">1600px</span></div>
+      </div>
+
+      <div class="doc-code-wrap" style="margin-top:1.5rem">
+        <div class="doc-code-header"><span class="doc-code-lang">scss — all responsive mixins</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre class="language-scss"><code>@use '@mastors/core' as mc;
+
+.element {
+  font-size: 1rem;                          // mobile base
+
+  // up($bp) — min-width, mobile first
+  @include mc.up('md') { font-size: 1.25rem; }   // ≥ 768px
+  @include mc.up('xl') { font-size: 1.5rem; }    // ≥ 1200px
+
+  // down($bp) — max-width
+  @include mc.down('lg') { display: none; }      // < 992px
+
+  // between($lower, $upper) — range
+  @include mc.between('sm', 'xl') { padding: 2rem; } // 576px–1199px
+
+  // only($bp) — single breakpoint slot
+  @include mc.only('md') { padding: 1.5rem; }    // 768px–991px
+
+  // Media helpers
+  @include mc.hover { color: red; }              // (hover:hover) and (pointer:fine)
+  @include mc.prefers-dark { color: white; }     // OS dark mode
+  @include mc.prefers-reduced-motion { animation: none; }
+  @include mc.print { display: none; }
+  @include mc.portrait { padding-top: 2rem; }
+  @include mc.landscape { padding-top: 1rem; }
+}</code></pre>
+      </div>
+
+      <div class="doc-callout doc-callout-info">
+        <i class="fas fa-info-circle"></i>
+        <span><strong>Note:</strong> <code class="doc-ic">down($bp)</code> uses <code class="doc-ic">$value - 0.02px</code> to prevent overlap with <code class="doc-ic">up($bp)</code> at the same breakpoint.</span>
+      </div>
+
+      <p style="font-size:0.8rem;color:var(--mastors-text-muted,#9ca3af);margin-top:1rem">You can also pass raw pixel values:</p>
+      <div class="doc-code-wrap">
+        <div class="doc-code-header"><span class="doc-code-lang">scss</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre class="language-scss"><code>@include mc.up(900px)   { ... }
+@include mc.down(1100px) { ... }</code></pre>
+      </div>
+    </section>
+
+    <div class="doc-divider"></div>
+
+    <!-- UTILITIES -->
+    <section id="utilities" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(22,163,74,0.15)"><i class="fas fa-cube" style="color:#4ade80"></i></div>
+        <h2 class="doc-h2">Utilities</h2>
+      </div>
+      <p style="color:var(--mastors-text-secondary,#94a3b8);font-size:0.875rem;margin-bottom:1rem;">All utility classes are generated from token maps and are guarded by <code class="doc-ic">$enable-utilities</code> (default: <code class="doc-ic">true</code>). All use <code class="doc-ic">!important</code>.</p>
+    </section>
+
+    <!-- SPACING -->
+    <section id="spacing" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(14,165,233,0.12)"><i class="fas fa-ruler-combined" style="color:#38bdf8"></i></div>
+        <h2 class="doc-h2">Spacing</h2>
+      </div>
+
+      <p style="color:var(--mastors-text-secondary,#94a3b8);font-size:0.875rem;margin-bottom:1rem;">
+        Full margin and padding utility system on a rem-based scale (0–96). Pattern: <code class="doc-ic">.{m|p}{direction?}-{key}</code>
+      </p>
+
+      <div class="doc-table-wrap">
+        <table class="doc-table">
+          <thead><tr><th>Prefix</th><th>Property</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td><code>.m-*</code></td><td>margin (all)</td><td><code>.m-4</code> → margin: 1rem</td></tr>
+            <tr><td><code>.mt-*</code></td><td>margin-top</td><td><code>.mt-8</code> → margin-top: 2rem</td></tr>
+            <tr><td><code>.mr-*</code></td><td>margin-right</td><td><code>.mr-auto</code> → margin-right: auto</td></tr>
+            <tr><td><code>.mb-*</code></td><td>margin-bottom</td><td><code>.mb-6</code> → margin-bottom: 1.5rem</td></tr>
+            <tr><td><code>.ml-*</code></td><td>margin-left</td><td></td></tr>
+            <tr><td><code>.mx-*</code></td><td>margin horizontal</td><td><code>.mx-auto</code> → center block</td></tr>
+            <tr><td><code>.my-*</code></td><td>margin vertical</td><td></td></tr>
+            <tr><td><code>.p-*</code></td><td>padding (all)</td><td><code>.p-4</code> → padding: 1rem</td></tr>
+            <tr><td><code>.px-*</code></td><td>padding horizontal</td><td><code>.px-6</code> → 1.5rem L/R</td></tr>
+            <tr><td><code>.py-*</code></td><td>padding vertical</td><td><code>.py-3</code> → 0.75rem T/B</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="font-size:0.78rem;color:var(--mastors-text-muted,#9ca3af);margin:0.75rem 0 .4rem">Common scale values:</p>
+      <div class="doc-pill-group">
+        <span class="doc-pill">.p-0</span><span class="doc-pill">.p-1</span><span class="doc-pill">.p-2</span><span class="doc-pill">.p-3</span><span class="doc-pill">.p-4</span><span class="doc-pill">.p-5</span><span class="doc-pill">.p-6</span><span class="doc-pill">.p-8</span><span class="doc-pill">.p-10</span><span class="doc-pill">.p-12</span><span class="doc-pill">.p-16</span>
+        <span class="doc-pill">.m-auto</span><span class="doc-pill">.mx-auto</span><span class="doc-pill">.mt-0</span><span class="doc-pill">.mb-4</span><span class="doc-pill">.px-4</span><span class="doc-pill">.py-2</span>
+      </div>
+
+      <div class="doc-demo-area" style="margin-top:1rem">
+        <div class="doc-demo-label">Spacing Scale Visual</div>
+        <div class="doc-spacing-visual">
+          <div class="doc-spacing-row"><span class="doc-spacing-key">0</span><div class="doc-spacing-bar" style="width:2px"></div><span class="doc-spacing-val">0px</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">1</span><div class="doc-spacing-bar" style="width:16px"></div><span class="doc-spacing-val">0.25rem</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">2</span><div class="doc-spacing-bar" style="width:32px"></div><span class="doc-spacing-val">0.5rem</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">3</span><div class="doc-spacing-bar" style="width:48px"></div><span class="doc-spacing-val">0.75rem</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">4</span><div class="doc-spacing-bar" style="width:64px"></div><span class="doc-spacing-val">1rem</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">5</span><div class="doc-spacing-bar" style="width:80px"></div><span class="doc-spacing-val">1.25rem</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">6</span><div class="doc-spacing-bar" style="width:96px"></div><span class="doc-spacing-val">1.5rem</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">8</span><div class="doc-spacing-bar" style="width:128px"></div><span class="doc-spacing-val">2rem</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">10</span><div class="doc-spacing-bar" style="width:160px"></div><span class="doc-spacing-val">2.5rem</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">12</span><div class="doc-spacing-bar" style="width:192px"></div><span class="doc-spacing-val">3rem</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">16</span><div class="doc-spacing-bar" style="width:256px"></div><span class="doc-spacing-val">4rem</span></div>
+        </div>
+        <div style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.5rem;align-items:flex-end">
+          <div style="background:rgba(37,99,235,0.12);border:2px dashed rgba(37,99,235,0.4);border-radius:4px;padding:0.25rem;display:inline-block"><div style="background:rgba(37,99,235,0.35);border-radius:2px;width:36px;height:18px"></div></div>
+          <div style="background:rgba(37,99,235,0.12);border:2px dashed rgba(37,99,235,0.4);border-radius:4px;padding:0.5rem;display:inline-block"><div style="background:rgba(37,99,235,0.35);border-radius:2px;width:36px;height:18px"></div></div>
+          <div style="background:rgba(37,99,235,0.12);border:2px dashed rgba(37,99,235,0.4);border-radius:4px;padding:1rem;display:inline-block"><div style="background:rgba(37,99,235,0.35);border-radius:2px;width:36px;height:18px"></div></div>
+          <div style="background:rgba(37,99,235,0.12);border:2px dashed rgba(37,99,235,0.4);border-radius:4px;padding:1.5rem;display:inline-block"><div style="background:rgba(37,99,235,0.35);border-radius:2px;width:36px;height:18px"></div></div>
+          <div style="background:rgba(37,99,235,0.12);border:2px dashed rgba(37,99,235,0.4);border-radius:4px;padding:2rem;display:inline-block"><div style="background:rgba(37,99,235,0.35);border-radius:2px;width:36px;height:18px"></div></div>
+          <span style="font-family:var(--doc-mono);font-size:0.62rem;color:#9ca3af;align-self:center">← p-1 to p-8 padding growth</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIZING -->
+    <section id="sizing" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(217,119,6,0.12)"><i class="fas fa-expand" style="color:#fbbf24"></i></div>
+        <h2 class="doc-h2">Sizing</h2>
+      </div>
+
+      <div class="doc-pill-group">
+        <span class="doc-pill">.w-full</span><span class="doc-pill">.w-1-2</span><span class="doc-pill">.w-1-3</span><span class="doc-pill">.w-1-4</span><span class="doc-pill">.w-auto</span><span class="doc-pill">.w-screen</span><span class="doc-pill">.w-fit</span><span class="doc-pill">.w-min</span><span class="doc-pill">.w-max</span>
+        <span class="doc-pill">.h-full</span><span class="doc-pill">.h-screen</span><span class="doc-pill">.h-dvh</span><span class="doc-pill">.h-svh</span><span class="doc-pill">.h-auto</span>
+        <span class="doc-pill">.max-w-xs</span><span class="doc-pill">.max-w-sm</span><span class="doc-pill">.max-w-md</span><span class="doc-pill">.max-w-lg</span><span class="doc-pill">.max-w-xl</span><span class="doc-pill">.max-w-2xl</span><span class="doc-pill">.max-w-4xl</span><span class="doc-pill">.max-w-7xl</span><span class="doc-pill">.max-w-full</span>
+        <span class="doc-pill">.min-h-screen</span><span class="doc-pill">.min-h-full</span><span class="doc-pill">.min-h-dvh</span>
+      </div>
+
+      <div class="doc-demo-area" style="margin-top:1rem">
+        <div class="doc-demo-label">Width Utilities</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:0.75rem"><span style="font-family:var(--doc-mono);font-size:0.65rem;color:#60a5fa;width:68px">.w-full</span><div style="width:100%;height:20px;background:linear-gradient(90deg,rgba(37,99,235,0.42),rgba(37,99,235,0.1));border-radius:4px"></div></div>
+          <div style="display:flex;align-items:center;gap:0.75rem"><span style="font-family:var(--doc-mono);font-size:0.65rem;color:#60a5fa;width:68px">.w-1-2</span><div style="width:50%;height:20px;background:linear-gradient(90deg,rgba(124,58,237,0.42),rgba(124,58,237,0.1));border-radius:4px"></div></div>
+          <div style="display:flex;align-items:center;gap:0.75rem"><span style="font-family:var(--doc-mono);font-size:0.65rem;color:#60a5fa;width:68px">.w-1-3</span><div style="width:33.33%;height:20px;background:linear-gradient(90deg,rgba(22,163,74,0.42),rgba(22,163,74,0.1));border-radius:4px"></div></div>
+          <div style="display:flex;align-items:center;gap:0.75rem"><span style="font-family:var(--doc-mono);font-size:0.65rem;color:#60a5fa;width:68px">.w-1-4</span><div style="width:25%;height:20px;background:linear-gradient(90deg,rgba(217,119,6,0.42),rgba(217,119,6,0.1));border-radius:4px"></div></div>
+        </div>
+        <div style="margin-top:1rem">
+          <div class="doc-demo-label" style="margin-bottom:0.625rem">max-width Containers</div>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <div style="display:flex;align-items:center;gap:0.75rem"><span style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;width:88px">.max-w-xs</span><div style="width:160px;height:16px;background:rgba(37,99,235,0.18);border-radius:3px;border:1px solid rgba(37,99,235,0.3)"></div><span style="font-family:var(--doc-mono);font-size:0.6rem;color:#64748b">320px</span></div>
+            <div style="display:flex;align-items:center;gap:0.75rem"><span style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;width:88px">.max-w-md</span><div style="width:240px;height:16px;background:rgba(37,99,235,0.18);border-radius:3px;border:1px solid rgba(37,99,235,0.3)"></div><span style="font-family:var(--doc-mono);font-size:0.6rem;color:#64748b">448px</span></div>
+            <div style="display:flex;align-items:center;gap:0.75rem"><span style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;width:88px">.max-w-2xl</span><div style="width:100%;max-width:360px;height:16px;background:rgba(37,99,235,0.18);border-radius:3px;border:1px solid rgba(37,99,235,0.3)"></div><span style="font-family:var(--doc-mono);font-size:0.6rem;color:#64748b">672px</span></div>
+          </div>
+        </div>
+        <div style="margin-top:1rem">
+          <div class="doc-demo-label" style="margin-bottom:0.625rem">Aspect Ratio</div>
+          <div style="display:flex;gap:0.875rem;flex-wrap:wrap;align-items:flex-end">
+            <div style="text-align:center"><div style="width:60px;height:60px;background:rgba(37,99,235,0.18);border:1px solid rgba(37,99,235,0.35);border-radius:6px"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.aspect-square</div></div>
+            <div style="text-align:center"><div style="width:100px;height:56px;background:rgba(124,58,237,0.18);border:1px solid rgba(124,58,237,0.35);border-radius:6px"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.aspect-video</div></div>
+            <div style="text-align:center"><div style="width:50px;height:66px;background:rgba(22,163,74,0.18);border:1px solid rgba(22,163,74,0.35);border-radius:6px"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.aspect-portrait</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISPLAY -->
+    <section id="display" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(14,165,233,0.12)"><i class="fas fa-eye" style="color:#38bdf8"></i></div>
+        <h2 class="doc-h2">Display &amp; Layout</h2>
+      </div>
+
+      <div class="doc-table-wrap">
+        <table class="doc-table">
+          <thead><tr><th>Category</th><th>Classes</th></tr></thead>
+          <tbody>
+            <tr><td>Display</td><td><code>.d-none .d-block .d-inline .d-inline-block .d-contents .d-table</code></td></tr>
+            <tr><td>Visibility</td><td><code>.visible .invisible</code></td></tr>
+            <tr><td>Overflow</td><td><code>.overflow-hidden .overflow-auto .overflow-scroll .overflow-x-hidden .overflow-y-auto</code></td></tr>
+            <tr><td>Position</td><td><code>.position-static .position-relative .position-absolute .position-fixed .position-sticky</code></td></tr>
+            <tr><td>Inset</td><td><code>.top-0 .right-0 .bottom-0 .left-0 .inset-0</code></td></tr>
+            <tr><td>Cursor</td><td><code>.cursor-pointer .cursor-default .cursor-not-allowed .cursor-grab .cursor-wait</code></td></tr>
+            <tr><td>Object Fit</td><td><code>.object-cover .object-contain .object-fill .object-scale-down</code></td></tr>
+            <tr><td>Aspect Ratio</td><td><code>.aspect-square .aspect-video .aspect-cinema .aspect-portrait .aspect-landscape</code></td></tr>
+            <tr><td>Pointer Events</td><td><code>.pointer-events-none .pointer-events-auto</code></td></tr>
+            <tr><td>User Select</td><td><code>.select-none .select-text .select-all .select-auto</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="doc-demo-area" style="margin-top:1rem">
+        <div class="doc-demo-label">Display Classes</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.625rem;margin-bottom:1rem">
+          <div style="background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.25);border-radius:6px;padding:8px 14px;font-family:var(--doc-mono);font-size:0.72rem;color:#60a5fa">d-block</div>
+          <span style="background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.25);border-radius:6px;padding:8px 14px;font-family:var(--doc-mono);font-size:0.72rem;color:#a78bfa">d-inline</span>
+          <span style="background:rgba(22,163,74,0.12);border:1px solid rgba(22,163,74,0.25);border-radius:6px;padding:8px 14px;font-family:var(--doc-mono);font-size:0.72rem;color:#4ade80;display:inline-block">d-inline-block</span>
+          <div style="background:rgba(217,119,6,0.12);border:1px solid rgba(217,119,6,0.25);border-radius:6px;padding:8px 14px;font-family:var(--doc-mono);font-size:0.72rem;color:#fbbf24;display:flex;align-items:center;gap:6px"><span>d-flex</span><span style="display:flex;gap:3px"><span style="width:8px;height:8px;background:#fbbf24;border-radius:2px"></span><span style="width:8px;height:8px;background:#fbbf24;border-radius:2px"></span><span style="width:8px;height:8px;background:#fbbf24;border-radius:2px"></span></span></div>
+          <div style="background:rgba(220,38,38,0.12);border:1px solid rgba(220,38,38,0.25);border-radius:6px;padding:8px 14px;font-family:var(--doc-mono);font-size:0.72rem;color:#f87171;display:none">d-none (hidden)</div>
+        </div>
+        <div class="doc-demo-label" style="margin-bottom:0.625rem">Position Classes</div>
+        <div style="position:relative;height:80px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;overflow:hidden">
+          <div style="position:absolute;top:0;left:0;background:rgba(37,99,235,0.25);border-radius:0 0 8px 0;padding:4px 8px;font-family:var(--doc-mono);font-size:0.6rem;color:#60a5fa">.top-0.left-0</div>
+          <div style="position:absolute;top:0;right:0;background:rgba(124,58,237,0.25);border-radius:0 0 0 8px;padding:4px 8px;font-family:var(--doc-mono);font-size:0.6rem;color:#a78bfa">.top-0.right-0</div>
+          <div style="position:absolute;bottom:0;left:0;background:rgba(22,163,74,0.25);border-radius:0 8px 0 0;padding:4px 8px;font-family:var(--doc-mono);font-size:0.6rem;color:#4ade80">.bottom-0.left-0</div>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(217,119,6,0.2);border-radius:6px;padding:4px 8px;font-family:var(--doc-mono);font-size:0.6rem;color:#fbbf24;white-space:nowrap">.absolute-center</div>
+        </div>
+        <div class="doc-demo-label" style="margin-top:1rem;margin-bottom:0.625rem">Cursor Classes</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem">
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:6px 12px;font-family:var(--doc-mono);font-size:0.68rem;color:#e2e8f0;cursor:pointer">.cursor-pointer ☞</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:6px 12px;font-family:var(--doc-mono);font-size:0.68rem;color:#e2e8f0;cursor:not-allowed">.cursor-not-allowed ✕</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:6px 12px;font-family:var(--doc-mono);font-size:0.68rem;color:#e2e8f0;cursor:wait">.cursor-wait ⏳</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:6px 12px;font-family:var(--doc-mono);font-size:0.68rem;color:#e2e8f0;cursor:grab">.cursor-grab ✋</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BORDERS -->
+    <section id="borders" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(220,38,38,0.12)"><i class="fas fa-square" style="color:#f87171"></i></div>
+        <h2 class="doc-h2">Borders</h2>
+      </div>
+      <div class="doc-pill-group">
+        <span class="doc-pill">.border</span><span class="doc-pill">.border-0</span><span class="doc-pill">.border-2</span><span class="doc-pill">.border-4</span><span class="doc-pill">.border-8</span>
+        <span class="doc-pill">.border-t</span><span class="doc-pill">.border-b</span><span class="doc-pill">.border-l</span><span class="doc-pill">.border-r</span>
+        <span class="doc-pill">.border-solid</span><span class="doc-pill">.border-dashed</span><span class="doc-pill">.border-dotted</span><span class="doc-pill">.border-none</span>
+        <span class="doc-pill">.outline-none</span><span class="doc-pill">.outline</span><span class="doc-pill">.outline-offset-2</span>
+      </div>
+
+      <div class="doc-demo-area" style="margin-top:1rem">
+        <div class="doc-demo-label">Border Widths &amp; Styles</div>
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center">
+          <div style="text-align:center"><div style="width:60px;height:40px;border:1px solid #60a5fa;border-radius:6px"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.border</div></div>
+          <div style="text-align:center"><div style="width:60px;height:40px;border:2px solid #a78bfa;border-radius:6px"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.border-2</div></div>
+          <div style="text-align:center"><div style="width:60px;height:40px;border:4px solid #4ade80;border-radius:6px"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.border-4</div></div>
+          <div style="text-align:center"><div style="width:60px;height:40px;border:8px solid #38bdf8;border-radius:6px"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.border-8</div></div>
+          <div style="text-align:center"><div style="width:60px;height:40px;border:2px dashed #fbbf24;border-radius:6px"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.border-dashed</div></div>
+          <div style="text-align:center"><div style="width:60px;height:40px;border:2px dotted #f87171;border-radius:6px"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.border-dotted</div></div>
+        </div>
+        <div style="margin-top:1rem">
+          <div class="doc-demo-label" style="margin-bottom:0.625rem">Directional Borders</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.875rem;align-items:center">
+            <div style="text-align:center"><div style="width:52px;height:38px;border-top:3px solid #60a5fa;border-radius:6px;background:rgba(37,99,235,0.07)"></div><div style="font-family:var(--doc-mono);font-size:0.58rem;color:#9ca3af;margin-top:4px">.border-t</div></div>
+            <div style="text-align:center"><div style="width:52px;height:38px;border-right:3px solid #a78bfa;border-radius:6px;background:rgba(124,58,237,0.07)"></div><div style="font-family:var(--doc-mono);font-size:0.58rem;color:#9ca3af;margin-top:4px">.border-r</div></div>
+            <div style="text-align:center"><div style="width:52px;height:38px;border-bottom:3px solid #4ade80;border-radius:6px;background:rgba(22,163,74,0.07)"></div><div style="font-family:var(--doc-mono);font-size:0.58rem;color:#9ca3af;margin-top:4px">.border-b</div></div>
+            <div style="text-align:center"><div style="width:52px;height:38px;border-left:3px solid #fbbf24;border-radius:6px;background:rgba(217,119,6,0.07)"></div><div style="font-family:var(--doc-mono);font-size:0.58rem;color:#9ca3af;margin-top:4px">.border-l</div></div>
+          </div>
+        </div>
+        <div style="margin-top:1rem">
+          <div class="doc-demo-label" style="margin-bottom:0.625rem">Border Radius Scale</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.75rem;align-items:center">
+            <div style="text-align:center"><div style="width:50px;height:50px;border:2px solid #60a5fa;border-radius:0;background:rgba(37,99,235,0.08)"></div><div style="font-family:var(--doc-mono);font-size:0.58rem;color:#9ca3af;margin-top:4px">.rounded-none</div></div>
+            <div style="text-align:center"><div style="width:50px;height:50px;border:2px solid #60a5fa;border-radius:4px;background:rgba(37,99,235,0.08)"></div><div style="font-family:var(--doc-mono);font-size:0.58rem;color:#9ca3af;margin-top:4px">.rounded-sm</div></div>
+            <div style="text-align:center"><div style="width:50px;height:50px;border:2px solid #60a5fa;border-radius:8px;background:rgba(37,99,235,0.08)"></div><div style="font-family:var(--doc-mono);font-size:0.58rem;color:#9ca3af;margin-top:4px">.rounded-md</div></div>
+            <div style="text-align:center"><div style="width:50px;height:50px;border:2px solid #60a5fa;border-radius:16px;background:rgba(37,99,235,0.08)"></div><div style="font-family:var(--doc-mono);font-size:0.58rem;color:#9ca3af;margin-top:4px">.rounded-xl</div></div>
+            <div style="text-align:center"><div style="width:50px;height:50px;border:2px solid #60a5fa;border-radius:9999px;background:rgba(37,99,235,0.08)"></div><div style="font-family:var(--doc-mono);font-size:0.58rem;color:#9ca3af;margin-top:4px">.rounded-full</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="doc-divider"></div>
+
+    <!-- THEMES -->
+    <section id="themes" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(22,163,74,0.15)"><i class="fas fa-moon" style="color:#4ade80"></i></div>
+        <h2 class="doc-h2">Theme System</h2>
+      </div>
+
+      <p style="color:var(--mastors-text-secondary,#94a3b8);font-size:0.875rem;margin-bottom:1.25rem;">
+        Mastors Core ships with a three-tier theme architecture: <strong>light</strong> (default on <code class="doc-ic">:root</code>), <strong>dark</strong> (via <code class="doc-ic">data-theme="dark"</code> or OS preference), and <strong>custom</strong> themes per brand/product.
+      </p>
+
+      <div class="doc-theme-demo">
+        <div class="doc-theme-card light">
+          <h4><i class="fas fa-sun" style="color:#f59e0b;margin-right:5px"></i>Light Theme</h4>
+          <p style="color:#374151;font-size:0.78rem">data-theme="light" · Applied to :root by default</p>
+          <div style="font-size:0.78rem;color:#6b7280">Background: #ffffff · Text: #111827</div>
+          <div class="doc-theme-swatch-row">
+            <div class="doc-theme-swatch" style="background:#2563eb" title="primary"></div>
+            <div class="doc-theme-swatch" style="background:#111827" title="text"></div>
+            <div class="doc-theme-swatch" style="background:#e5e7eb" title="border"></div>
+            <div class="doc-theme-swatch" style="background:#f9fafb" title="bg-subtle"></div>
+          </div>
+        </div>
+        <div class="doc-theme-card dark">
+          <h4><i class="fas fa-moon" style="color:#60a5fa;margin-right:5px"></i>Dark Theme</h4>
+          <p style="color:#e5e7eb;font-size:0.78rem">data-theme="dark" · Or OS prefers-color-scheme</p>
+          <div style="font-size:0.78rem;color:#9ca3af">Background: #0f172a · Text: #f9fafb</div>
+          <div class="doc-theme-swatch-row">
+            <div class="doc-theme-swatch" style="background:#60a5fa" title="primary-dark"></div>
+            <div class="doc-theme-swatch" style="background:#f9fafb" title="text"></div>
+            <div class="doc-theme-swatch" style="background:#334155" title="border"></div>
+            <div class="doc-theme-swatch" style="background:#1e293b" title="surface"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-code-wrap" style="margin-top:1.25rem">
+        <div class="doc-code-header"><span class="doc-code-lang">html — switching themes</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre class="language-html"><code>&lt;!-- Light (default) --&gt;
+&lt;html data-theme="light"&gt;
+
+&lt;!-- Dark --&gt;
+&lt;html data-theme="dark"&gt;
+
+&lt;!-- Custom brand theme --&gt;
+&lt;html data-theme="enterprise"&gt;</code></pre>
+      </div>
+
+      <div class="doc-code-wrap">
+        <div class="doc-code-header"><span class="doc-code-lang">javascript — runtime toggle</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre class="language-javascript"><code>class MastorsTheme {
+  static set(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('mastors-theme', theme);
+  }
+
+  static get() {
+    return localStorage.getItem('mastors-theme')
+      || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  }
+
+  static init() { this.set(this.get()); }
+
+  static toggle() {
+    const current = document.documentElement.getAttribute('data-theme');
+    this.set(current === 'dark' ? 'light' : 'dark');
+  }
+}
+
+MastorsTheme.init();</code></pre>
+      </div>
+
+      <div class="doc-code-wrap">
+        <div class="doc-code-header"><span class="doc-code-lang">scss — custom theme</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre class="language-scss"><code>@use '@mastors/core/themes/custom' with (
+  $theme-name: 'enterprise',
+  $custom-tokens: (
+    '--mastors-color-primary':   #0f4c75,
+    '--mastors-color-secondary': #1b4332,
+    '--mastors-bg-body':         #1b262c,
+    '--mastors-bg-subtle':       #16213e,
+    '--mastors-text-primary':    #e2e8f0,
+    '--mastors-surface':         #16213e,
+  )
+);</code></pre>
+      </div>
+
+      <div class="doc-callout doc-callout-warn">
+        <i class="fas fa-triangle-exclamation"></i>
+        <span>Always use <strong>CSS custom properties</strong> (<code class="doc-ic">var(--mastors-*)</code>) for themeable properties like colors and backgrounds. SCSS functions lock values at compile time and won't respond to runtime theme switching.</span>
+      </div>
+    </section>
+
+    <!-- CSS VARIABLES -->
+    <section id="cssVars" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(124,58,237,0.15)"><i class="fas fa-variable" style="color:#a78bfa"></i></div>
+        <h2 class="doc-h2">CSS Variable Reference</h2>
+      </div>
+
+      <div class="doc-code-wrap">
+        <div class="doc-code-header"><span class="doc-code-lang">css — all mastors custom properties</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre class="language-css"><code>/* ── Semantic (theme-aware) ────────────────────────── */
+var(--mastors-text-primary)
+var(--mastors-text-secondary)
+var(--mastors-text-muted)
+var(--mastors-text-disabled)
+var(--mastors-text-inverse)
+var(--mastors-bg-body)
+var(--mastors-bg-subtle)
+var(--mastors-bg-muted)
+var(--mastors-surface)
+var(--mastors-border-default)
+var(--mastors-border-strong)
+var(--mastors-border-focus)
+
+/* ── Brand Colors ──────────────────────────────────── */
+var(--mastors-color-primary)
+var(--mastors-color-secondary)
+var(--mastors-color-accent)
+var(--mastors-color-success)
+var(--mastors-color-warning)
+var(--mastors-color-danger)
+var(--mastors-color-info)
+
+/* ── Shadows ───────────────────────────────────────── */
+var(--mastors-shadow-sm)
+var(--mastors-shadow-md)
+var(--mastors-shadow-lg)
+var(--mastors-shadow-xl)
+var(--mastors-shadow-primary)
+
+/* ── Radius ────────────────────────────────────────── */
+var(--mastors-radius-sm)    /* 4px  */
+var(--mastors-radius-md)    /* 8px  */
+var(--mastors-radius-lg)    /* 12px */
+var(--mastors-radius-xl)    /* 16px */
+var(--mastors-radius-full)  /* 9999px */
+
+/* ── Motion ────────────────────────────────────────── */
+var(--mastors-duration-fast)
+var(--mastors-duration-normal)
+var(--mastors-easing-ease-in-out)
+var(--mastors-easing-spring)
+
+/* ── Z-Index ───────────────────────────────────────── */
+var(--mastors-z-dropdown)   /* 100 */
+var(--mastors-z-modal)      /* 500 */
+var(--mastors-z-tooltip)    /* 700 */
+var(--mastors-z-toast)      /* 800 */</code></pre>
+      </div>
+    </section>
+
+    <div class="doc-divider"></div>
+
+    <!-- ACCESSIBILITY -->
+    <section id="accessibility" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(220,38,38,0.15)"><i class="fas fa-universal-access" style="color:#f87171"></i></div>
+        <h2 class="doc-h2">Accessibility</h2>
+      </div>
+
+      <div class="doc-code-wrap">
+        <div class="doc-code-header"><span class="doc-code-lang">html — a11y classes</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre class="language-html"><code>&lt;!-- Skip to content link --&gt;
+&lt;a href="#main" class="mastors-skip-link"&gt;Skip to content&lt;/a&gt;
+
+&lt;!-- Screen reader only (visually hidden) --&gt;
+&lt;span class="mastors-sr-only"&gt;Loading...&lt;/span&gt;
+
+&lt;!-- Skeleton loading placeholder --&gt;
+&lt;div class="mastors-skeleton w-full h-4 rounded-md"&gt;&lt;/div&gt;
+&lt;div class="mastors-skeleton w-1-2 h-4 rounded-md mt-2"&gt;&lt;/div&gt;</code></pre>
+      </div>
+
+      <div class="doc-demo-area">
+        <div class="doc-demo-label">Skeleton Loading Preview</div>
+        <div style="display:flex;flex-direction:column;gap:8px;max-width:400px">
+          <div class="mastors-skeleton" style="height:16px;border-radius:6px;"></div>
+          <div class="mastors-skeleton" style="height:16px;border-radius:6px;width:75%"></div>
+          <div class="mastors-skeleton" style="height:16px;border-radius:6px;width:60%"></div>
+        </div>
+      </div>
+
+      <div class="doc-callout doc-callout-tip">
+        <i class="fas fa-lightbulb"></i>
+        <span>Mastors Core automatically respects <code class="doc-ic">prefers-reduced-motion</code> globally via the base reset. All animations are disabled for users who prefer reduced motion.</span>
+      </div>
+
+      <div class="doc-pill-group">
+        <span class="doc-pill">.mastors-sr-only</span>
+        <span class="doc-pill">.mastors-skip-link</span>
+        <span class="doc-pill">.mastors-focus-ring</span>
+        <span class="doc-pill">.mastors-skeleton</span>
+        <span class="doc-pill">@include mc.visually-hidden()</span>
+        <span class="doc-pill">@include mc.focus-ring()</span>
+        <span class="doc-pill">@include mc.prefers-reduced-motion {}</span>
+      </div>
+    </section>
+
+    <!-- STATES & ANIMATIONS -->
+    <section id="states" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(22,163,74,0.12)"><i class="fas fa-hand-pointer" style="color:#4ade80"></i></div>
+        <h2 class="doc-h2">States &amp; Animations</h2>
+      </div>
+
+      <div class="doc-demo-area">
+        <div class="doc-demo-label">Live Animation Demo</div>
+        <div class="doc-motion-grid">
+          <div class="mastors-hover-lift" style="background:rgba(37,99,235,0.15);border:1px solid rgba(37,99,235,0.3);border-radius:8px;padding:0.75rem 1.25rem;cursor:pointer;font-size:0.8rem;font-weight:600;color:#60a5fa">
+            <i class="fas fa-arrow-up" style="margin-right:6px"></i>.mastors-hover-lift
+          </div>
+          <div style="background:rgba(22,163,74,0.12);border:1px solid rgba(22,163,74,0.3);border-radius:8px;padding:0.75rem 1.25rem;font-size:0.8rem;font-weight:600;color:#4ade80;display:flex;align-items:center;gap:8px">
+            <i class="mastors-spin fas fa-circle-notch"></i>.mastors-spin
+          </div>
+          <div style="background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.3);border-radius:8px;padding:0.75rem 1.25rem;font-size:0.8rem;font-weight:600;color:#a78bfa;display:flex;align-items:center;gap:8px">
+            <span class="mastors-pulse" style="width:10px;height:10px;border-radius:50%;background:#a78bfa;display:inline-block"></span>.mastors-pulse
+          </div>
+          <div style="background:rgba(217,119,6,0.12);border:1px solid rgba(217,119,6,0.3);border-radius:8px;padding:0.75rem 1.25rem;font-size:0.8rem;font-weight:600;color:#fbbf24;display:flex;align-items:center;gap:8px">
+            <i class="mastors-bounce fas fa-arrow-down"></i>.mastors-bounce
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-table-wrap" style="margin-top:1rem">
+        <table class="doc-table">
+          <thead><tr><th>Class</th><th>Effect</th><th>Use Case</th></tr></thead>
+          <tbody>
+            <tr><td><code>.mastors-hover-lift</code></td><td>translateY(-4px) + shadow on hover</td><td>Cards, tiles</td></tr>
+            <tr><td><code>.mastors-hover-scale</code></td><td>scale(1.02) on hover</td><td>Buttons, thumbnails</td></tr>
+            <tr><td><code>.mastors-hover-opacity</code></td><td>opacity 0.8 on hover</td><td>Links, icons</td></tr>
+            <tr><td><code>.mastors-interactive</code></td><td>Cursor, opacity, press scale, disabled state</td><td>General interactive elements</td></tr>
+            <tr><td><code>.mastors-skeleton</code></td><td>Animated shimmer gradient</td><td>Loading placeholders</td></tr>
+            <tr><td><code>.mastors-pulse</code></td><td>Opacity 1↔0.5 loop</td><td>Status indicators</td></tr>
+            <tr><td><code>.mastors-spin</code></td><td>360° rotation loop (1s)</td><td>Loading spinners</td></tr>
+            <tr><td><code>.mastors-ping</code></td><td>Scale + fade out loop</td><td>Notification badges</td></tr>
+            <tr><td><code>.mastors-bounce</code></td><td>Bounce up/down loop</td><td>Scroll hints, icons</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CONTAINER -->
+    <section id="container" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(14,165,233,0.12)"><i class="fas fa-table-columns" style="color:#38bdf8"></i></div>
+        <h2 class="doc-h2">Container</h2>
+      </div>
+
+      <div class="doc-code-wrap">
+        <div class="doc-code-header"><span class="doc-code-lang">html</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre class="language-html"><code>&lt;!-- Responsive container (auto max-width by breakpoint) --&gt;
+&lt;div class="mastors-container"&gt;
+  Content auto-clamps at 540 / 720 / 960 / 1140 / 1320 / 1520px
+&lt;/div&gt;
+
+&lt;!-- Full-width fluid container with consistent padding --&gt;
+&lt;div class="mastors-container-fluid"&gt;
+  Always 100% width with padding-left/right: 1rem
+&lt;/div&gt;</code></pre>
+      </div>
+
+      <div class="doc-table-wrap">
+        <table class="doc-table">
+          <thead><tr><th>Breakpoint</th><th>Container Max-Width</th></tr></thead>
+          <tbody>
+            <tr><td>sm (576px+)</td><td>540px</td></tr>
+            <tr><td>md (768px+)</td><td>720px</td></tr>
+            <tr><td>lg (992px+)</td><td>960px</td></tr>
+            <tr><td>xl (1200px+)</td><td>1140px</td></tr>
+            <tr><td>2xl (1400px+)</td><td>1320px</td></tr>
+            <tr><td>3xl (1600px+)</td><td>1520px</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="doc-divider"></div>
+
+    <!-- BUILD COMMANDS -->
+    <section id="build" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(124,58,237,0.12)"><i class="fas fa-terminal" style="color:#a78bfa"></i></div>
+        <h2 class="doc-h2">Build Commands</h2>
+      </div>
+
+      <div class="doc-table-wrap">
+        <table class="doc-table">
+          <thead><tr><th>Command</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>npm run sass:build</code></td><td>Expanded CSS with source maps</td></tr>
+            <tr><td><code>npm run sass:min</code></td><td>Minified CSS, no source maps</td></tr>
+            <tr><td><code>npm run sass:watch</code></td><td>Watch mode for development</td></tr>
+            <tr><td><code>npm run sass:all</code></td><td>Both expanded + minified</td></tr>
+            <tr><td><code>npm run build</code></td><td>Full Vite build</td></tr>
+            <tr><td><code>npm run build:all</code></td><td>Sass + Vite build combined</td></tr>
+            <tr><td><code>npm run clean</code></td><td>Clear dist/ folder</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="doc-callout doc-callout-info">
+        <i class="fas fa-info-circle"></i>
+        <span>Vite + Dart Sass modern-compiler is configured in <code class="doc-ic">vite.config.js</code>. Only Dart Sass 1.70+ is supported. Legacy <code class="doc-ic">node-sass</code> is not compatible.</span>
+      </div>
+    </section>
+
+    <!-- ECOSYSTEM -->
+    <section id="ecosystem" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(37,99,235,0.15)"><i class="fas fa-diagram-project" style="color:#60a5fa"></i></div>
+        <h2 class="doc-h2">Mastors Ecosystem</h2>
+      </div>
+
+      <p style="color:var(--mastors-text-secondary,#94a3b8);font-size:0.875rem;margin-bottom:1.25rem;">
+        Mastors Core is the dependency base for all Mastors CDN libraries. Each library uses <code class="doc-ic">@use '@mastors/core' as mc</code> to access tokens, functions, and mixins.
+      </p>
+
+      <div class="doc-table-wrap">
+        <table class="doc-table">
+          <thead><tr><th>Library</th><th>Role</th><th>Depends on Core</th></tr></thead>
+          <tbody>
+            <tr><td><code>@mastors/core</code></td><td>Foundation — tokens, theming, utilities, reset</td><td>—</td></tr>
+            <tr><td><code>@mastors/flexer</code></td><td>Flexbox utility system</td><td>✅ Yes</td></tr>
+            <tr><td><code>@mastors/gridder</code></td><td>CSS Grid layout system</td><td>✅ Yes</td></tr>
+            <tr><td><code>@mastors/fluider</code></td><td>Fluid typography &amp; responsive fonts</td><td>✅ Yes</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="doc-code-wrap" style="margin-top:1rem">
+        <div class="doc-code-header"><span class="doc-code-lang">scss — consuming core in a library</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre class="language-scss"><code>// In mastors-flexer/_index.scss
+@use '@mastors/core' as mc;
+
+.mastors-flex-container {
+  @include mc.up('md') { display: flex; }
+}
+
+.mastors-flex-gap {
+  gap: mc.rem(16);
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- BEST PRACTICES -->
+    <section id="best-practices" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-icon" style="background:rgba(22,163,74,0.12)"><i class="fas fa-star" style="color:#4ade80"></i></div>
+        <h2 class="doc-h2">Best Practices</h2>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:0.875rem">
+        <div style="display:flex;gap:0.875rem;align-items:flex-start">
+          <div style="width:24px;height:24px;background:rgba(22,163,74,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:#4ade80;font-weight:800;flex-shrink:0;margin-top:1px">1</div>
+          <div><strong style="font-size:0.8125rem;color:#f9fafb">Always <code class="doc-ic">@use</code>, never <code class="doc-ic">@import</code></strong><br><span style="font-size:0.78rem;color:#9ca3af">Dart Sass modern modules only. @import is deprecated and breaks tree-shaking.</span></div>
+        </div>
+        <div style="display:flex;gap:0.875rem;align-items:flex-start">
+          <div style="width:24px;height:24px;background:rgba(22,163,74,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:#4ade80;font-weight:800;flex-shrink:0;margin-top:1px">2</div>
+          <div><strong style="font-size:0.8125rem;color:#f9fafb">Use token functions, not raw values</strong><br><span style="font-size:0.78rem;color:#9ca3af">Write <code class="doc-ic">mc.color('primary')</code> not <code class="doc-ic">#2563eb</code>. Tokens are refactorable; magic numbers aren't.</span></div>
+        </div>
+        <div style="display:flex;gap:0.875rem;align-items:flex-start">
+          <div style="width:24px;height:24px;background:rgba(22,163,74,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:#4ade80;font-weight:800;flex-shrink:0;margin-top:1px">3</div>
+          <div><strong style="font-size:0.8125rem;color:#f9fafb">Use CSS variables for theme-switchable properties</strong><br><span style="font-size:0.78rem;color:#9ca3af">Colors and backgrounds should use <code class="doc-ic">var(--mastors-*)</code> so they respond to dark/custom themes at runtime.</span></div>
+        </div>
+        <div style="display:flex;gap:0.875rem;align-items:flex-start">
+          <div style="width:24px;height:24px;background:rgba(22,163,74,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:#4ade80;font-weight:800;flex-shrink:0;margin-top:1px">4</div>
+          <div><strong style="font-size:0.8125rem;color:#f9fafb">Mobile first always</strong><br><span style="font-size:0.78rem;color:#9ca3af">Start with mobile base styles, layer up with <code class="doc-ic">@include mc.up('md')</code>. Avoid <code class="doc-ic">down()</code> as primary breakpoints.</span></div>
+        </div>
+        <div style="display:flex;gap:0.875rem;align-items:flex-start">
+          <div style="width:24px;height:24px;background:rgba(22,163,74,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:#4ade80;font-weight:800;flex-shrink:0;margin-top:1px">5</div>
+          <div><strong style="font-size:0.8125rem;color:#f9fafb">Test every component in dark mode</strong><br><span style="font-size:0.78rem;color:#9ca3af">Add <code class="doc-ic">data-theme="dark"</code> to HTML and verify. If it looks broken, you have hard-coded color values.</span></div>
+        </div>
+        <div style="display:flex;gap:0.875rem;align-items:flex-start">
+          <div style="width:24px;height:24px;background:rgba(22,163,74,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:#4ade80;font-weight:800;flex-shrink:0;margin-top:1px">6</div>
+          <div><strong style="font-size:0.8125rem;color:#f9fafb">Use semantic color variables in components</strong><br><span style="font-size:0.78rem;color:#9ca3af"><code class="doc-ic">var(--mastors-color-danger)</code> not <code class="doc-ic">var(--mastors-color-red-600)</code> for semantically meaningful choices.</span></div>
+        </div>
+        <div style="display:flex;gap:0.875rem;align-items:flex-start">
+          <div style="width:24px;height:24px;background:rgba(22,163,74,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:#4ade80;font-weight:800;flex-shrink:0;margin-top:1px">7</div>
+          <div><strong style="font-size:0.8125rem;color:#f9fafb">Namespace your @use aliases</strong><br><span style="font-size:0.78rem;color:#9ca3af">Use <code class="doc-ic">as mc</code>, <code class="doc-ic">as flex</code>, <code class="doc-ic">as grid</code> to prevent name conflicts in large projects.</span></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- RIGHT TOC -->
+  <aside class="doc-toc-right">
+    <div class="doc-toc-right-label">On this page</div>
+    <a href="#intro" class="doc-toc-link active">Introduction</a>
+    <a href="#install" class="doc-toc-link">Installation</a>
+    <a href="#quickstart" class="doc-toc-link">Quick Start</a>
+    <a href="#architecture" class="doc-toc-link">Architecture</a>
+    <a href="#tokens" class="doc-toc-link">Design Tokens</a>
+    <a href="#colors" class="doc-toc-link">Colors</a>
+    <a href="#shadows" class="doc-toc-link">Shadows</a>
+    <a href="#radius" class="doc-toc-link">Radius</a>
+    <a href="#motion-tokens" class="doc-toc-link">Motion</a>
+    <a href="#functions" class="doc-toc-link">Token Functions</a>
+    <a href="#mixins" class="doc-toc-link">Helper Mixins</a>
+    <a href="#responsive" class="doc-toc-link">Responsive</a>
+    <a href="#utilities" class="doc-toc-link">Utilities</a>
+    <a href="#themes" class="doc-toc-link">Themes</a>
+    <a href="#cssVars" class="doc-toc-link">CSS Variables</a>
+    <a href="#accessibility" class="doc-toc-link">Accessibility</a>
+    <a href="#states" class="doc-toc-link">States & Animations</a>
+    <a href="#container" class="doc-toc-link">Container</a>
+    <a href="#build" class="doc-toc-link">Build Commands</a>
+    <a href="#ecosystem" class="doc-toc-link">Ecosystem</a>
+  </aside>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="doc-footer">
+  <p>
+    <strong style="color:var(--mastors-text-primary,#f9fafb)">Mastors Core</strong> — Enterprise SCSS Foundation &nbsp;·&nbsp;
+    MIT License &nbsp;·&nbsp;
+    <a href="https://www.npmjs.com/package/@mastors/core" target="_blank" rel="noopener">npm</a> &nbsp;·&nbsp;
+    Built with Dart Sass 1.70+
+  </p>
+  <p style="margin-top:0.5rem;font-size:0.72rem;opacity:0.6">
+    Part of the <strong>Mastors CDN</strong> ecosystem — Mastors Flexer · Mastors Gridder · Mastors Fluider
+  </p>
+</footer>
+
+<!-- Prism.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-scss.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+
+<script>
+  // ── Copy Button ───────────────────────────────────────────
+  function copyCode(btn) {
+    const wrap = btn.closest('.doc-code-wrap');
+    const code = wrap.querySelector('code');
+    navigator.clipboard.writeText(code.innerText).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  // ── Sidebar toggle (mobile) ───────────────────────────────
+  const toggle = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+
+  toggle.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('active');
+  });
+
+  overlay.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('active');
+  });
+
+  // Close on nav link click (mobile)
+  sidebar.querySelectorAll('.doc-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth < 900) {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+      }
+    });
+  });
+
+  // ── Scrollspy ─────────────────────────────────────────────
+  const sections = document.querySelectorAll('.doc-section[id]');
+  const allNavLinks = document.querySelectorAll('.doc-nav-link, .doc-toc-link');
+
+  function updateActive() {
+    let current = '';
+    sections.forEach(sec => {
+      const top = sec.getBoundingClientRect().top;
+      if (top <= 90) current = sec.id;
+    });
+
+    allNavLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActive, { passive: true });
+  updateActive();
+</script>
+</body>
+</html>
