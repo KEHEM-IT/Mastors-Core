@@ -13,6 +13,7 @@
 // );
 
 @use 'sass:map';
+@use 'sass:list';
 @use '../config/settings' as cfg;
 
 $theme-name:    'custom' !default;
@@ -27,6 +28,6 @@ $custom-tokens: () !default;
 }
 
 // Auto-apply if custom tokens provided
-@if map.length($custom-tokens) > 0 {
+@if list.length(map.keys($custom-tokens)) > 0 {
   @include apply-custom-theme;
 }

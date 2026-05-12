@@ -1,6 +1,10 @@
 // =============================================================================
 // Mastors-Core | Tokens: Borders & Aspect Ratios
+// NOTE: Aspect ratio values use math.div() — the / operator for division
+// is deprecated outside calc() in Dart Sass 2.0.0.
 // =============================================================================
+
+@use 'sass:math';
 
 $mastors-border-widths: (
   '0':    0,
@@ -11,12 +15,12 @@ $mastors-border-widths: (
 ) !default;
 
 $mastors-aspect-ratios: (
-  'square':     1 / 1,
-  'video':      16 / 9,
-  'cinema':     21 / 9,
-  'portrait':   3 / 4,
-  'landscape':  4 / 3,
-  'golden':     1.618 / 1,
-  'wide':       2 / 1,
-  'tall':       1 / 2,
+  'square':    math.div(1, 1),
+  'video':     math.div(16, 9),
+  'cinema':    math.div(21, 9),
+  'portrait':  math.div(3, 4),
+  'landscape': math.div(4, 3),
+  'golden':    math.div(1.618, 1),
+  'wide':      math.div(2, 1),
+  'tall':      math.div(1, 2),
 ) !default;

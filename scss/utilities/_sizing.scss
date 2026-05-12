@@ -1,8 +1,13 @@
 // =============================================================================
 // Mastors-Core | Utilities: Sizing
 // Width, height, min/max utilities
+//
+// NOTE: Fractional keys use '-' as separator (e.g. '1-2' → .w-1-2) because
+// '/' is not valid unescaped in CSS selectors and sass:string has no
+// replace() function. sass:selector escape is used for the class name.
 // =============================================================================
 
+@use 'sass:string';
 @use '../config/settings' as cfg;
 
 $size-scale: (
@@ -28,13 +33,13 @@ $size-scale: (
   '72':   18rem,
   '80':   20rem,
   '96':   24rem,
-  '1/2':  50%,
-  '1/3':  33.333333%,
-  '2/3':  66.666667%,
-  '1/4':  25%,
-  '3/4':  75%,
-  '1/5':  20%,
-  '4/5':  80%,
+  '1-2':  50%,
+  '1-3':  33.333333%,
+  '2-3':  66.666667%,
+  '1-4':  25%,
+  '3-4':  75%,
+  '1-5':  20%,
+  '4-5':  80%,
   'full': 100%,
   'screen': 100vw,
   'svw':  100svw,
@@ -68,11 +73,11 @@ $height-scale: (
   '72':     18rem,
   '80':     20rem,
   '96':     24rem,
-  '1/2':    50%,
-  '1/3':    33.333333%,
-  '2/3':    66.666667%,
-  '1/4':    25%,
-  '3/4':    75%,
+  '1-2':    50%,
+  '1-3':    33.333333%,
+  '2-3':    66.666667%,
+  '1-4':    25%,
+  '3-4':    75%,
   'full':   100%,
   'screen': 100vh,
   'svh':    100svh,
