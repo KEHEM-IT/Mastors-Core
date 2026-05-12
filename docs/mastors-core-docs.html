@@ -42,18 +42,18 @@
       background-color: var(--mastors-bg-body, #0f172a);
       color: var(--mastors-text-primary, #f9fafb);
       line-height: 1.7;
-      font-size: 15px;
+      font-size: 16px;
       -webkit-font-smoothing: antialiased;
     }
 
     /* ─── Typography ─────────────────────────────────────────── */
     .doc-h1 { font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.03em; }
     .doc-h2 { font-size: clamp(1.4rem, 2.5vw, 1.875rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
-    .doc-h3 { font-size: 1.125rem; font-weight: 700; line-height: 1.3; }
-    .doc-h4 { font-size: 0.9375rem; font-weight: 600; }
+    .doc-h3 { font-size: 1.2rem; font-weight: 700; line-height: 1.3; }
+    .doc-h4 { font-size: 1rem; font-weight: 600; }
 
     .doc-lead {
-      font-size: clamp(1rem, 1.5vw, 1.125rem);
+      font-size: clamp(1.05rem, 1.5vw, 1.2rem);
       color: var(--mastors-text-secondary, #94a3b8);
       font-weight: 300;
       line-height: 1.75;
@@ -211,7 +211,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 0.8rem;
+      font-size: 0.84rem;
       font-weight: 500;
       color: var(--mastors-text-secondary, #94a3b8);
       text-decoration: none;
@@ -405,7 +405,7 @@
       margin: 0 !important;
       border-radius: 0 !important;
       background: #0d1117 !important;
-      font-size: 0.8rem !important;
+      font-size: 0.84rem !important;
       line-height: 1.65 !important;
       font-family: var(--doc-mono) !important;
       padding: 1.25rem 1.25rem !important;
@@ -424,7 +424,7 @@
     .doc-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
     }
 
     .doc-table thead tr {
@@ -599,14 +599,14 @@
 
     .doc-mixin-sig {
       font-family: var(--doc-mono);
-      font-size: 0.73rem;
+      font-size: 0.79rem;
       color: #60a5fa;
       font-weight: 600;
       margin-bottom: 0.4rem;
     }
 
     .doc-mixin-desc {
-      font-size: 0.78rem;
+      font-size: 0.83rem;
       color: var(--mastors-text-muted, #9ca3af);
       line-height: 1.5;
     }
@@ -781,7 +781,7 @@
       padding: 0.875rem 1rem;
       border-radius: 8px;
       margin: 1rem 0;
-      font-size: 0.82rem;
+      font-size: 0.875rem;
       line-height: 1.6;
     }
 
@@ -898,14 +898,14 @@
     }
 
     .doc-step-content h4 {
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       font-weight: 700;
       color: var(--mastors-text-primary, #f9fafb);
       margin-bottom: 0.25rem;
     }
 
     .doc-step-content p {
-      font-size: 0.78rem;
+      font-size: 0.83rem;
       color: var(--mastors-text-muted, #9ca3af);
     }
 
@@ -957,6 +957,81 @@
       top: var(--doc-header-h);
     }
     .doc-sidebar-overlay.active { display: block; }
+
+    /* ─── Motion Demo Boxes ────────────────────────────────────── */
+    .doc-motion-box {
+      width: 70px; height: 70px;
+      background: rgba(37,99,235,0.14);
+      border: 2px solid rgba(37,99,235,0.4);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--doc-mono); font-size: 0.58rem; font-weight: 700; color: #60a5fa;
+      cursor: pointer; text-align: center; padding: 4px;
+      transition: background var(--dur,200ms) var(--ease,ease),
+                  transform var(--dur,200ms) var(--ease,ease),
+                  box-shadow var(--dur,200ms) var(--ease,ease);
+    }
+    .doc-motion-box:hover {
+      background: rgba(37,99,235,0.45);
+      transform: translateY(-10px) scale(1.12);
+      box-shadow: 0 14px 28px rgba(37,99,235,0.32);
+    }
+    .doc-easing-box {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg,#7c3aed,#2563eb);
+      border-radius: 8px; cursor: pointer;
+      transition: transform var(--dur,600ms) var(--ease,ease),
+                  border-radius var(--dur,600ms) var(--ease,ease);
+    }
+    .doc-easing-box:hover { transform: rotate(180deg) scale(1.35); border-radius: 50%; }
+    /* ─── Opacity Swatches ──────────────────────────────────────── */
+    .doc-opacity-row { display: flex; flex-wrap: wrap; gap: 0.625rem; margin: 0.75rem 0; }
+    .doc-opacity-swatch {
+      width: 54px; height: 54px; background: #2563eb;
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-family: var(--doc-mono); font-size: 0.58rem; font-weight: 800; color: #fff;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    /* ─── Z-Index Stack Visual ──────────────────────────────────── */
+    .doc-z-stack-wrap { position: relative; height: 115px; margin: 1rem 0 0.5rem; }
+    .doc-z-block {
+      position: absolute; border-radius: 8px; padding: 5px 12px;
+      font-family: var(--doc-mono); font-size: 0.63rem; font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.15); white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+    }
+    /* ─── Transition Live Demo ──────────────────────────────────── */
+    .doc-trans-demo {
+      width: 90px; height: 58px;
+      background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.28);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-family: var(--doc-mono); font-size: 0.6rem; font-weight: 700;
+      color: #60a5fa; cursor: pointer; text-align: center; padding: 4px;
+    }
+    .doc-trans-demo.t-all    { transition: all 300ms ease-in-out; }
+    .doc-trans-demo.t-colors { transition: color 300ms ease-in-out, background 300ms ease-in-out, border-color 300ms ease-in-out; }
+    .doc-trans-demo.t-op     { transition: opacity 300ms ease-in-out; }
+    .doc-trans-demo.t-shadow { transition: box-shadow 300ms ease-in-out; }
+    .doc-trans-demo.t-xform  { transition: transform 300ms ease-in-out; }
+    .doc-trans-demo.t-all:hover    { background: rgba(37,99,235,0.48); transform: scale(1.08) rotate(-2deg); color:#fff; box-shadow: 0 8px 20px rgba(37,99,235,0.38); }
+    .doc-trans-demo.t-colors:hover { background: rgba(124,58,237,0.42); border-color: rgba(124,58,237,0.6); color: #c4b5fd; }
+    .doc-trans-demo.t-op:hover     { opacity: 0.25; }
+    .doc-trans-demo.t-shadow:hover { box-shadow: 0 0 0 3px rgba(37,99,235,0.5), 0 12px 30px rgba(37,99,235,0.32); }
+    .doc-trans-demo.t-xform:hover  { transform: translateX(14px) rotate(7deg); }
+    /* ─── Spacing Visual ────────────────────────────────────────── */
+    .doc-spacing-visual { display: flex; flex-direction: column; gap: 5px; margin: 1rem 0; }
+    .doc-spacing-row { display: flex; align-items: center; gap: 0.75rem; }
+    .doc-spacing-bar { background: linear-gradient(90deg, rgba(37,99,235,0.42), rgba(37,99,235,0.12)); border-radius: 4px; height: 20px; }
+    .doc-spacing-key { font-family: var(--doc-mono); font-size: 0.65rem; font-weight: 700; color: #60a5fa; width: 28px; }
+    .doc-spacing-val { font-family: var(--doc-mono); font-size: 0.62rem; color: #9ca3af; width: 62px; }
+    /* ─── Mixin Extra Demos ─────────────────────────────────────── */
+    .doc-neomorph-demo {
+      background: #dde1e7;
+      border-radius: 12px;
+      box-shadow: 5px 5px 10px #b8bec7, -5px -5px 10px #ffffff;
+      color: #475569; font-family: var(--doc-font);
+      font-size: 0.83rem; font-weight: 600;
+    }
   </style>
 </head>
 <body>
@@ -1499,6 +1574,35 @@ transition-duration: mc.duration('moderate'); // 300ms
 transition-timing-function: mc.easing('spring');</code></pre>
       </div>
 
+      <div class="doc-demo-area" style="margin-top:1.25rem">
+        <div class="doc-demo-label">Duration Scale — Hover each box to compare speeds</div>
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;margin-bottom:1.25rem">
+          <div style="text-align:center"><div class="doc-motion-box" style="--dur:100ms;--ease:ease">fast</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">100ms</div></div>
+          <div style="text-align:center"><div class="doc-motion-box" style="--dur:200ms;--ease:ease">normal</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">200ms</div></div>
+          <div style="text-align:center"><div class="doc-motion-box" style="--dur:300ms;--ease:ease">moderate</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">300ms</div></div>
+          <div style="text-align:center"><div class="doc-motion-box" style="--dur:500ms;--ease:ease">slow</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">500ms</div></div>
+          <div style="text-align:center"><div class="doc-motion-box" style="--dur:700ms;--ease:ease">slower</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">700ms</div></div>
+          <div style="text-align:center"><div class="doc-motion-box" style="--dur:1000ms;--ease:ease">slowest</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">1000ms</div></div>
+        </div>
+        <div class="doc-demo-label" style="margin-bottom:0.75rem">Easing Curves — Same 600ms duration, different feel</div>
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end">
+          <div style="text-align:center"><div class="doc-easing-box" style="--dur:600ms;--ease:cubic-bezier(0.4,0,0.2,1)"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">ease-in-out</div></div>
+          <div style="text-align:center"><div class="doc-easing-box" style="--dur:600ms;--ease:cubic-bezier(0.34,1.56,0.64,1)"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">spring</div></div>
+          <div style="text-align:center"><div class="doc-easing-box" style="--dur:600ms;--ease:cubic-bezier(0.68,-0.55,0.265,1.55)"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">bounce</div></div>
+          <div style="text-align:center"><div class="doc-easing-box" style="--dur:600ms;--ease:cubic-bezier(0.23,1,0.32,1)"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">smooth</div></div>
+          <div style="text-align:center"><div class="doc-easing-box" style="--dur:600ms;--ease:cubic-bezier(0.4,0,0.6,1)"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:5px">sharp</div></div>
+        </div>
+        <div style="margin-top:1.5rem">
+          <div class="doc-demo-label" style="margin-bottom:0.75rem">Transition Utility Classes — Hover each box</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.625rem">
+            <div class="doc-trans-demo t-all">.transition&#8209;all</div>
+            <div class="doc-trans-demo t-colors">.transition&#8209;colors</div>
+            <div class="doc-trans-demo t-op">.transition&#8209;opacity</div>
+            <div class="doc-trans-demo t-shadow">.transition&#8209;shadow</div>
+            <div class="doc-trans-demo t-xform">.transition&#8209;transform</div>
+          </div>
+        </div>
+      </div>
       <div class="doc-pill-group">
         <span class="doc-pill">.transition-none</span><span class="doc-pill">.transition-all</span><span class="doc-pill">.transition-fast</span><span class="doc-pill">.transition-colors</span><span class="doc-pill">.transition-opacity</span><span class="doc-pill">.transition-shadow</span><span class="doc-pill">.transition-transform</span>
       </div>
@@ -1550,6 +1654,27 @@ transition-timing-function: mc.easing('spring');</code></pre>
         </div>
       </div>
 
+      <div class="doc-demo-area" style="margin-top:1rem">
+        <div class="doc-demo-label">Z-Index Stacking — Higher value sits on top</div>
+        <div class="doc-z-stack-wrap">
+          <div class="doc-z-block" style="background:rgba(37,99,235,0.14);top:68px;left:0;z-index:1;color:#60a5fa">dropdown · z:100</div>
+          <div class="doc-z-block" style="background:rgba(22,163,74,0.15);top:46px;left:100px;z-index:2;color:#4ade80">modal-backdrop · z:400</div>
+          <div class="doc-z-block" style="background:rgba(124,58,237,0.18);top:24px;left:200px;z-index:3;color:#a78bfa">modal · z:500</div>
+          <div class="doc-z-block" style="background:rgba(217,119,6,0.17);top:4px;left:300px;z-index:4;color:#fbbf24">tooltip · z:700</div>
+        </div>
+      </div>
+      <div class="doc-demo-area">
+        <div class="doc-demo-label">Opacity Scale — Same blue, different transparency</div>
+        <div class="doc-opacity-row">
+          <div style="text-align:center"><div class="doc-opacity-swatch" style="opacity:0.05">5</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.opacity-5</div></div>
+          <div style="text-align:center"><div class="doc-opacity-swatch" style="opacity:0.1">10</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.opacity-10</div></div>
+          <div style="text-align:center"><div class="doc-opacity-swatch" style="opacity:0.25">25</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.opacity-25</div></div>
+          <div style="text-align:center"><div class="doc-opacity-swatch" style="opacity:0.5">50</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.opacity-50</div></div>
+          <div style="text-align:center"><div class="doc-opacity-swatch" style="opacity:0.75">75</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.opacity-75</div></div>
+          <div style="text-align:center"><div class="doc-opacity-swatch" style="opacity:0.9">90</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.opacity-90</div></div>
+          <div style="text-align:center"><div class="doc-opacity-swatch" style="opacity:1">100</div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.opacity-100</div></div>
+        </div>
+      </div>
       <div class="doc-code-wrap" style="margin-top:1rem">
         <div class="doc-code-header"><span class="doc-code-lang">scss</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
         <pre class="language-scss"><code>z-index: mc.z('modal');      // 500
@@ -1611,6 +1736,45 @@ font-size:        mc.em(14);                       // 0.875em
 font-size:        mc.fluid(16px, 24px);            // clamp() fluid scale
 $raw:             mc.strip-unit(16px);             // 16
 $pct:             mc.percent(3, 12);               // 25%</code></pre>
+      </div>
+
+      <div class="doc-demo-area" style="margin-top:1.25rem">
+        <div class="doc-demo-label">Function Output Preview</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:0.75rem">
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.75rem">
+            <div style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;margin-bottom:6px">mc.color('primary')</div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:22px;height:22px;border-radius:5px;background:#2563eb;flex-shrink:0"></div><span style="font-family:var(--doc-mono);font-size:0.72rem;color:#e2e8f0">#2563eb</span></div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.75rem">
+            <div style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;margin-bottom:6px">mc.color('danger')</div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:22px;height:22px;border-radius:5px;background:#dc2626;flex-shrink:0"></div><span style="font-family:var(--doc-mono);font-size:0.72rem;color:#e2e8f0">#dc2626</span></div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.75rem">
+            <div style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;margin-bottom:6px">mc.radius('xl')</div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:30px;height:30px;border-radius:16px;background:rgba(37,99,235,0.25);border:2px solid rgba(37,99,235,0.5);flex-shrink:0"></div><span style="font-family:var(--doc-mono);font-size:0.72rem;color:#e2e8f0">16px</span></div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.75rem">
+            <div style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;margin-bottom:6px">mc.shadow('lg')</div>
+            <div style="background:#1e293b;border-radius:6px;padding:8px;font-size:0.68rem;color:#94a3b8;box-shadow:0 10px 15px -3px rgba(0,0,0,.35),0 4px 6px -4px rgba(0,0,0,.25)">shadow applied</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.75rem">
+            <div style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;margin-bottom:6px">mc.rem(18)</div>
+            <div style="font-size:1.125rem;font-weight:700;color:#60a5fa;line-height:1.1">Aa</div>
+            <div style="font-family:var(--doc-mono);font-size:0.63rem;color:#94a3b8;margin-top:2px">→ 1.125rem</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.75rem">
+            <div style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;margin-bottom:6px">mc.z('modal')</div>
+            <span style="font-family:var(--doc-mono);font-size:1.2rem;font-weight:800;color:#a78bfa">500</span>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.75rem">
+            <div style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;margin-bottom:6px">mc.duration('slow')</div>
+            <span style="font-family:var(--doc-mono);font-size:1.2rem;font-weight:800;color:#4ade80">500ms</span>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.75rem">
+            <div style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;margin-bottom:6px">mc.fluid(16px, 24px)</div>
+            <span style="font-family:var(--doc-mono);font-size:0.68rem;color:#fbbf24">clamp(1rem, 2vw, 1.5rem)</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1725,6 +1889,70 @@ $pct:             mc.percent(3, 12);               // 25%</code></pre>
   @include mc.line-clamp(3);
 }</code></pre>
       </div>
+
+      <h3 class="doc-h3" style="margin-top:2rem;margin-bottom:1rem">More Mixin Demos</h3>
+
+      <div class="doc-demo-area">
+        <div class="doc-demo-label">Neumorphism — @include mc.neumorphism()</div>
+        <div style="display:flex;flex-wrap:wrap;gap:1.25rem;align-items:center">
+          <div class="doc-neomorph-demo" style="padding:1.25rem 2rem">Soft UI Card</div>
+          <div class="doc-neomorph-demo" style="padding:0.75rem 1.5rem;border-radius:9999px">Pill Button</div>
+          <div class="doc-neomorph-demo" style="width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem">⬡</div>
+        </div>
+      </div>
+
+      <div class="doc-demo-area" style="margin-top:1rem">
+        <div class="doc-demo-label">hover-lift — @include mc.hover-lift() — Hover the cards</div>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap">
+          <div style="background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.25);border-radius:10px;padding:1rem 1.5rem;font-size:0.83rem;font-weight:600;color:#60a5fa;cursor:pointer;transition:transform 250ms cubic-bezier(0.4,0,0.2,1),box-shadow 250ms cubic-bezier(0.4,0,0.2,1)" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 32px rgba(37,99,235,0.25)'" onmouseout="this.style.transform='';this.style.boxShadow=''">hover-lift($y:&minus;4px)</div>
+          <div style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);border-radius:10px;padding:1rem 1.5rem;font-size:0.83rem;font-weight:600;color:#a78bfa;cursor:pointer;transition:transform 280ms cubic-bezier(0.4,0,0.2,1),box-shadow 280ms cubic-bezier(0.4,0,0.2,1)" onmouseover="this.style.transform='translateY(-10px)';this.style.boxShadow='0 22px 42px rgba(124,58,237,0.25)'" onmouseout="this.style.transform='';this.style.boxShadow=''">hover-lift($y:&minus;10px)</div>
+        </div>
+      </div>
+
+      <div class="doc-demo-area" style="margin-top:1rem">
+        <div class="doc-demo-label">skeleton-loading — @include mc.skeleton-loading()</div>
+        <div style="max-width:400px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;gap:10px;align-items:center;margin-bottom:2px">
+            <div class="mastors-skeleton" style="width:44px;height:44px;border-radius:50%;flex-shrink:0"></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:6px">
+              <div class="mastors-skeleton" style="height:13px;border-radius:5px;width:58%"></div>
+              <div class="mastors-skeleton" style="height:11px;border-radius:5px;width:38%"></div>
+            </div>
+          </div>
+          <div class="mastors-skeleton" style="height:13px;border-radius:5px"></div>
+          <div class="mastors-skeleton" style="height:13px;border-radius:5px;width:82%"></div>
+          <div class="mastors-skeleton" style="height:13px;border-radius:5px;width:66%"></div>
+          <div class="mastors-skeleton" style="height:100px;border-radius:8px;margin-top:4px"></div>
+        </div>
+      </div>
+
+      <div class="doc-demo-area" style="margin-top:1rem">
+        <div class="doc-demo-label">truncate &amp; line-clamp</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+          <div>
+            <div style="font-family:var(--doc-mono);font-size:0.65rem;color:#9ca3af;margin-bottom:5px">@include mc.truncate()</div>
+            <div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:0.5rem 0.75rem;font-size:0.83rem;color:#e2e8f0">This very long sentence gets cut off with an ellipsis at the right edge of its container.</div>
+          </div>
+          <div>
+            <div style="font-family:var(--doc-mono);font-size:0.65rem;color:#9ca3af;margin-bottom:5px">@include mc.line-clamp(2)</div>
+            <div style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:0.5rem 0.75rem;font-size:0.83rem;color:#e2e8f0;line-height:1.55">Multi-line clamping limits visible lines and adds an ellipsis. This hidden text extends beyond the second line and won't be shown.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-demo-area" style="margin-top:1rem">
+        <div class="doc-demo-label">focus-ring &amp; custom-scrollbar</div>
+        <div style="display:flex;gap:1.5rem;flex-wrap:wrap;align-items:flex-start">
+          <div>
+            <div style="font-family:var(--doc-mono);font-size:0.65rem;color:#9ca3af;margin-bottom:6px">@include mc.focus-ring() — Click the input</div>
+            <input type="text" placeholder="Click to see focus ring…" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:8px 12px;color:#f9fafb;font-size:0.83rem;outline:none;width:230px;font-family:var(--doc-font)" onfocus="this.style.outline='3px solid #2563eb';this.style.outlineOffset='2px';this.style.borderColor='transparent'" onblur="this.style.outline='none';this.style.outlineOffset='0';this.style.borderColor=''" />
+          </div>
+          <div>
+            <div style="font-family:var(--doc-mono);font-size:0.65rem;color:#9ca3af;margin-bottom:6px">@include mc.custom-scrollbar(6px) — Scroll inside</div>
+            <div style="height:80px;overflow-y:auto;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:8px 12px;font-size:0.8rem;color:#94a3b8;width:230px;scrollbar-width:thin;scrollbar-color:rgba(37,99,235,0.45) transparent">Scroll me ↓<br>Line 2 — custom scrollbar<br>Line 3<br>Line 4<br>Line 5<br>Line 6<br>Line 7 — end of content</div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <div class="doc-divider"></div>
@@ -1835,6 +2063,31 @@ $pct:             mc.percent(3, 12);               // 25%</code></pre>
         <span class="doc-pill">.p-0</span><span class="doc-pill">.p-1</span><span class="doc-pill">.p-2</span><span class="doc-pill">.p-3</span><span class="doc-pill">.p-4</span><span class="doc-pill">.p-5</span><span class="doc-pill">.p-6</span><span class="doc-pill">.p-8</span><span class="doc-pill">.p-10</span><span class="doc-pill">.p-12</span><span class="doc-pill">.p-16</span>
         <span class="doc-pill">.m-auto</span><span class="doc-pill">.mx-auto</span><span class="doc-pill">.mt-0</span><span class="doc-pill">.mb-4</span><span class="doc-pill">.px-4</span><span class="doc-pill">.py-2</span>
       </div>
+
+      <div class="doc-demo-area" style="margin-top:1rem">
+        <div class="doc-demo-label">Spacing Scale Visual</div>
+        <div class="doc-spacing-visual">
+          <div class="doc-spacing-row"><span class="doc-spacing-key">0</span><div class="doc-spacing-bar" style="width:2px"></div><span class="doc-spacing-val">0px</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">1</span><div class="doc-spacing-bar" style="width:16px"></div><span class="doc-spacing-val">0.25rem</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">2</span><div class="doc-spacing-bar" style="width:32px"></div><span class="doc-spacing-val">0.5rem</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">3</span><div class="doc-spacing-bar" style="width:48px"></div><span class="doc-spacing-val">0.75rem</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">4</span><div class="doc-spacing-bar" style="width:64px"></div><span class="doc-spacing-val">1rem</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">5</span><div class="doc-spacing-bar" style="width:80px"></div><span class="doc-spacing-val">1.25rem</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">6</span><div class="doc-spacing-bar" style="width:96px"></div><span class="doc-spacing-val">1.5rem</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">8</span><div class="doc-spacing-bar" style="width:128px"></div><span class="doc-spacing-val">2rem</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">10</span><div class="doc-spacing-bar" style="width:160px"></div><span class="doc-spacing-val">2.5rem</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">12</span><div class="doc-spacing-bar" style="width:192px"></div><span class="doc-spacing-val">3rem</span></div>
+          <div class="doc-spacing-row"><span class="doc-spacing-key">16</span><div class="doc-spacing-bar" style="width:256px"></div><span class="doc-spacing-val">4rem</span></div>
+        </div>
+        <div style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.5rem;align-items:flex-end">
+          <div style="background:rgba(37,99,235,0.12);border:2px dashed rgba(37,99,235,0.4);border-radius:4px;padding:0.25rem;display:inline-block"><div style="background:rgba(37,99,235,0.35);border-radius:2px;width:36px;height:18px"></div></div>
+          <div style="background:rgba(37,99,235,0.12);border:2px dashed rgba(37,99,235,0.4);border-radius:4px;padding:0.5rem;display:inline-block"><div style="background:rgba(37,99,235,0.35);border-radius:2px;width:36px;height:18px"></div></div>
+          <div style="background:rgba(37,99,235,0.12);border:2px dashed rgba(37,99,235,0.4);border-radius:4px;padding:1rem;display:inline-block"><div style="background:rgba(37,99,235,0.35);border-radius:2px;width:36px;height:18px"></div></div>
+          <div style="background:rgba(37,99,235,0.12);border:2px dashed rgba(37,99,235,0.4);border-radius:4px;padding:1.5rem;display:inline-block"><div style="background:rgba(37,99,235,0.35);border-radius:2px;width:36px;height:18px"></div></div>
+          <div style="background:rgba(37,99,235,0.12);border:2px dashed rgba(37,99,235,0.4);border-radius:4px;padding:2rem;display:inline-block"><div style="background:rgba(37,99,235,0.35);border-radius:2px;width:36px;height:18px"></div></div>
+          <span style="font-family:var(--doc-mono);font-size:0.62rem;color:#9ca3af;align-self:center">← p-1 to p-8 padding growth</span>
+        </div>
+      </div>
     </section>
 
     <!-- SIZING -->
@@ -1849,6 +2102,32 @@ $pct:             mc.percent(3, 12);               // 25%</code></pre>
         <span class="doc-pill">.h-full</span><span class="doc-pill">.h-screen</span><span class="doc-pill">.h-dvh</span><span class="doc-pill">.h-svh</span><span class="doc-pill">.h-auto</span>
         <span class="doc-pill">.max-w-xs</span><span class="doc-pill">.max-w-sm</span><span class="doc-pill">.max-w-md</span><span class="doc-pill">.max-w-lg</span><span class="doc-pill">.max-w-xl</span><span class="doc-pill">.max-w-2xl</span><span class="doc-pill">.max-w-4xl</span><span class="doc-pill">.max-w-7xl</span><span class="doc-pill">.max-w-full</span>
         <span class="doc-pill">.min-h-screen</span><span class="doc-pill">.min-h-full</span><span class="doc-pill">.min-h-dvh</span>
+      </div>
+
+      <div class="doc-demo-area" style="margin-top:1rem">
+        <div class="doc-demo-label">Width Utilities</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:0.75rem"><span style="font-family:var(--doc-mono);font-size:0.65rem;color:#60a5fa;width:68px">.w-full</span><div style="width:100%;height:20px;background:linear-gradient(90deg,rgba(37,99,235,0.42),rgba(37,99,235,0.1));border-radius:4px"></div></div>
+          <div style="display:flex;align-items:center;gap:0.75rem"><span style="font-family:var(--doc-mono);font-size:0.65rem;color:#60a5fa;width:68px">.w-1-2</span><div style="width:50%;height:20px;background:linear-gradient(90deg,rgba(124,58,237,0.42),rgba(124,58,237,0.1));border-radius:4px"></div></div>
+          <div style="display:flex;align-items:center;gap:0.75rem"><span style="font-family:var(--doc-mono);font-size:0.65rem;color:#60a5fa;width:68px">.w-1-3</span><div style="width:33.33%;height:20px;background:linear-gradient(90deg,rgba(22,163,74,0.42),rgba(22,163,74,0.1));border-radius:4px"></div></div>
+          <div style="display:flex;align-items:center;gap:0.75rem"><span style="font-family:var(--doc-mono);font-size:0.65rem;color:#60a5fa;width:68px">.w-1-4</span><div style="width:25%;height:20px;background:linear-gradient(90deg,rgba(217,119,6,0.42),rgba(217,119,6,0.1));border-radius:4px"></div></div>
+        </div>
+        <div style="margin-top:1rem">
+          <div class="doc-demo-label" style="margin-bottom:0.625rem">max-width Containers</div>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <div style="display:flex;align-items:center;gap:0.75rem"><span style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;width:88px">.max-w-xs</span><div style="width:160px;height:16px;background:rgba(37,99,235,0.18);border-radius:3px;border:1px solid rgba(37,99,235,0.3)"></div><span style="font-family:var(--doc-mono);font-size:0.6rem;color:#64748b">320px</span></div>
+            <div style="display:flex;align-items:center;gap:0.75rem"><span style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;width:88px">.max-w-md</span><div style="width:240px;height:16px;background:rgba(37,99,235,0.18);border-radius:3px;border:1px solid rgba(37,99,235,0.3)"></div><span style="font-family:var(--doc-mono);font-size:0.6rem;color:#64748b">448px</span></div>
+            <div style="display:flex;align-items:center;gap:0.75rem"><span style="font-family:var(--doc-mono);font-size:0.63rem;color:#9ca3af;width:88px">.max-w-2xl</span><div style="width:100%;max-width:360px;height:16px;background:rgba(37,99,235,0.18);border-radius:3px;border:1px solid rgba(37,99,235,0.3)"></div><span style="font-family:var(--doc-mono);font-size:0.6rem;color:#64748b">672px</span></div>
+          </div>
+        </div>
+        <div style="margin-top:1rem">
+          <div class="doc-demo-label" style="margin-bottom:0.625rem">Aspect Ratio</div>
+          <div style="display:flex;gap:0.875rem;flex-wrap:wrap;align-items:flex-end">
+            <div style="text-align:center"><div style="width:60px;height:60px;background:rgba(37,99,235,0.18);border:1px solid rgba(37,99,235,0.35);border-radius:6px"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.aspect-square</div></div>
+            <div style="text-align:center"><div style="width:100px;height:56px;background:rgba(124,58,237,0.18);border:1px solid rgba(124,58,237,0.35);border-radius:6px"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.aspect-video</div></div>
+            <div style="text-align:center"><div style="width:50px;height:66px;background:rgba(22,163,74,0.18);border:1px solid rgba(22,163,74,0.35);border-radius:6px"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.aspect-portrait</div></div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1876,6 +2155,31 @@ $pct:             mc.percent(3, 12);               // 25%</code></pre>
           </tbody>
         </table>
       </div>
+
+      <div class="doc-demo-area" style="margin-top:1rem">
+        <div class="doc-demo-label">Display Classes</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.625rem;margin-bottom:1rem">
+          <div style="background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.25);border-radius:6px;padding:8px 14px;font-family:var(--doc-mono);font-size:0.72rem;color:#60a5fa">d-block</div>
+          <span style="background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.25);border-radius:6px;padding:8px 14px;font-family:var(--doc-mono);font-size:0.72rem;color:#a78bfa">d-inline</span>
+          <span style="background:rgba(22,163,74,0.12);border:1px solid rgba(22,163,74,0.25);border-radius:6px;padding:8px 14px;font-family:var(--doc-mono);font-size:0.72rem;color:#4ade80;display:inline-block">d-inline-block</span>
+          <div style="background:rgba(217,119,6,0.12);border:1px solid rgba(217,119,6,0.25);border-radius:6px;padding:8px 14px;font-family:var(--doc-mono);font-size:0.72rem;color:#fbbf24;display:flex;align-items:center;gap:6px"><span>d-flex</span><span style="display:flex;gap:3px"><span style="width:8px;height:8px;background:#fbbf24;border-radius:2px"></span><span style="width:8px;height:8px;background:#fbbf24;border-radius:2px"></span><span style="width:8px;height:8px;background:#fbbf24;border-radius:2px"></span></span></div>
+          <div style="background:rgba(220,38,38,0.12);border:1px solid rgba(220,38,38,0.25);border-radius:6px;padding:8px 14px;font-family:var(--doc-mono);font-size:0.72rem;color:#f87171;display:none">d-none (hidden)</div>
+        </div>
+        <div class="doc-demo-label" style="margin-bottom:0.625rem">Position Classes</div>
+        <div style="position:relative;height:80px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;overflow:hidden">
+          <div style="position:absolute;top:0;left:0;background:rgba(37,99,235,0.25);border-radius:0 0 8px 0;padding:4px 8px;font-family:var(--doc-mono);font-size:0.6rem;color:#60a5fa">.top-0.left-0</div>
+          <div style="position:absolute;top:0;right:0;background:rgba(124,58,237,0.25);border-radius:0 0 0 8px;padding:4px 8px;font-family:var(--doc-mono);font-size:0.6rem;color:#a78bfa">.top-0.right-0</div>
+          <div style="position:absolute;bottom:0;left:0;background:rgba(22,163,74,0.25);border-radius:0 8px 0 0;padding:4px 8px;font-family:var(--doc-mono);font-size:0.6rem;color:#4ade80">.bottom-0.left-0</div>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(217,119,6,0.2);border-radius:6px;padding:4px 8px;font-family:var(--doc-mono);font-size:0.6rem;color:#fbbf24;white-space:nowrap">.absolute-center</div>
+        </div>
+        <div class="doc-demo-label" style="margin-top:1rem;margin-bottom:0.625rem">Cursor Classes</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem">
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:6px 12px;font-family:var(--doc-mono);font-size:0.68rem;color:#e2e8f0;cursor:pointer">.cursor-pointer ☞</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:6px 12px;font-family:var(--doc-mono);font-size:0.68rem;color:#e2e8f0;cursor:not-allowed">.cursor-not-allowed ✕</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:6px 12px;font-family:var(--doc-mono);font-size:0.68rem;color:#e2e8f0;cursor:wait">.cursor-wait ⏳</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:6px 12px;font-family:var(--doc-mono);font-size:0.68rem;color:#e2e8f0;cursor:grab">.cursor-grab ✋</div>
+        </div>
+      </div>
     </section>
 
     <!-- BORDERS -->
@@ -1889,6 +2193,37 @@ $pct:             mc.percent(3, 12);               // 25%</code></pre>
         <span class="doc-pill">.border-t</span><span class="doc-pill">.border-b</span><span class="doc-pill">.border-l</span><span class="doc-pill">.border-r</span>
         <span class="doc-pill">.border-solid</span><span class="doc-pill">.border-dashed</span><span class="doc-pill">.border-dotted</span><span class="doc-pill">.border-none</span>
         <span class="doc-pill">.outline-none</span><span class="doc-pill">.outline</span><span class="doc-pill">.outline-offset-2</span>
+      </div>
+
+      <div class="doc-demo-area" style="margin-top:1rem">
+        <div class="doc-demo-label">Border Widths &amp; Styles</div>
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center">
+          <div style="text-align:center"><div style="width:60px;height:40px;border:1px solid #60a5fa;border-radius:6px"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.border</div></div>
+          <div style="text-align:center"><div style="width:60px;height:40px;border:2px solid #a78bfa;border-radius:6px"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.border-2</div></div>
+          <div style="text-align:center"><div style="width:60px;height:40px;border:4px solid #4ade80;border-radius:6px"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.border-4</div></div>
+          <div style="text-align:center"><div style="width:60px;height:40px;border:8px solid #38bdf8;border-radius:6px"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.border-8</div></div>
+          <div style="text-align:center"><div style="width:60px;height:40px;border:2px dashed #fbbf24;border-radius:6px"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.border-dashed</div></div>
+          <div style="text-align:center"><div style="width:60px;height:40px;border:2px dotted #f87171;border-radius:6px"></div><div style="font-family:var(--doc-mono);font-size:0.6rem;color:#9ca3af;margin-top:4px">.border-dotted</div></div>
+        </div>
+        <div style="margin-top:1rem">
+          <div class="doc-demo-label" style="margin-bottom:0.625rem">Directional Borders</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.875rem;align-items:center">
+            <div style="text-align:center"><div style="width:52px;height:38px;border-top:3px solid #60a5fa;border-radius:6px;background:rgba(37,99,235,0.07)"></div><div style="font-family:var(--doc-mono);font-size:0.58rem;color:#9ca3af;margin-top:4px">.border-t</div></div>
+            <div style="text-align:center"><div style="width:52px;height:38px;border-right:3px solid #a78bfa;border-radius:6px;background:rgba(124,58,237,0.07)"></div><div style="font-family:var(--doc-mono);font-size:0.58rem;color:#9ca3af;margin-top:4px">.border-r</div></div>
+            <div style="text-align:center"><div style="width:52px;height:38px;border-bottom:3px solid #4ade80;border-radius:6px;background:rgba(22,163,74,0.07)"></div><div style="font-family:var(--doc-mono);font-size:0.58rem;color:#9ca3af;margin-top:4px">.border-b</div></div>
+            <div style="text-align:center"><div style="width:52px;height:38px;border-left:3px solid #fbbf24;border-radius:6px;background:rgba(217,119,6,0.07)"></div><div style="font-family:var(--doc-mono);font-size:0.58rem;color:#9ca3af;margin-top:4px">.border-l</div></div>
+          </div>
+        </div>
+        <div style="margin-top:1rem">
+          <div class="doc-demo-label" style="margin-bottom:0.625rem">Border Radius Scale</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.75rem;align-items:center">
+            <div style="text-align:center"><div style="width:50px;height:50px;border:2px solid #60a5fa;border-radius:0;background:rgba(37,99,235,0.08)"></div><div style="font-family:var(--doc-mono);font-size:0.58rem;color:#9ca3af;margin-top:4px">.rounded-none</div></div>
+            <div style="text-align:center"><div style="width:50px;height:50px;border:2px solid #60a5fa;border-radius:4px;background:rgba(37,99,235,0.08)"></div><div style="font-family:var(--doc-mono);font-size:0.58rem;color:#9ca3af;margin-top:4px">.rounded-sm</div></div>
+            <div style="text-align:center"><div style="width:50px;height:50px;border:2px solid #60a5fa;border-radius:8px;background:rgba(37,99,235,0.08)"></div><div style="font-family:var(--doc-mono);font-size:0.58rem;color:#9ca3af;margin-top:4px">.rounded-md</div></div>
+            <div style="text-align:center"><div style="width:50px;height:50px;border:2px solid #60a5fa;border-radius:16px;background:rgba(37,99,235,0.08)"></div><div style="font-family:var(--doc-mono);font-size:0.58rem;color:#9ca3af;margin-top:4px">.rounded-xl</div></div>
+            <div style="text-align:center"><div style="width:50px;height:50px;border:2px solid #60a5fa;border-radius:9999px;background:rgba(37,99,235,0.08)"></div><div style="font-family:var(--doc-mono);font-size:0.58rem;color:#9ca3af;margin-top:4px">.rounded-full</div></div>
+          </div>
+        </div>
       </div>
     </section>
 
