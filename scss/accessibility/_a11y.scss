@@ -41,7 +41,7 @@
   left: 1rem;
   z-index: 9999;
   padding: 0.5rem 1rem;
-  background: var(--mastors-color-primary, #2563eb);
+  background: var(--#{cfg.$mastors-prefix}-color-primary, #2563eb);
   color: #ffffff;
   border-radius: 0 0 8px 8px;
   font-weight: 600;
@@ -58,7 +58,7 @@
 // --- Focus Visible: global keyboard nav ---
 @if cfg.$enable-focus-visible {
   :focus-visible {
-    outline: 3px solid var(--mastors-border-focus, #2563eb);
+    outline: 3px solid var(--#{cfg.$mastors-prefix}-border-focus, #2563eb);
     outline-offset: 2px;
     border-radius: 2px;
   }
@@ -92,6 +92,6 @@
 
 // --- Keyboard navigation indicator ---
 .mastors-keyboard-nav *:focus {
-  outline: 3px solid var(--mastors-border-focus, #2563eb);
+  outline: 3px solid var(--#{cfg.$mastors-prefix}-border-focus, #2563eb);
   outline-offset: 2px;
 }

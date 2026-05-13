@@ -75,3 +75,10 @@
     @include generate-all-vars;
   }
 }
+
+// --- Auto-emit when this module is @forwarded from _index.scss ---
+// When a consumer does `@use '@mastorscdn/core' with (...)`, this top-level
+// block ensures CSS variables are written without needing a separate @include.
+@if cfg.$enable-css-variables {
+  @include generate-all-vars;
+}

@@ -5,37 +5,37 @@
 @use '../config/settings' as cfg;
 
 @mixin dark-theme {
-  --mastors-text-primary:     #f9fafb;
-  --mastors-text-secondary:   #e5e7eb;
-  --mastors-text-muted:       #9ca3af;
-  --mastors-text-disabled:    #6b7280;
-  --mastors-text-inverse:     #111827;
+  --#{cfg.$mastors-prefix}-text-primary:     #f9fafb;
+  --#{cfg.$mastors-prefix}-text-secondary:   #e5e7eb;
+  --#{cfg.$mastors-prefix}-text-muted:       #9ca3af;
+  --#{cfg.$mastors-prefix}-text-disabled:    #6b7280;
+  --#{cfg.$mastors-prefix}-text-inverse:     #111827;
 
-  --mastors-bg-body:          #0f172a;
-  --mastors-bg-subtle:        #1e293b;
-  --mastors-bg-muted:         #334155;
-  --mastors-bg-inverse:       #f9fafb;
+  --#{cfg.$mastors-prefix}-bg-body:          #0f172a;
+  --#{cfg.$mastors-prefix}-bg-subtle:        #1e293b;
+  --#{cfg.$mastors-prefix}-bg-muted:         #334155;
+  --#{cfg.$mastors-prefix}-bg-inverse:       #f9fafb;
 
-  --mastors-border-default:   #334155;
-  --mastors-border-strong:    #475569;
-  --mastors-border-focus:     #60a5fa;
+  --#{cfg.$mastors-prefix}-border-default:   #334155;
+  --#{cfg.$mastors-prefix}-border-strong:    #475569;
+  --#{cfg.$mastors-prefix}-border-focus:     #60a5fa;
 
-  --mastors-surface:          #1e293b;
-  --mastors-surface-raised:   #334155;
-  --mastors-surface-overlay:  rgba(15, 23, 42, 0.95);
+  --#{cfg.$mastors-prefix}-surface:          #1e293b;
+  --#{cfg.$mastors-prefix}-surface-raised:   #334155;
+  --#{cfg.$mastors-prefix}-surface-overlay:  rgba(15, 23, 42, 0.95);
 
-  --mastors-shadow-ambient:   0 1px 3px rgba(0, 0, 0, 0.50);
+  --#{cfg.$mastors-prefix}-shadow-ambient:   0 1px 3px rgba(0, 0, 0, 0.50);
 
-  --mastors-color-primary:    #60a5fa;
-  --mastors-color-secondary:  #a78bfa;
-  --mastors-color-accent:     #38bdf8;
-  --mastors-color-success:    #4ade80;
-  --mastors-color-warning:    #fbbf24;
-  --mastors-color-danger:     #f87171;
-  --mastors-color-info:       #22d3ee;
+  --#{cfg.$mastors-prefix}-color-primary:    #60a5fa;
+  --#{cfg.$mastors-prefix}-color-secondary:  #a78bfa;
+  --#{cfg.$mastors-prefix}-color-accent:     #38bdf8;
+  --#{cfg.$mastors-prefix}-color-success:    #4ade80;
+  --#{cfg.$mastors-prefix}-color-warning:    #fbbf24;
+  --#{cfg.$mastors-prefix}-color-danger:     #f87171;
+  --#{cfg.$mastors-prefix}-color-info:       #22d3ee;
 
-  --mastors-scrollbar-thumb:  rgba(255, 255, 255, 0.2);
-  --mastors-scrollbar-track:  transparent;
+  --#{cfg.$mastors-prefix}-scrollbar-thumb:  rgba(255, 255, 255, 0.2);
+  --#{cfg.$mastors-prefix}-scrollbar-track:  transparent;
 }
 
 // Attribute-based dark mode

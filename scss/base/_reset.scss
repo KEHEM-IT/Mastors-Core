@@ -34,8 +34,8 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: var(--mastors-bg-body, #ffffff);
-  color: var(--mastors-text-primary, #111827);
+  background-color: var(--#{cfg.$mastors-prefix}-bg-body, #ffffff);
+  color: var(--#{cfg.$mastors-prefix}-text-primary, #111827);
   line-height: inherit;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -107,13 +107,13 @@ button,
 input::-moz-placeholder,
 textarea::-moz-placeholder {
   opacity: 1;
-  color: var(--mastors-text-muted, #6b7280);
+  color: var(--#{cfg.$mastors-prefix}-text-muted, #6b7280);
 }
 
 input::placeholder,
 textarea::placeholder {
   opacity: 1;
-  color: var(--mastors-text-muted, #6b7280);
+  color: var(--#{cfg.$mastors-prefix}-text-muted, #6b7280);
 }
 
 textarea { resize: vertical; }
@@ -149,7 +149,7 @@ hr {
   height: 0;
   color: inherit;
   border-top-width: 1px;
-  border-color: var(--mastors-border-default, #e5e7eb);
+  border-color: var(--#{cfg.$mastors-prefix}-border-default, #e5e7eb);
   margin: 0;
 }
 
@@ -173,6 +173,6 @@ svg {
 
 // --- Selection ---
 ::selection {
-  background-color: var(--mastors-color-primary, #2563eb);
+  background-color: var(--#{cfg.$mastors-prefix}-color-primary, #2563eb);
   color: #ffffff;
 }

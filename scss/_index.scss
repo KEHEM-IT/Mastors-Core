@@ -107,3 +107,17 @@
 
 // --- Abstracts ---
 @forward 'abstracts';
+
+// --- CSS Output Modules ---
+// These are forwarded so that `@use '@mastorscdn/core' with (...)` emits
+// actual CSS (themes, variables, reset, utilities, etc.).
+// Without these forwards the _index.scss barrel is a Sass-API-only file
+// and no CSS variables or theme tokens are written to the stylesheet.
+@forward 'vendors';
+@forward 'base';
+@forward 'themes';
+@forward 'accessibility';
+@forward 'helpers';
+@forward 'generators';
+@forward 'utilities';
+@forward 'mixins/css-vars';

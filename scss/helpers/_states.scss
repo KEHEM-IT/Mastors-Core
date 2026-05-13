@@ -3,6 +3,8 @@
 // Reusable state classes for hover, focus, active, disabled
 // =============================================================================
 
+@use '../config/settings' as cfg;
+
 // --- Interactive base ---
 .mastors-interactive {
   cursor: pointer;
@@ -65,7 +67,7 @@
     100% { background-position: -200% 0; }
   }
 
-  [data-theme='dark'] & {
+  [#{cfg.$mastors-theme-attr}='dark'] & {
     background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
     background-size: 200% 100%;
   }
