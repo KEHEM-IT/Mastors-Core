@@ -2,23 +2,38 @@
   "name": "@mastors/core",
   "version": "1.0.0",
   "description": "Mastors-Core — foundational SCSS architecture for the Mastors CDN ecosystem",
-  "keywords": [
-    "mastors",
-    "scss",
-    "css",
-    "design-system",
-    "ui-framework",
-    "tokens",
-    "theming",
-    "responsive",
-    "utilities",
-    "sass"
-  ],
-  "author": "Mastors CDN",
-  "license": "MIT",
-  "main": "dist/mastors-core.css",
+  "main": "scss/_index.scss",
   "sass": "scss/_index.scss",
   "style": "dist/mastors-core.css",
+  "keywords": [
+    "scss",
+    "css",
+    "sass",
+    "sass-mixins",
+    "sass-utils",
+    "design-tokens",
+    "design-system",
+    "css-variables",
+    "theming",
+    "dark-mode",
+    "breakpoints",
+    "responsive",
+    "responsive-design",
+    "media-queries",
+    "fluid-layout",
+    "utilities",
+    "css-utilities",
+    "style-utilities",
+    "mobile-first",
+    "ui-framework",
+    "frontend",
+    "ui",
+    "web-design",
+    "mastors",
+    "mastorsCDN"
+  ],
+  "author": "KEHEM-IT",
+  "license": "MIT",
   "exports": {
     ".": {
       "sass": "./scss/_index.scss",
@@ -30,7 +45,8 @@
   "files": [
     "dist/",
     "scss/",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "vite build",
@@ -41,7 +57,8 @@
     "sass:all": "npm run sass:build && npm run sass:min",
     "build:all": "npm run sass:all && npm run build",
     "clean": "rimraf dist",
-    "prebuild": "npm run clean"
+    "prebuild": "npm run clean",
+    "prepublishOnly": "npm run sass:all"
   },
   "devDependencies": {
     "sass": "^1.77.0",
@@ -56,10 +73,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mastors-cdn/mastors-core"
+    "url": "git+https://github.com/KEHEM-IT/Mastors-Core.git"
   },
   "bugs": {
-    "url": "https://github.com/mastors-cdn/mastors-core/issues"
+    "url": "https://github.com/KEHEM-IT/Mastors-Core/issues"
   },
-  "homepage": "https://masterors.dev"
+  "homepage": "https://mastorscdn.kehem.com/mastors-core"
 }

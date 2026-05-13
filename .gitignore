@@ -1,3 +1,7 @@
+# Source control exclusions (git)
+# Note: dist/ is intentionally excluded from git but INCLUDED in npm
+# (handled via .npmignore — do not add dist/ here thinking it fixes npm)
+
 dist/
 node_modules/
 *.log

@@ -1,0 +1,24 @@
+# npm publish exclusions
+# Overrides .gitignore for npm — dist/ MUST be included in the package
+
+# Dev / build tooling
+node_modules/
+vite.config.js
+tsconfig.json
+index.html
+
+# Docs & internal
+docs/
+documentations/
+
+# Git
+.git/
+.gitignore
+
+# Misc
+*.log
+.DS_Store
+Thumbs.db
+.env
+.env.local
+package-lock.json
