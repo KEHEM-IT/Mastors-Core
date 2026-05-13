@@ -2,7 +2,7 @@
 
 **Enterprise-grade SCSS foundational architecture for the Mastors CDN ecosystem.**
 
-[![npm](https://img.shields.io/npm/v/@mastors/core)](https://www.npmjs.com/package/@mastors/core)
+[![npm](https://img.shields.io/npm/v/@mastors/core)](https://www.npmjs.com/package/@mastorscdn/core)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Dart Sass](https://img.shields.io/badge/Dart%20Sass-1.70%2B-CC6699)](https://sass-lang.com)
 

@@ -1,5 +1,5 @@
 {
-  "name": "@mastors/core",
+  "name": "@mastorscdn/core",
   "version": "1.0.0",
   "description": "Mastors-Core — foundational SCSS architecture for the Mastors CDN ecosystem",
   "main": "scss/_index.scss",

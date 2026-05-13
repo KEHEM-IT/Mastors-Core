@@ -5,14 +5,14 @@ export default defineConfig({
   // ── Build Configuration ─────────────────────────────────────────────────
   build: {
     outDir: 'dist',
-    emptyOutDir: true,
+    emptyOutDir: false, // sass:all already handles dist — don't wipe it
 
     rollupOptions: {
       input: {
         'mastors-core': path.resolve(__dirname, 'scss/mastors-core.scss'),
       },
       output: {
-        assetFileNames: '[name][extname]',
+        assetFileNames: 'mastors-core[extname]', // prevent style.css output
       },
     },
 
