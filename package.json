@@ -78,7 +78,7 @@
   "bugs": {
     "url": "https://github.com/KEHEM-IT/Mastors-Core/issues"
   },
-  "homepage": "https://mastorscdn.kehem.com/mastors-core",
+  "homepage": "https://mastorscdn.kehem.com/",
   "dependencies": {
     "@mastorscdn/core": "^1.0.0"
   }
