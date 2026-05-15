@@ -138,8 +138,8 @@ $mastors-my-tokens: (
 
 ```scss
 // In mastors-flexer/_index.scss
-@use '@mastors/core' as mc;
-@use '@mastors/core/tokens/breakpoints' as t-bp;
+@use '@mastorscdn/core' as mc;
+@use '@mastorscdn/core/tokens/breakpoints' as t-bp;
 
 // Use responsive mixin
 .mastors-flex-container {

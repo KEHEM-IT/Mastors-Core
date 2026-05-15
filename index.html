@@ -1243,7 +1243,7 @@ yarn add @mastors/core</code></pre>
           <button class="doc-copy-btn" onclick="copyCode(this)">Copy</button>
         </div>
         <pre class="language-scss"><code>// Zero CSS output — only functions, mixins, tokens
-@use '@mastors/core' as mc;</code></pre>
+@use '@mastorscdn/core' as mc;</code></pre>
       </div>
     </section>
 
@@ -1259,7 +1259,7 @@ yarn add @mastors/core</code></pre>
           <span class="doc-code-lang">scss</span>
           <button class="doc-copy-btn" onclick="copyCode(this)">Copy</button>
         </div>
-        <pre class="language-scss"><code>@use '@mastors/core' as mc;
+        <pre class="language-scss"><code>@use '@mastorscdn/core' as mc;
 
 .my-card {
   background-color: mc.color('surface');
@@ -1295,7 +1295,7 @@ yarn add @mastors/core</code></pre>
           <span class="doc-code-lang">scss</span>
           <button class="doc-copy-btn" onclick="copyCode(this)">Copy</button>
         </div>
-        <pre class="language-scss"><code>@use '@mastors/core' with (
+        <pre class="language-scss"><code>@use '@mastorscdn/core' with (
   $enable-dark-theme:    true,
   $enable-utilities:     true,
   $enable-accessibility: true,
@@ -1428,7 +1428,7 @@ yarn add @mastors/core</code></pre>
           <span class="doc-code-lang">scss</span>
           <button class="doc-copy-btn" onclick="copyCode(this)">Copy</button>
         </div>
-        <pre class="language-scss"><code>@use '@mastors/core' as mc;
+        <pre class="language-scss"><code>@use '@mastorscdn/core' as mc;
 
 .element {
   color:            mc.color('primary');        // #2563eb
@@ -1694,12 +1694,12 @@ z-index: mc.layer('dialog'); // layer map accessor</code></pre>
 
       <div class="doc-callout doc-callout-tip">
         <i class="fas fa-lightbulb"></i>
-        <span>All functions are available via <code class="doc-ic">@use '@mastors/core' as mc;</code>. Every function accepts a string key and an optional fallback.</span>
+        <span>All functions are available via <code class="doc-ic">@use '@mastorscdn/core' as mc;</code>. Every function accepts a string key and an optional fallback.</span>
       </div>
 
       <div class="doc-code-wrap" style="margin-top:1rem">
         <div class="doc-code-header"><span class="doc-code-lang">scss — complete function reference</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
-        <pre class="language-scss"><code>@use '@mastors/core' as mc;
+        <pre class="language-scss"><code>@use '@mastorscdn/core' as mc;
 
 // ── Colors ───────────────────────────────────────────────────
 color:            mc.color('primary');             // #2563eb
@@ -1864,7 +1864,7 @@ $pct:             mc.percent(3, 12);               // 25%</code></pre>
 
       <div class="doc-code-wrap" style="margin-top:1rem">
         <div class="doc-code-header"><span class="doc-code-lang">scss</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
-        <pre class="language-scss"><code>@use '@mastors/core' as mc;
+        <pre class="language-scss"><code>@use '@mastorscdn/core' as mc;
 
 .glass-card {
   @include mc.glassmorphism(
@@ -1977,7 +1977,7 @@ $pct:             mc.percent(3, 12);               // 25%</code></pre>
 
       <div class="doc-code-wrap" style="margin-top:1.5rem">
         <div class="doc-code-header"><span class="doc-code-lang">scss — all responsive mixins</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
-        <pre class="language-scss"><code>@use '@mastors/core' as mc;
+        <pre class="language-scss"><code>@use '@mastorscdn/core' as mc;
 
 .element {
   font-size: 1rem;                          // mobile base
@@ -2303,7 +2303,7 @@ MastorsTheme.init();</code></pre>
 
       <div class="doc-code-wrap">
         <div class="doc-code-header"><span class="doc-code-lang">scss — custom theme</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
-        <pre class="language-scss"><code>@use '@mastors/core/themes/custom' with (
+        <pre class="language-scss"><code>@use '@mastorscdn/core/themes/custom' with (
   $theme-name: 'enterprise',
   $custom-tokens: (
     '--mastors-color-primary':   #0f4c75,
@@ -2545,7 +2545,7 @@ var(--mastors-z-toast)      /* 800 */</code></pre>
       </div>
 
       <p style="color:var(--mastors-text-secondary,#94a3b8);font-size:0.875rem;margin-bottom:1.25rem;">
-        Mastors Core is the dependency base for all Mastors CDN libraries. Each library uses <code class="doc-ic">@use '@mastors/core' as mc</code> to access tokens, functions, and mixins.
+        Mastors Core is the dependency base for all Mastors CDN libraries. Each library uses <code class="doc-ic">@use '@mastorscdn/core' as mc</code> to access tokens, functions, and mixins.
       </p>
 
       <div class="doc-table-wrap">
@@ -2563,7 +2563,7 @@ var(--mastors-z-toast)      /* 800 */</code></pre>
       <div class="doc-code-wrap" style="margin-top:1rem">
         <div class="doc-code-header"><span class="doc-code-lang">scss — consuming core in a library</span><button class="doc-copy-btn" onclick="copyCode(this)">Copy</button></div>
         <pre class="language-scss"><code>// In mastors-flexer/_index.scss
-@use '@mastors/core' as mc;
+@use '@mastorscdn/core' as mc;
 
 .mastors-flex-container {
   @include mc.up('md') { display: flex; }

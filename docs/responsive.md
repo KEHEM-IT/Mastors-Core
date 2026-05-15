@@ -19,7 +19,7 @@
 ### `up($bp)` — Mobile first (min-width)
 
 ```scss
-@use '@mastors/core' as mc;
+@use '@mastorscdn/core' as mc;
 
 .element {
   font-size: 1rem;
@@ -106,7 +106,7 @@ You can pass raw px values directly:
 
 ```scss
 // Override before @use
-@use '@mastors/core' as mc;
+@use '@mastorscdn/core' as mc;
 
 // Or extend via token override (in your own tokens file):
 $mastors-breakpoints: map.merge(mc.$mastors-breakpoints, (
@@ -145,7 +145,7 @@ Mastors-Core provides the breakpoint tokens that Mastors-Fluider reads for fluid
 
 ```scss
 // In Mastors-Fluider:
-@use '@mastors/core/tokens/breakpoints' as mc-bp;
+@use '@mastorscdn/core/tokens/breakpoints' as mc-bp;
 
 $fluid-min-vw: map.get(mc-bp.$mastors-breakpoints, 'sm'); // 576px
 $fluid-max-vw: map.get(mc-bp.$mastors-breakpoints, 'xl'); // 1200px

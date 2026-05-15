@@ -66,7 +66,7 @@ All theme variables follow the pattern `--mastors-{semantic-name}`:
 ## Creating a Custom Theme (SCSS)
 
 ```scss
-@use '@mastors/core/themes/custom' with (
+@use '@mastorscdn/core/themes/custom' with (
   $theme-name: 'enterprise',
   $custom-tokens: (
     '--mastors-color-primary':    #0f4c75,
@@ -91,7 +91,7 @@ Then in HTML:
 ## Creating an Ecommerce Theme
 
 ```scss
-@use '@mastors/core/themes/custom' with (
+@use '@mastorscdn/core/themes/custom' with (
   $theme-name: 'shop',
   $custom-tokens: (
     '--mastors-color-primary':    #e11d48,
@@ -108,7 +108,7 @@ Then in HTML:
 ## Creating an ERP / Dashboard Theme
 
 ```scss
-@use '@mastors/core/themes/custom' with (
+@use '@mastorscdn/core/themes/custom' with (
   $theme-name: 'erp',
   $custom-tokens: (
     '--mastors-color-primary':    #1e40af,

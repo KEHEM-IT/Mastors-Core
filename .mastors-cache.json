@@ -1,0 +1,1262 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-05-15T23:16:49.264Z",
+  "entries": [
+    {
+      "name": "color",
+      "type": "function",
+      "category": "color",
+      "description": "Returns a color value from the Mastors color palette. Accepts brand, status, neutral, surface, and transparent color keys.",
+      "params": [
+        {
+          "name": "key",
+          "type": "String",
+          "description": "Color token key, e.g. 'primary', 'neutral-500'"
+        },
+        {
+          "name": "fallback",
+          "type": "Color|null",
+          "default": "null",
+          "description": "Fallback if key not found"
+        }
+      ],
+      "values": [
+        "primary",
+        "primary-light",
+        "primary-dark",
+        "secondary",
+        "secondary-light",
+        "secondary-dark",
+        "accent",
+        "accent-light",
+        "accent-dark",
+        "success",
+        "success-light",
+        "success-dark",
+        "warning",
+        "warning-light",
+        "warning-dark",
+        "danger",
+        "danger-light",
+        "danger-dark",
+        "info",
+        "info-light",
+        "info-dark",
+        "white",
+        "black",
+        "transparent",
+        "neutral-50",
+        "neutral-100",
+        "neutral-200",
+        "neutral-300",
+        "neutral-400",
+        "neutral-500",
+        "neutral-600",
+        "neutral-700",
+        "neutral-800",
+        "neutral-900",
+        "neutral-950",
+        "surface",
+        "surface-raised",
+        "surface-overlay",
+        "surface-sunken"
+      ],
+      "returns": "Color",
+      "example": "color: mc.color('primary');\nbackground: mc.color('neutral-100', #f5f5f5);",
+      "snippet": "'${1|primary,primary-light,primary-dark,secondary,secondary-light,secondary-dark,accent,accent-light,accent-dark,success,success-light,success-dark,warning,warning-light,warning-dark,danger,danger-light,danger-dark,info,info-light,info-dark,white,black,transparent,neutral-50,neutral-100,neutral-200,neutral-300,neutral-400,neutral-500,neutral-600,neutral-700,neutral-800,neutral-900,neutral-950,surface,surface-raised,surface-overlay,surface-sunken|}'"
+    },
+    {
+      "name": "semantic",
+      "type": "function",
+      "category": "color",
+      "description": "Returns a semantic color token -- text, background, or border roles that adapt to the active theme.",
+      "params": [
+        {
+          "name": "key",
+          "type": "String",
+          "description": "Semantic key, e.g. 'text-primary', 'bg-body'"
+        },
+        {
+          "name": "fallback",
+          "type": "Color|null",
+          "default": "null",
+          "description": "Fallback if key not found"
+        }
+      ],
+      "values": [
+        "text-primary",
+        "text-secondary",
+        "text-muted",
+        "text-disabled",
+        "text-inverse",
+        "bg-body",
+        "bg-subtle",
+        "bg-muted",
+        "bg-inverse",
+        "border-default",
+        "border-strong",
+        "border-focus",
+        "link",
+        "link-hover",
+        "link-visited"
+      ],
+      "returns": "Color",
+      "example": "color: mc.semantic('text-primary');\nborder-color: mc.semantic('border-focus');",
+      "snippet": "'${1|text-primary,text-secondary,text-muted,text-disabled,text-inverse,bg-body,bg-subtle,bg-muted,bg-inverse,border-default,border-strong,border-focus,link,link-hover,link-visited|}'"
+    },
+    {
+      "name": "shadow",
+      "type": "function",
+      "category": "shadow",
+      "description": "Returns a box-shadow value from the Mastors shadow scale.",
+      "params": [
+        {
+          "name": "key",
+          "type": "String",
+          "description": "Shadow key, e.g. 'md', 'primary', 'dark-lg'"
+        },
+        {
+          "name": "fallback",
+          "type": "any|null",
+          "default": "null",
+          "description": "Fallback if key not found"
+        }
+      ],
+      "values": [
+        "none",
+        "xs",
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl",
+        "inner",
+        "primary",
+        "success",
+        "danger",
+        "warning",
+        "dark-sm",
+        "dark-md",
+        "dark-lg"
+      ],
+      "returns": "String (box-shadow)",
+      "example": "box-shadow: mc.shadow('md');\nbox-shadow: mc.shadow('primary');",
+      "snippet": "'${1|none,xs,sm,md,lg,xl,2xl,inner,primary,success,danger,warning,dark-sm,dark-md,dark-lg|}'"
+    },
+    {
+      "name": "radius",
+      "type": "function",
+      "category": "radius",
+      "description": "Returns a border-radius value from the Mastors radius scale.",
+      "params": [
+        {
+          "name": "key",
+          "type": "String",
+          "description": "Radius key, e.g. 'sm', 'full'"
+        },
+        {
+          "name": "fallback",
+          "type": "any|null",
+          "default": "null",
+          "description": "Fallback if key not found"
+        }
+      ],
+      "values": [
+        "none",
+        "xs",
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl",
+        "3xl",
+        "full"
+      ],
+      "returns": "Length",
+      "example": "border-radius: mc.radius('md');\nborder-radius: mc.radius('full');",
+      "snippet": "'${1|none,xs,sm,md,lg,xl,2xl,3xl,full|}'"
+    },
+    {
+      "name": "z",
+      "type": "function",
+      "category": "z-index",
+      "description": "Returns a z-index value from the Mastors UI stacking scale.",
+      "params": [
+        {
+          "name": "key",
+          "type": "String",
+          "description": "Z-index key, e.g. 'modal', 'tooltip'"
+        },
+        {
+          "name": "fallback",
+          "type": "Number|null",
+          "default": "null",
+          "description": "Fallback if key not found"
+        }
+      ],
+      "values": [
+        "base",
+        "raised",
+        "dropdown",
+        "sticky",
+        "fixed",
+        "overlay",
+        "modal",
+        "popover",
+        "tooltip",
+        "toast",
+        "spinner",
+        "max"
+      ],
+      "returns": "Number",
+      "example": "z-index: mc.z('modal');\nz-index: mc.z('tooltip');",
+      "snippet": "'${1|base,raised,dropdown,sticky,fixed,overlay,modal,popover,tooltip,toast,spinner,max|}'"
+    },
+    {
+      "name": "layer",
+      "type": "function",
+      "category": "z-index",
+      "description": "Returns a structural CSS layer z-index (page, ui, nav, panel, dialog, critical).",
+      "params": [
+        {
+          "name": "key",
+          "type": "String",
+          "description": "Layer key, e.g. 'nav', 'dialog'"
+        },
+        {
+          "name": "fallback",
+          "type": "Number|null",
+          "default": "null",
+          "description": "Fallback if key not found"
+        }
+      ],
+      "values": [
+        "page",
+        "ui",
+        "nav",
+        "panel",
+        "dialog",
+        "critical"
+      ],
+      "returns": "Number",
+      "example": "z-index: mc.layer('nav');",
+      "snippet": "'${1|page,ui,nav,panel,dialog,critical|}'"
+    },
+    {
+      "name": "opacity",
+      "type": "function",
+      "category": "opacity",
+      "description": "Returns an opacity value (0-1) from the Mastors opacity scale.",
+      "params": [
+        {
+          "name": "key",
+          "type": "String",
+          "description": "Opacity key, e.g. '50', '75'"
+        },
+        {
+          "name": "fallback",
+          "type": "Number|null",
+          "default": "null",
+          "description": "Fallback if key not found"
+        }
+      ],
+      "values": [
+        "0",
+        "5",
+        "10",
+        "15",
+        "20",
+        "25",
+        "30",
+        "40",
+        "50",
+        "60",
+        "70",
+        "75",
+        "80",
+        "90",
+        "95",
+        "100"
+      ],
+      "returns": "Number (0-1)",
+      "example": "opacity: mc.opacity('75'); // => 0.75\nopacity: mc.opacity('50'); // => 0.50",
+      "snippet": "'${1|0,5,10,15,20,25,30,40,50,60,70,75,80,90,95,100|}'"
+    },
+    {
+      "name": "breakpoint",
+      "type": "function",
+      "category": "breakpoint",
+      "description": "Returns a breakpoint pixel value from the Mastors breakpoint scale.",
+      "params": [
+        {
+          "name": "key",
+          "type": "String",
+          "description": "Breakpoint key ('xs'..'3xl')"
+        },
+        {
+          "name": "fallback",
+          "type": "Length|null",
+          "default": "null",
+          "description": "Fallback if key not found"
+        }
+      ],
+      "values": [
+        "xs",
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl",
+        "3xl"
+      ],
+      "returns": "Length (px)",
+      "example": "max-width: mc.breakpoint('lg'); // => 992px",
+      "snippet": "'${1|xs,sm,md,lg,xl,2xl,3xl|}'"
+    },
+    {
+      "name": "container",
+      "type": "function",
+      "category": "layout",
+      "description": "Returns a container max-width from the Mastors container scale.",
+      "params": [
+        {
+          "name": "key",
+          "type": "String",
+          "description": "Container key ('xs'..'3xl', 'fluid')"
+        },
+        {
+          "name": "fallback",
+          "type": "Length|null",
+          "default": "null",
+          "description": "Fallback if key not found"
+        }
+      ],
+      "values": [
+        "xs",
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl",
+        "3xl",
+        "fluid"
+      ],
+      "returns": "Length",
+      "example": "max-width: mc.container('xl'); // => 1140px",
+      "snippet": "'${1|xs,sm,md,lg,xl,2xl,3xl,fluid|}'"
+    },
+    {
+      "name": "duration",
+      "type": "function",
+      "category": "motion",
+      "description": "Returns an animation/transition duration from the Mastors motion scale.",
+      "params": [
+        {
+          "name": "key",
+          "type": "String",
+          "description": "Duration key, e.g. 'normal', 'fast'"
+        },
+        {
+          "name": "fallback",
+          "type": "Time|null",
+          "default": "null",
+          "description": "Fallback if key not found"
+        }
+      ],
+      "values": [
+        "instant",
+        "fast",
+        "normal",
+        "moderate",
+        "slow",
+        "slower",
+        "slowest"
+      ],
+      "returns": "Time (ms)",
+      "example": "transition-duration: mc.duration('normal'); // => 200ms",
+      "snippet": "'${1|instant,fast,normal,moderate,slow,slower,slowest|}'"
+    },
+    {
+      "name": "easing",
+      "type": "function",
+      "category": "motion",
+      "description": "Returns a cubic-bezier easing string from the Mastors easing library.",
+      "params": [
+        {
+          "name": "key",
+          "type": "String",
+          "description": "Easing key, e.g. 'spring', 'ease-in-out'"
+        },
+        {
+          "name": "fallback",
+          "type": "String|null",
+          "default": "null",
+          "description": "Fallback if key not found"
+        }
+      ],
+      "values": [
+        "linear",
+        "ease",
+        "ease-in",
+        "ease-out",
+        "ease-in-out",
+        "spring",
+        "bounce",
+        "smooth",
+        "sharp"
+      ],
+      "returns": "String (cubic-bezier)",
+      "example": "transition-timing-function: mc.easing('spring');",
+      "snippet": "'${1|linear,ease,ease-in,ease-out,ease-in-out,spring,bounce,smooth,sharp|}'"
+    },
+    {
+      "name": "transition",
+      "type": "function",
+      "category": "motion",
+      "description": "Returns a full CSS transition shorthand string from the Mastors transition presets.",
+      "params": [
+        {
+          "name": "key",
+          "type": "String",
+          "description": "Transition preset key, e.g. 'colors', 'transform'"
+        },
+        {
+          "name": "fallback",
+          "type": "String|null",
+          "default": "null",
+          "description": "Fallback if key not found"
+        }
+      ],
+      "values": [
+        "none",
+        "all",
+        "fast",
+        "colors",
+        "opacity",
+        "shadow",
+        "transform"
+      ],
+      "returns": "String",
+      "example": "transition: mc.transition('colors');",
+      "snippet": "'${1|none,all,fast,colors,opacity,shadow,transform|}'"
+    },
+    {
+      "name": "border-width",
+      "type": "function",
+      "category": "border",
+      "description": "Returns a border width value from the Mastors border-width scale.",
+      "params": [
+        {
+          "name": "key",
+          "type": "String",
+          "description": "Border width key: '0', '1', '2', '4', '8'"
+        },
+        {
+          "name": "fallback",
+          "type": "Length|null",
+          "default": "null",
+          "description": "Fallback if key not found"
+        }
+      ],
+      "values": [
+        "0",
+        "1",
+        "2",
+        "4",
+        "8"
+      ],
+      "returns": "Length (px)",
+      "example": "border-width: mc.border-width('2'); // => 2px",
+      "snippet": "'${1|0,1,2,4,8|}'"
+    },
+    {
+      "name": "aspect-ratio",
+      "type": "function",
+      "category": "layout",
+      "description": "Returns a numeric aspect ratio value from the Mastors ratio presets (computed via math.div).",
+      "params": [
+        {
+          "name": "key",
+          "type": "String",
+          "description": "Aspect ratio key, e.g. 'video', 'square'"
+        },
+        {
+          "name": "fallback",
+          "type": "Number|null",
+          "default": "null",
+          "description": "Fallback if key not found"
+        }
+      ],
+      "values": [
+        "square",
+        "video",
+        "cinema",
+        "portrait",
+        "landscape",
+        "golden",
+        "wide",
+        "tall"
+      ],
+      "returns": "Number",
+      "example": "aspect-ratio: mc.aspect-ratio('video'); // => 1.7778",
+      "snippet": "'${1|square,video,cinema,portrait,landscape,golden,wide,tall|}'"
+    },
+    {
+      "name": "rem",
+      "type": "function",
+      "category": "math",
+      "description": "Converts a unitless pixel value to rem using math.div($px, $base) * 1rem. Default base is 16.",
+      "params": [
+        {
+          "name": "px",
+          "type": "Number",
+          "description": "Pixel value to convert (unitless integer)"
+        },
+        {
+          "name": "base",
+          "type": "Number",
+          "default": "16",
+          "description": "Base font size in px"
+        }
+      ],
+      "returns": "Length (rem)",
+      "example": "font-size: mc.rem(18);    // => 1.125rem\npadding:   mc.rem(24, 16); // => 1.5rem",
+      "snippet": "${1:16}"
+    },
+    {
+      "name": "em",
+      "type": "function",
+      "category": "math",
+      "description": "Converts a unitless pixel value to em using math.div($px, $base) * 1em. Default base is 16.",
+      "params": [
+        {
+          "name": "px",
+          "type": "Number",
+          "description": "Pixel value to convert (unitless)"
+        },
+        {
+          "name": "base",
+          "type": "Number",
+          "default": "16",
+          "description": "Base font size in px"
+        }
+      ],
+      "returns": "Length (em)",
+      "example": "margin: mc.em(24); // => 1.5em",
+      "snippet": "${1:16}"
+    },
+    {
+      "name": "strip-unit",
+      "type": "function",
+      "category": "math",
+      "description": "Removes the CSS unit from a value, returning a plain unitless number via math.div($value, $value * 0 + 1).",
+      "params": [
+        {
+          "name": "value",
+          "type": "Length",
+          "description": "Any CSS value with a unit, e.g. 24px or 1.5rem"
+        }
+      ],
+      "returns": "Number",
+      "example": "$n: mc.strip-unit(24px); // => 24",
+      "snippet": "${1:$value}"
+    },
+    {
+      "name": "fluid",
+      "type": "function",
+      "category": "typography",
+      "description": "Generates a CSS clamp() expression for fluid/responsive sizing between min and max values across a viewport range.",
+      "params": [
+        {
+          "name": "min",
+          "type": "Length",
+          "description": "Minimum size (applied at $min-vw)"
+        },
+        {
+          "name": "max",
+          "type": "Length",
+          "description": "Maximum size (applied at $max-vw)"
+        },
+        {
+          "name": "min-vw",
+          "type": "Length",
+          "default": "320px",
+          "description": "Viewport width at which min applies"
+        },
+        {
+          "name": "max-vw",
+          "type": "Length",
+          "default": "1440px",
+          "description": "Viewport width at which max applies"
+        }
+      ],
+      "returns": "clamp() expression",
+      "example": "font-size: mc.fluid(16px, 24px);\nfont-size: mc.fluid(14px, 20px, 320px, 1200px);",
+      "snippet": "${1:16px}, ${2:24px}"
+    },
+    {
+      "name": "percent",
+      "type": "function",
+      "category": "math",
+      "description": "Returns a CSS percentage: math.percentage(math.div($value, $total)).",
+      "params": [
+        {
+          "name": "value",
+          "type": "Number",
+          "description": "Numerator"
+        },
+        {
+          "name": "total",
+          "type": "Number",
+          "default": "100",
+          "description": "Denominator"
+        }
+      ],
+      "returns": "Percentage",
+      "example": "width: mc.percent(4, 12); // => 33.333%",
+      "snippet": "${1:4}, ${2:12}"
+    },
+    {
+      "name": "mastors-map-get",
+      "type": "function",
+      "category": "map",
+      "description": "Safe map.get() with type validation and @warn logging. Returns $fallback if the key is missing instead of throwing.",
+      "params": [
+        {
+          "name": "map",
+          "type": "Map",
+          "description": "The SCSS map to query"
+        },
+        {
+          "name": "key",
+          "type": "String",
+          "description": "Key to look up"
+        },
+        {
+          "name": "fallback",
+          "type": "any",
+          "default": "null",
+          "description": "Fallback value if key is missing"
+        },
+        {
+          "name": "context",
+          "type": "String",
+          "default": "'mastors'",
+          "description": "Warning label shown in @warn output"
+        }
+      ],
+      "returns": "any",
+      "example": "$val: mc.mastors-map-get($my-map, 'primary', #000, 'my-fn()');",
+      "snippet": "${1:\\$map}, '${2:key}'"
+    },
+    {
+      "name": "mastors-map-merge",
+      "type": "function",
+      "category": "map",
+      "description": "Merges two SCSS maps via map.merge(). Keys in $map2 override $map1.",
+      "params": [
+        {
+          "name": "map1",
+          "type": "Map",
+          "description": "Base map"
+        },
+        {
+          "name": "map2",
+          "type": "Map",
+          "description": "Map to merge in (overrides base)"
+        }
+      ],
+      "returns": "Map",
+      "example": "$merged: mc.mastors-map-merge($colors, $overrides);",
+      "snippet": "${1:\\$map1}, ${2:\\$map2}"
+    },
+    {
+      "name": "up",
+      "type": "mixin",
+      "category": "responsive",
+      "description": "Mobile-first min-width media query. Content applies at the given breakpoint and above. xs (0px) emits no query -- content is always applied.",
+      "params": [
+        {
+          "name": "bp",
+          "type": "String",
+          "description": "Breakpoint key ('xs'..'3xl') or a custom px value"
+        }
+      ],
+      "values": [
+        "xs",
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl",
+        "3xl"
+      ],
+      "example": "@include mc.up('md') {\n  font-size: 1.25rem;\n}",
+      "snippet": "up('${1|sm,md,lg,xl,2xl,3xl|}') {\n  ${0}\n}"
+    },
+    {
+      "name": "down",
+      "type": "mixin",
+      "category": "responsive",
+      "description": "Max-width media query. Content applies below the given breakpoint. Note: down(xs) warns and has no effect -- use up(sm) instead.",
+      "params": [
+        {
+          "name": "bp",
+          "type": "String",
+          "description": "Breakpoint key ('sm'..'3xl') or a custom px value"
+        }
+      ],
+      "values": [
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl",
+        "3xl"
+      ],
+      "example": "@include mc.down('lg') {\n  display: none;\n}",
+      "snippet": "down('${1|sm,md,lg,xl,2xl,3xl|}') {\n  ${0}\n}"
+    },
+    {
+      "name": "between",
+      "type": "mixin",
+      "category": "responsive",
+      "description": "Applies styles between two breakpoints using min-width AND max-width.",
+      "params": [
+        {
+          "name": "lower",
+          "type": "String",
+          "description": "Lower breakpoint key"
+        },
+        {
+          "name": "upper",
+          "type": "String",
+          "description": "Upper breakpoint key"
+        }
+      ],
+      "example": "@include mc.between('sm', 'lg') {\n  padding: 1rem;\n}",
+      "snippet": "between('${1:sm}', '${2:lg}') {\n  ${0}\n}"
+    },
+    {
+      "name": "only",
+      "type": "mixin",
+      "category": "responsive",
+      "description": "Applies styles within a single breakpoint range. For the last breakpoint key, behaves like up().",
+      "params": [
+        {
+          "name": "bp",
+          "type": "String",
+          "description": "Breakpoint key ('xs'..'3xl')"
+        }
+      ],
+      "values": [
+        "xs",
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl",
+        "3xl"
+      ],
+      "example": "@include mc.only('md') {\n  columns: 2;\n}",
+      "snippet": "only('${1|xs,sm,md,lg,xl,2xl,3xl|}') {\n  ${0}\n}"
+    },
+    {
+      "name": "hover",
+      "type": "mixin",
+      "category": "responsive",
+      "description": "Wraps :hover in (hover: hover) and (pointer: fine). Prevents sticky hover states on touchscreen devices.",
+      "params": [],
+      "example": "@include mc.hover {\n  opacity: 0.85;\n}",
+      "snippet": "hover {\n  ${0}\n}"
+    },
+    {
+      "name": "prefers-dark",
+      "type": "mixin",
+      "category": "responsive",
+      "description": "Wraps content in a prefers-color-scheme: dark media query.",
+      "params": [],
+      "example": "@include mc.prefers-dark {\n  background: #111;\n}",
+      "snippet": "prefers-dark {\n  ${0}\n}"
+    },
+    {
+      "name": "prefers-reduced-motion",
+      "type": "mixin",
+      "category": "motion",
+      "description": "Wraps content in a prefers-reduced-motion: reduce media query.",
+      "params": [],
+      "example": "@include mc.prefers-reduced-motion {\n  animation: none;\n  transition: none;\n}",
+      "snippet": "prefers-reduced-motion {\n  ${0}\n}"
+    },
+    {
+      "name": "print",
+      "type": "mixin",
+      "category": "responsive",
+      "description": "Wraps content in a @media print query.",
+      "params": [],
+      "example": "@include mc.print {\n  display: none;\n}",
+      "snippet": "print {\n  ${0}\n}"
+    },
+    {
+      "name": "portrait",
+      "type": "mixin",
+      "category": "responsive",
+      "description": "Applies styles when the device is in portrait orientation.",
+      "params": [],
+      "example": "@include mc.portrait {\n  flex-direction: column;\n}",
+      "snippet": "portrait {\n  ${0}\n}"
+    },
+    {
+      "name": "landscape",
+      "type": "mixin",
+      "category": "responsive",
+      "description": "Applies styles when the device is in landscape orientation.",
+      "params": [],
+      "example": "@include mc.landscape {\n  flex-direction: row;\n}",
+      "snippet": "landscape {\n  ${0}\n}"
+    },
+    {
+      "name": "absolute-center",
+      "type": "mixin",
+      "category": "layout",
+      "description": "Absolutely positions an element at the center of its nearest positioned ancestor using position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%).",
+      "params": [],
+      "example": "@include mc.absolute-center;",
+      "snippet": "absolute-center"
+    },
+    {
+      "name": "flex-center",
+      "type": "mixin",
+      "category": "layout",
+      "description": "Sets display: flex; align-items: center; justify-content: center.",
+      "params": [],
+      "example": "@include mc.flex-center;",
+      "snippet": "flex-center"
+    },
+    {
+      "name": "cover",
+      "type": "mixin",
+      "category": "layout",
+      "description": "Fills parent completely: position: absolute; inset: 0; width: 100%; height: 100%.",
+      "params": [],
+      "example": "@include mc.cover;",
+      "snippet": "cover"
+    },
+    {
+      "name": "aspect-ratio",
+      "type": "mixin",
+      "category": "layout",
+      "description": "Sets the CSS aspect-ratio property from a slash-separated ratio string.",
+      "params": [
+        {
+          "name": "ratio",
+          "type": "String",
+          "default": "'16/9'",
+          "description": "Ratio string, e.g. '16/9', '1/1'"
+        }
+      ],
+      "example": "@include mc.aspect-ratio('16/9');",
+      "snippet": "aspect-ratio('${1:16/9}')"
+    },
+    {
+      "name": "truncate",
+      "type": "mixin",
+      "category": "typography",
+      "description": "Truncates single-line text with an ellipsis. Sets overflow: hidden; text-overflow: ellipsis; white-space: nowrap.",
+      "params": [],
+      "example": "@include mc.truncate;",
+      "snippet": "truncate"
+    },
+    {
+      "name": "line-clamp",
+      "type": "mixin",
+      "category": "typography",
+      "description": "Clamps multi-line text to $lines with a trailing ellipsis using -webkit-line-clamp.",
+      "params": [
+        {
+          "name": "lines",
+          "type": "Number",
+          "default": "2",
+          "description": "Maximum number of visible lines"
+        }
+      ],
+      "example": "@include mc.line-clamp(3);",
+      "snippet": "line-clamp(${1:3})"
+    },
+    {
+      "name": "glassmorphism",
+      "type": "mixin",
+      "category": "effect",
+      "description": "Applies a glassmorphism effect: backdrop-filter blur, translucent background, subtle border, and configurable shadow.",
+      "params": [
+        {
+          "name": "blur",
+          "type": "Length",
+          "default": "16px",
+          "description": "Blur radius for backdrop-filter"
+        },
+        {
+          "name": "bg",
+          "type": "Color",
+          "default": "rgba(255, 255, 255, 0.12)",
+          "description": "Background color with alpha"
+        },
+        {
+          "name": "border",
+          "type": "Color",
+          "default": "rgba(255, 255, 255, 0.18)",
+          "description": "Border color with alpha"
+        },
+        {
+          "name": "shadow",
+          "type": "String",
+          "default": "0 8px 32px rgba(0,0,0,0.15)",
+          "description": "Box-shadow value"
+        }
+      ],
+      "example": "@include mc.glassmorphism;\n@include mc.glassmorphism(20px, rgba(255,255,255,0.15));",
+      "snippet": "glassmorphism(${1:16px}, ${2:rgba(255,255,255,0.12)})"
+    },
+    {
+      "name": "neumorphism",
+      "type": "mixin",
+      "category": "effect",
+      "description": "Applies a neumorphism (soft-UI) effect with configurable dual shadows.",
+      "params": [
+        {
+          "name": "bg",
+          "type": "Color",
+          "default": "#e0e5ec",
+          "description": "Background color"
+        },
+        {
+          "name": "light",
+          "type": "Color",
+          "default": "rgba(255,255,255,0.8)",
+          "description": "Light shadow color"
+        },
+        {
+          "name": "dark",
+          "type": "Color",
+          "default": "rgba(163,177,198,0.6)",
+          "description": "Dark shadow color"
+        },
+        {
+          "name": "intensity",
+          "type": "Length",
+          "default": "6px",
+          "description": "Shadow spread intensity"
+        }
+      ],
+      "example": "@include mc.neumorphism(#e0e5ec);",
+      "snippet": "neumorphism(${1:#e0e5ec})"
+    },
+    {
+      "name": "hover-lift",
+      "type": "mixin",
+      "category": "effect",
+      "description": "Adds a translateY lift and elevated shadow on hover. Only fires on fine-pointer (mouse/stylus) devices.",
+      "params": [
+        {
+          "name": "y",
+          "type": "Length",
+          "default": "-4px",
+          "description": "Y-axis translation on hover"
+        },
+        {
+          "name": "shadow",
+          "type": "String",
+          "default": "0 10px 20px rgba(0,0,0,0.15)",
+          "description": "Box-shadow on hover"
+        }
+      ],
+      "example": "@include mc.hover-lift;\n@include mc.hover-lift(-6px);",
+      "snippet": "hover-lift(${1:-4px})"
+    },
+    {
+      "name": "custom-scrollbar",
+      "type": "mixin",
+      "category": "utility",
+      "description": "Applies a custom-styled scrollbar with ::-webkit-scrollbar (Chrome/Edge) and scrollbar-width (Firefox).",
+      "params": [
+        {
+          "name": "width",
+          "type": "Length",
+          "default": "6px",
+          "description": "Scrollbar width"
+        },
+        {
+          "name": "track",
+          "type": "Color",
+          "default": "transparent",
+          "description": "Track background color"
+        },
+        {
+          "name": "thumb",
+          "type": "Color",
+          "default": "rgba(0,0,0,0.2)",
+          "description": "Thumb color"
+        },
+        {
+          "name": "thumb-hover",
+          "type": "Color",
+          "default": "rgba(0,0,0,0.4)",
+          "description": "Thumb hover color"
+        }
+      ],
+      "example": "@include mc.custom-scrollbar(8px, #f0f0f0, #ccc);",
+      "snippet": "custom-scrollbar(${1:6px}, ${2:transparent}, ${3:rgba(0,0,0,0.2)})"
+    },
+    {
+      "name": "focus-ring",
+      "type": "mixin",
+      "category": "utility",
+      "description": "Applies an accessible focus ring (outline + outline-offset) with configurable color, width, offset, and style.",
+      "params": [
+        {
+          "name": "color",
+          "type": "Color",
+          "default": "#2563eb",
+          "description": "Outline color"
+        },
+        {
+          "name": "width",
+          "type": "Length",
+          "default": "3px",
+          "description": "Outline width"
+        },
+        {
+          "name": "offset",
+          "type": "Length",
+          "default": "2px",
+          "description": "Outline offset"
+        },
+        {
+          "name": "style",
+          "type": "String",
+          "default": "solid",
+          "description": "Outline style"
+        }
+      ],
+      "example": "@include mc.focus-ring;\n@include mc.focus-ring(#7c3aed, 2px);",
+      "snippet": "focus-ring(${1:#2563eb})"
+    },
+    {
+      "name": "focus-visible",
+      "type": "mixin",
+      "category": "utility",
+      "description": "Removes default outline on :focus and applies focus-ring only on :focus-visible (keyboard navigation only).",
+      "params": [],
+      "example": "@include mc.focus-visible;",
+      "snippet": "focus-visible"
+    },
+    {
+      "name": "smooth-transition",
+      "type": "mixin",
+      "category": "motion",
+      "description": "Applies a CSS transition shorthand with configurable properties, duration, and easing.",
+      "params": [
+        {
+          "name": "props",
+          "type": "String",
+          "default": "all",
+          "description": "CSS properties to transition"
+        },
+        {
+          "name": "dur",
+          "type": "Time",
+          "default": "200ms",
+          "description": "Transition duration"
+        },
+        {
+          "name": "ease",
+          "type": "String",
+          "default": "cubic-bezier(0.4, 0, 0.2, 1)",
+          "description": "Timing function"
+        }
+      ],
+      "example": "@include mc.smooth-transition(opacity, 300ms);\n@include mc.smooth-transition;",
+      "snippet": "smooth-transition(${1:all}, ${2:200ms})"
+    },
+    {
+      "name": "loading-state",
+      "type": "mixin",
+      "category": "utility",
+      "description": "Applies a disabled/loading visual state: pointer-events: none, opacity: 0.7, cursor: wait, and a translucent ::after overlay.",
+      "params": [],
+      "example": "&.is-loading { @include mc.loading-state; }",
+      "snippet": "loading-state"
+    },
+    {
+      "name": "skeleton-loading",
+      "type": "mixin",
+      "category": "utility",
+      "description": "Applies an animated shimmer/skeleton loading effect using a moving linear-gradient background.",
+      "params": [
+        {
+          "name": "bg-from",
+          "type": "Color",
+          "default": "#e5e7eb",
+          "description": "Start/end gradient color"
+        },
+        {
+          "name": "bg-to",
+          "type": "Color",
+          "default": "#f3f4f6",
+          "description": "Mid gradient highlight color"
+        },
+        {
+          "name": "duration",
+          "type": "Time",
+          "default": "1.5s",
+          "description": "Animation duration"
+        }
+      ],
+      "example": "@include mc.skeleton-loading;\n@include mc.skeleton-loading(#d1d5db, #e5e7eb, 2s);",
+      "snippet": "skeleton-loading(${1:#e5e7eb}, ${2:#f3f4f6})"
+    },
+    {
+      "name": "visually-hidden",
+      "type": "mixin",
+      "category": "utility",
+      "description": "Hides an element visually while keeping it accessible to screen readers (SR-only / clip pattern).",
+      "params": [],
+      "example": "@include mc.visually-hidden;",
+      "snippet": "visually-hidden"
+    },
+    {
+      "name": "visually-visible",
+      "type": "mixin",
+      "category": "utility",
+      "description": "Resets a visually-hidden element back to normal flow visibility. Typically applied on :focus.",
+      "params": [],
+      "example": "&:focus { @include mc.visually-visible; }",
+      "snippet": "visually-visible"
+    },
+    {
+      "name": "generate-vars",
+      "type": "mixin",
+      "category": "utility",
+      "description": "Generates CSS custom properties from any SCSS map, prefixed --mastors-{prefix}-{key}.",
+      "params": [
+        {
+          "name": "map",
+          "type": "Map",
+          "description": "SCSS map of key=>value pairs to emit as CSS vars"
+        },
+        {
+          "name": "prefix",
+          "type": "String",
+          "description": "Token group prefix, e.g. 'color' or 'spacing'"
+        },
+        {
+          "name": "root",
+          "type": "String",
+          "default": "':root'",
+          "description": "Selector to emit vars into"
+        }
+      ],
+      "example": "@include mc.generate-vars($my-map, 'spacing');",
+      "snippet": "generate-vars(${1:\\$map}, '${2:prefix}')"
+    },
+    {
+      "name": "generate-all-vars",
+      "type": "mixin",
+      "category": "utility",
+      "description": "Emits all Mastors Core CSS custom properties into :root -- colors, semantic colors, shadows, radius, z-index, opacity, durations, and easings.",
+      "params": [],
+      "example": "@include mc.generate-all-vars;",
+      "snippet": "generate-all-vars"
+    },
+    {
+      "name": "generate-all-vars-if-enabled",
+      "type": "mixin",
+      "category": "utility",
+      "description": "Conditionally emits all Mastors CSS variables -- only when $enable-css-variables is true in scss/config/_settings.scss.",
+      "params": [],
+      "example": "@include mc.generate-all-vars-if-enabled;",
+      "snippet": "generate-all-vars-if-enabled"
+    },
+    {
+      "name": "mastors-clearfix",
+      "type": "variable",
+      "category": "placeholder",
+      "description": "Clearfix placeholder. Adds an ::after pseudo-element with display: table and clear: both to contain floated children.",
+      "params": [],
+      "example": ".my-container { @extend %mastors-clearfix; }",
+      "snippet": "mastors-clearfix"
+    },
+    {
+      "name": "mastors-visually-hidden",
+      "type": "variable",
+      "category": "placeholder",
+      "description": "Visually hidden placeholder (SR-only). Hides an element from sighted users while keeping it accessible to screen readers. Equivalent to the visually-hidden mixin but as an extend-only selector.",
+      "params": [],
+      "example": ".sr-label { @extend %mastors-visually-hidden; }",
+      "snippet": "mastors-visually-hidden"
+    },
+    {
+      "name": "mastors-cover",
+      "type": "variable",
+      "category": "placeholder",
+      "description": "Cover layer placeholder. Sets position: absolute; inset: 0; width: 100%; height: 100% to fill the nearest positioned ancestor.",
+      "params": [],
+      "example": ".overlay { @extend %mastors-cover; }",
+      "snippet": "mastors-cover"
+    },
+    {
+      "name": "mastors-flex-center",
+      "type": "variable",
+      "category": "placeholder",
+      "description": "Flex center placeholder. Sets display: flex; align-items: center; justify-content: center. Equivalent to the flex-center mixin but as an extend-only selector.",
+      "params": [],
+      "example": ".card-icon { @extend %mastors-flex-center; }",
+      "snippet": "mastors-flex-center"
+    },
+    {
+      "name": "mastors-absolute-center",
+      "type": "variable",
+      "category": "placeholder",
+      "description": "Absolute center placeholder. Positions an element dead-center in its nearest positioned ancestor via position: absolute; top/left: 50%; transform: translate(-50%, -50%).",
+      "params": [],
+      "example": ".spinner { @extend %mastors-absolute-center; }",
+      "snippet": "mastors-absolute-center"
+    },
+    {
+      "name": "mastors-truncate",
+      "type": "variable",
+      "category": "placeholder",
+      "description": "Truncate placeholder. Applies overflow: hidden; text-overflow: ellipsis; white-space: nowrap for single-line text truncation. Equivalent to the truncate mixin but as an extend-only selector.",
+      "params": [],
+      "example": ".card-title { @extend %mastors-truncate; }",
+      "snippet": "mastors-truncate"
+    },
+    {
+      "name": "mastors-reset-button",
+      "type": "variable",
+      "category": "placeholder",
+      "description": "Reset button placeholder. Strips all default browser button styles: removes padding, margin, border, background, sets cursor: pointer, and resets font and appearance.",
+      "params": [],
+      "example": "button.custom { @extend %mastors-reset-button; }",
+      "snippet": "mastors-reset-button"
+    },
+    {
+      "name": "mastors-reset-list",
+      "type": "variable",
+      "category": "placeholder",
+      "description": "Reset list placeholder. Removes list-style, margin, and padding from ul/ol elements.",
+      "params": [],
+      "example": "ul.nav { @extend %mastors-reset-list; }",
+      "snippet": "mastors-reset-list"
+    },
+    {
+      "name": "mastors-reset-input",
+      "type": "variable",
+      "category": "placeholder",
+      "description": "Reset input placeholder. Strips default browser input styles: removes border, padding, margin, background, and outline; resets font and -webkit-appearance.",
+      "params": [],
+      "example": "input.custom { @extend %mastors-reset-input; }",
+      "snippet": "mastors-reset-input"
+    }
+  ]
+}

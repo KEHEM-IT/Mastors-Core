@@ -4,7 +4,7 @@
 
 ```scss
 // ✅ Correct
-@use '@mastors/core' as mc;
+@use '@mastorscdn/core' as mc;
 
 // ❌ Wrong (deprecated)
 @import 'mastors-core';
@@ -101,9 +101,9 @@ $my-spacing: 1rem; // same as mc.rem(16) but not linked
 Always alias to avoid conflicts in large projects:
 
 ```scss
-@use '@mastors/core' as mc;
-@use '@mastors/flexer' as flex;
-@use '@mastors/gridder' as grid;
+@use '@mastorscdn/core' as mc;
+@use '@mastorscdn/flexer' as flex;
+@use '@mastorscdn/gridder' as grid;
 
 // Clear, readable
 .layout {
@@ -135,7 +135,7 @@ Always alias to avoid conflicts in large projects:
 ## 9. Use Placeholders for Repeated Silent Patterns
 
 ```scss
-@use '@mastors/core/abstracts' as abs;
+@use '@mastorscdn/core/abstracts' as abs;
 
 .card-header {
   @extend %mastors-flex-center;

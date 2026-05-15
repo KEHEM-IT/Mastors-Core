@@ -1,29 +1,225 @@
 // =============================================================================
 // Mastors-Core | Config: Settings
-// Global feature flags and configuration switches
+// Global feature flags, configuration switches, and brand token overrides.
+//
+// All variables are marked !default so a consumer can override any of them
+// via @use '@mastorscdn/core' with ( $variable: value ).
+//
+// mc.config.js / mc.config.ts equivalent:
+//   Copy the relevant @use block into your bundler's preprocessorOptions.
+//   Full reference: https://mastorscdn.kehem.com/config
 // =============================================================================
 
-// --- Feature Flags ---
-$enable-dark-theme:        true  !default;
-$enable-light-theme:       true  !default;
-$enable-css-variables:     true  !default;
-$enable-utilities:         true  !default;
-$enable-reset:             true  !default;
-$enable-base:              true  !default;
-$enable-accessibility:     true  !default;
-$enable-reduced-motion:    true  !default;
-$enable-focus-visible:     true  !default;
-$enable-smooth-scroll:     true  !default;
-$enable-print-styles:      false !default;
 
-// --- Prefix ---
+// =============================================================================
+// 1. FEATURE FLAGS
+// Toggle entire subsystems on or off. Disabling a flag completely removes
+// that subsystem's CSS output from the compiled bundle.
+// =============================================================================
+
+// --- Theme subsystems ---
+$enable-dark-theme:          true  !default;  // [data-theme="dark"] overrides
+$enable-light-theme:         true  !default;  // [data-theme="light"] overrides
+$enable-custom-themes:       false !default;  // Custom theme registry support
+
+// --- CSS output ---
+$enable-css-variables:       true  !default;  // Emit all tokens as CSS custom properties
+$enable-utilities:           true  !default;  // Utility class generators
+$enable-reset:               true  !default;  // Modern CSS reset
+$enable-base:                true  !default;  // Base element defaults
+$enable-accessibility:       true  !default;  // A11y helpers (skip link, sr-only, etc.)
+$enable-print-styles:        false !default;  // @media print stylesheet
+
+// --- Motion & interaction ---
+$enable-reduced-motion:      true  !default;  // prefers-reduced-motion: reduce overrides
+$enable-smooth-scroll:       true  !default;  // html { scroll-behavior: smooth }
+$enable-focus-visible:       true  !default;  // :focus-visible ring system
+$enable-hover-effects:       true  !default;  // hover/active transform utilities
+$enable-transitions:         true  !default;  // Transition utilities
+$enable-animations:          true  !default;  // Keyframe animation helpers (pulse, spin, etc.)
+
+// --- Component helpers ---
+$enable-container:           true  !default;  // .mastors-container & .mastors-container-fluid
+$enable-skeleton:            true  !default;  // .mastors-skeleton shimmer
+$enable-glassmorphism:       false !default;  // Include glassmorphism utility classes
+$enable-neumorphism:         false !default;  // Include neumorphism utility classes
+
+// --- Extended color palette ---
+$enable-extended-palette:    true  !default;  // rose, pink, teal, emerald, indigo… scales
+$enable-chart-colors:        true  !default;  // chart-1…chart-10 data-vis palette
+$enable-dark-surfaces:       true  !default;  // surface-dark-* tokens
+$enable-scrim-colors:        true  !default;  // scrim-light / scrim-dark / scrim-heavy
+
+// --- Utility granularity ---
+$enable-negative-spacing:    false !default;  // Negative margin utilities (-m-4, etc.)
+$enable-arbitrary-values:    false !default;  // Reserved for future arbitrary-value support
+$enable-important:           true  !default;  // Add !important to utility classes
+
+
+// =============================================================================
+// 2. BRAND TOKEN OVERRIDES
+// Override the default brand colors without touching token files.
+// These cascade into $mastors-colors and all CSS variable output automatically.
+//
+// Example (Tailwind-style config equivalent):
+//   @use '@mastorscdn/core' with (
+//     $brand-primary:   #0f4c75,
+//     $brand-secondary: #1b4332,
+//   );
+// =============================================================================
+
+// --- Primary brand color (maps to 'primary' token) ---
+$brand-primary:              null !default;  // e.g. #0f4c75  — overrides color('primary')
+$brand-primary-light:        null !default;  // e.g. #3a7ca5  — overrides color('primary-light')
+$brand-primary-dark:         null !default;  // e.g. #093a5c  — overrides color('primary-dark')
+
+// --- Secondary brand color ---
+$brand-secondary:            null !default;  // e.g. #1b4332
+$brand-secondary-light:      null !default;
+$brand-secondary-dark:       null !default;
+
+// --- Accent color ---
+$brand-accent:               null !default;  // e.g. #f97316
+$brand-accent-light:         null !default;
+$brand-accent-dark:          null !default;
+
+// --- Status color overrides ---
+$brand-success:              null !default;  // Override success green
+$brand-warning:              null !default;  // Override warning amber
+$brand-danger:               null !default;  // Override danger red
+$brand-info:                 null !default;  // Override info cyan
+
+// --- Surface / background overrides ---
+$brand-surface:              null !default;  // e.g. #fafafa
+$brand-surface-raised:       null !default;
+$brand-bg-body:              null !default;  // e.g. #ffffff or #0a0a0a for dark-first
+
+
+// =============================================================================
+// 3. TYPOGRAPHY
+// Global font-family, size, line-height, and weight configuration.
+// =============================================================================
+
+$font-family-sans:     (-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif) !default;
+$font-family-serif:    (Georgia, Cambria, 'Times New Roman', Times, serif) !default;
+$font-family-mono:     ('JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas, 'Courier New', monospace) !default;
+$font-family-base:     $font-family-sans !default;
+$font-family-heading:  $font-family-sans !default;
+
+$font-size-base:       1rem     !default;  // 16px
+$font-size-sm:         0.875rem !default;  // 14px
+$font-size-lg:         1.125rem !default;  // 18px
+
+$line-height-base:     1.6   !default;
+$line-height-tight:    1.25  !default;
+$line-height-loose:    2.0   !default;
+$line-height-heading:  1.2   !default;
+
+$font-weight-light:    300   !default;
+$font-weight-normal:   400   !default;
+$font-weight-medium:   500   !default;
+$font-weight-semibold: 600   !default;
+$font-weight-bold:     700   !default;
+$font-weight-black:    900   !default;
+
+$letter-spacing-tight:  -0.025em !default;
+$letter-spacing-normal:  0       !default;
+$letter-spacing-wide:    0.025em !default;
+$letter-spacing-wider:   0.05em  !default;
+$letter-spacing-widest:  0.1em   !default;
+
+
+// =============================================================================
+// 4. SPACING & LAYOUT
+// Base unit used by spacing scale generators. Change $spacing-unit to
+// rebase the entire spacing system (default 1rem = 16px).
+// =============================================================================
+
+$spacing-unit:         1rem   !default;   // Base spacing unit
+$spacing-scale-max:    96     !default;   // Largest step in spacing scale (96 = 24rem)
+
+$container-padding-x:  1rem   !default;   // Horizontal padding for .mastors-container
+$container-center:     true   !default;   // Auto-center containers with margin: auto
+
+
+// =============================================================================
+// 5. BORDER & RADIUS DEFAULTS
+// =============================================================================
+
+$border-width-default:  1px           !default;  // Default border width
+$border-style-default:  solid         !default;  // Default border style
+$border-color-default:  null          !default;  // null = use semantic('border-default')
+
+$border-radius-default: null          !default;  // null = use radius('md') = 8px
+
+
+// =============================================================================
+// 6. SHADOW DEFAULTS
+// =============================================================================
+
+$shadow-default:        null          !default;  // null = use shadow('md')
+$shadow-color-default:  rgba(0,0,0,0.10) !default;
+
+
+// =============================================================================
+// 7. FOCUS RING
+// Customise the global :focus-visible ring appearance.
+// =============================================================================
+
+$focus-ring-color:      null          !default;  // null = brand-primary / color('primary')
+$focus-ring-width:      3px           !default;
+$focus-ring-offset:     2px           !default;
+$focus-ring-style:      solid         !default;
+
+
+// =============================================================================
+// 8. Z-INDEX OVERRIDES
+// Override individual layers in the z-index stack.
+// =============================================================================
+
+$z-dropdown:            null          !default;  // null = token default (100)
+$z-sticky:              null          !default;  // null = token default (200)
+$z-fixed:               null          !default;  // null = token default (300)
+$z-modal:               null          !default;  // null = token default (500)
+$z-tooltip:             null          !default;  // null = token default (700)
+$z-toast:               null          !default;  // null = token default (800)
+
+
+// =============================================================================
+// 9. BREAKPOINT OVERRIDES
+// Override individual breakpoint values.
+// null = use token default from tokens/_breakpoints.scss
+// =============================================================================
+
+$bp-sm:                 null          !default;  // default 576px
+$bp-md:                 null          !default;  // default 768px
+$bp-lg:                 null          !default;  // default 992px
+$bp-xl:                 null          !default;  // default 1200px
+$bp-2xl:                null          !default;  // default 1400px
+$bp-3xl:                null          !default;  // default 1600px
+
+
+// =============================================================================
+// 10. MOTION OVERRIDES
+// =============================================================================
+
+$duration-normal:       null          !default;  // null = token default (200ms)
+$easing-default:        null          !default;  // null = token default (ease-in-out)
+$transition-default:    null          !default;  // null = token default (colors)
+
+
+// =============================================================================
+// 11. GLOBAL IDENTIFIERS
+// =============================================================================
+
+// CSS custom property prefix: --{prefix}-color-primary etc.
 $mastors-prefix:           'mastors' !default;
 
-// --- Root Element ---
-$mastors-root-selector:    ':root' !default;
+// Root selector where CSS variables are emitted
+$mastors-root-selector:    ':root'   !default;
 
-// --- Theme Attribute ---
+// HTML attribute used for theme switching
 $mastors-theme-attr:       'data-theme' !default;
 
-// --- Debug Mode ---
-$mastors-debug:            false !default;
+// Debug mode: adds data-mastors-debug attributes and outlines
+$mastors-debug:            false     !default;

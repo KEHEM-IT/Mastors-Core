@@ -26,7 +26,7 @@ Mastors-Core is the **foundational layer** of the entire Mastors CDN ecosystem. 
 ## Architecture
 
 ```
-mastors-core/
+mastorscdn-core/
 ├── scss/
 │   ├── config/           # Feature flags, settings
 │   ├── tokens/           # Design tokens (colors, shadows, radius…)
@@ -54,13 +54,13 @@ mastors-core/
 ## Installation
 
 ```bash
-npm install @mastors/core
+npm install @mastorscdn/core
 ```
 
 Or with Yarn:
 
 ```bash
-yarn add @mastors/core
+yarn add @mastorscdn/core
 ```
 
 ---
@@ -77,7 +77,7 @@ npm run sass:all
 
 ```scss
 // Import the full API (functions, mixins, tokens — no CSS output)
-@use '@mastors/core' as mc;
+@use '@mastorscdn/core' as mc;
 
 .my-card {
   background-color: mc.color('surface');
@@ -94,7 +94,7 @@ npm run sass:all
 ### Use with configuration overrides
 
 ```scss
-@use '@mastors/core' with (
+@use '@mastorscdn/core' with (
   $enable-dark-theme:   true,
   $enable-utilities:    true,
   $enable-accessibility: true,
@@ -118,7 +118,7 @@ In each library:
 
 ```scss
 // At the top of every Mastors library
-@use '@mastors/core' as mc;
+@use '@mastorscdn/core' as mc;
 
 // Then use core tokens, functions, mixins freely
 .mastors-flex-row {
@@ -131,7 +131,7 @@ In each library:
 ## Token Functions
 
 ```scss
-@use '@mastors/core' as mc;
+@use '@mastorscdn/core' as mc;
 
 // Color token
 color: mc.color('primary');             // #2563eb
@@ -180,7 +180,7 @@ font-size: mc.em(14);                  // 0.875em
 ## Responsive Mixins
 
 ```scss
-@use '@mastors/core' as mc;
+@use '@mastorscdn/core' as mc;
 
 .element {
   // min-width (mobile first)
@@ -211,7 +211,7 @@ font-size: mc.em(14);                  // 0.875em
 ## Helper Mixins
 
 ```scss
-@use '@mastors/core' as mc;
+@use '@mastorscdn/core' as mc;
 
 // Centering
 .centered {
@@ -297,7 +297,7 @@ font-size: mc.em(14);                  // 0.875em
 ### Custom Theme (SCSS)
 
 ```scss
-@use '@mastors/core/themes/custom' with (
+@use '@mastorscdn/core/themes/custom' with (
   $theme-name: 'enterprise',
   $custom-tokens: (
     '--mastors-color-primary':  #0f4c75,
