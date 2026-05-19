@@ -54,6 +54,7 @@
     "dist/",
     "scss/",
     "scripts/",
+    "scripts/preuninstall.js",
     "index.js",
     "index.d.ts",
     "importer.js",
@@ -62,6 +63,7 @@
   ],
   "scripts": {
     "postinstall":    "node scripts/postinstall.js",
+    "preuninstall":   "node scripts/preuninstall.js",
     "build":          "vite build",
     "dev":            "vite",
     "sass:build":     "sass scss/mastors-core.scss dist/mastors-core.css --style expanded --source-map --load-path=node_modules",

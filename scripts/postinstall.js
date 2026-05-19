@@ -2,7 +2,10 @@
 // =============================================================================
 // Mastors-Core | postinstall.js
 // Runs after `npm install @mastorscdn/core`
-// Auto-detects the user's framework and prints the exact setup guide.
+// • Auto-detects framework (Next, Nuxt, Vite, Angular, …)
+// • Auto-detects TypeScript → creates mc.config.ts instead of mc.config.js
+// • Writes mc.config.{js|ts} with primary/secondary color overrides
+// • Writes .mastors-cache.json with version + list of generated files
 // =============================================================================
 
 'use strict';
@@ -29,8 +32,6 @@ const m  = (s) => `${C.magenta}${s}${C.reset}`;
 const gr = (s) => `${C.gray}${s}${C.reset}`;
 
 // ── Resolve user's project root ───────────────────────────────────────────────
-// When installed as a dep, __dirname = .../node_modules/@mastorscdn/core/scripts
-// So root is several levels up from here.
 function findProjectRoot() {
   let dir = __dirname;
   for (let i = 0; i < 6; i++) {
@@ -50,12 +51,42 @@ function findProjectRoot() {
 
 const ROOT = findProjectRoot();
 
+// ── Read user's package.json ──────────────────────────────────────────────────
 function getUserPkg() {
   try {
     return JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
   } catch (_) {
     return {};
   }
+}
+
+// ── TypeScript detection ──────────────────────────────────────────────────────
+function detectTypeScript(pkg) {
+  const all = {
+    ...pkg.dependencies,
+    ...pkg.devDependencies,
+    ...pkg.peerDependencies,
+  };
+
+  // 1. typescript package present
+  if (all['typescript']) return true;
+
+  // 2. tsconfig.json exists at project root
+  if (fs.existsSync(path.join(ROOT, 'tsconfig.json'))) return true;
+
+  // 3. tsconfig.*.json variant
+  try {
+    const entries = fs.readdirSync(ROOT);
+    if (entries.some((f) => /^tsconfig.*\.json$/.test(f))) return true;
+  } catch (_) {}
+
+  // 4. Any .ts / .tsx source files at root level
+  try {
+    const entries = fs.readdirSync(ROOT);
+    if (entries.some((f) => /\.(ts|tsx)$/.test(f))) return true;
+  } catch (_) {}
+
+  return false;
 }
 
 // ── Framework detection ───────────────────────────────────────────────────────
@@ -91,8 +122,7 @@ function banner() {
   console.log('');
 }
 
-// ── Guides ────────────────────────────────────────────────────────────────────
-
+// ── Framework guides ──────────────────────────────────────────────────────────
 function guideNode() {
   console.log(b(g('  ✔  Plain Node + Sass')));
   console.log('');
@@ -100,11 +130,6 @@ function guideNode() {
   console.log('');
   console.log(c('    sass --watch src/main.scss:dist/main.css --load-path=node_modules'));
   console.log('');
-  console.log('  Or add to your package.json scripts:');
-  console.log('');
-  console.log(gr('    "sass:watch": "sass --watch src/main.scss:dist/main.css --load-path=node_modules"'));
-  console.log('');
-  console.log('  Then in your SCSS:');
   console.log(m("    @use '@mastorscdn/core' as mc;"));
   console.log('');
 }
@@ -119,31 +144,20 @@ function guideNext() {
   console.log(gr("    };"));
   console.log(gr("    export default nextConfig;"));
   console.log('');
-  console.log('  Import in ' + c('app/layout.tsx') + ' or ' + c('pages/_app.js') + ':');
-  console.log(gr("    import '../styles/globals.scss';"));
-  console.log('');
-  console.log('  In globals.scss:');
   console.log(m("    @use '@mastorscdn/core' as mc;"));
   console.log('');
 }
 
 function guideVite(flavour) {
-  const label = { 'vite-vue': 'Vite + Vue', 'vite-react': 'Vite + React', 'vite': 'Vite' }[flavour] || 'Vite';
+  const label = { 'vite-vue': 'Vite + Vue', 'vite-react': 'Vite + React', vite: 'Vite' }[flavour] || 'Vite';
   console.log(b(g(`  ✔  ${label} detected`)));
   console.log('');
-  console.log('  Add to ' + c('vite.config.js') + ':');
+  console.log('  Add to ' + c('vite.config.js / vite.config.ts') + ':');
   console.log('');
-  console.log(gr("    import path from 'path';"));
-  console.log(gr("    export default defineConfig({"));
-  console.log(gr("      css: {"));
-  console.log(gr("        preprocessorOptions: {"));
-  console.log(gr("          scss: {"));
-  console.log(gr("            api: 'modern-compiler',"));
-  console.log(gr("            loadPaths: [path.resolve(__dirname, 'node_modules')],"));
-  console.log(gr("          },"));
-  console.log(gr("        },"));
-  console.log(gr("      },"));
-  console.log(gr("    });"));
+  console.log(gr("    css: { preprocessorOptions: { scss: {"));
+  console.log(gr("      api: 'modern-compiler',"));
+  console.log(gr("      loadPaths: ['./node_modules'],"));
+  console.log(gr("    } } },"));
   console.log('');
   console.log(m("    @use '@mastorscdn/core' as mc;"));
   console.log('');
@@ -154,18 +168,10 @@ function guideNuxt() {
   console.log('');
   console.log('  Add to ' + c('nuxt.config.ts') + ':');
   console.log('');
-  console.log(gr("    export default defineNuxtConfig({"));
-  console.log(gr("      vite: {"));
-  console.log(gr("        css: {"));
-  console.log(gr("          preprocessorOptions: {"));
-  console.log(gr("            scss: {"));
-  console.log(gr("              api: 'modern-compiler',"));
-  console.log(gr("              loadPaths: ['./node_modules'],"));
-  console.log(gr("            },"));
-  console.log(gr("          },"));
-  console.log(gr("        },"));
-  console.log(gr("      },"));
-  console.log(gr("    });"));
+  console.log(gr("    vite: { css: { preprocessorOptions: { scss: {"));
+  console.log(gr("      api: 'modern-compiler',"));
+  console.log(gr("      loadPaths: ['./node_modules'],"));
+  console.log(gr("    } } } },"));
   console.log('');
   console.log(m("    @use '@mastorscdn/core' as mc;"));
   console.log('');
@@ -176,15 +182,10 @@ function guideAstro() {
   console.log('');
   console.log('  Add to ' + c('astro.config.mjs') + ':');
   console.log('');
-  console.log(gr("    import path from 'path';"));
-  console.log(gr("    export default defineConfig({"));
-  console.log(gr("      vite: {"));
-  console.log(gr("        css: { preprocessorOptions: { scss: {"));
-  console.log(gr("          api: 'modern-compiler',"));
-  console.log(gr("          loadPaths: [path.resolve('./node_modules')],"));
-  console.log(gr("        } } },"));
-  console.log(gr("      },"));
-  console.log(gr("    });"));
+  console.log(gr("    vite: { css: { preprocessorOptions: { scss: {"));
+  console.log(gr("      api: 'modern-compiler',"));
+  console.log(gr("      loadPaths: [path.resolve('./node_modules')],"));
+  console.log(gr("    } } } },"));
   console.log('');
   console.log(m("    @use '@mastorscdn/core' as mc;"));
   console.log('');
@@ -195,13 +196,10 @@ function guideSvelteKit() {
   console.log('');
   console.log('  Add to ' + c('vite.config.js') + ':');
   console.log('');
-  console.log(gr("    import path from 'path';"));
-  console.log(gr("    export default { plugins: [sveltekit()],"));
-  console.log(gr("      css: { preprocessorOptions: { scss: {"));
-  console.log(gr("        api: 'modern-compiler',"));
-  console.log(gr("        loadPaths: [path.resolve('./node_modules')],"));
-  console.log(gr("      } } },"));
-  console.log(gr("    };"));
+  console.log(gr("    css: { preprocessorOptions: { scss: {"));
+  console.log(gr("      api: 'modern-compiler',"));
+  console.log(gr("      loadPaths: [path.resolve('./node_modules')],"));
+  console.log(gr("    } } },"));
   console.log('');
   console.log(m("    @use '@mastorscdn/core' as mc;"));
   console.log('');
@@ -210,7 +208,7 @@ function guideSvelteKit() {
 function guideRemix() {
   console.log(b(g('  ✔  Remix detected')));
   console.log('');
-  console.log('  Add to ' + c('vite.config.ts') + ' css section:');
+  console.log('  Add to ' + c('vite.config.ts') + ':');
   console.log('');
   console.log(gr("    css: { preprocessorOptions: { scss: {"));
   console.log(gr("      api: 'modern-compiler',"));
@@ -234,41 +232,171 @@ function guideAngular() {
   console.log('');
 }
 
-// ── Write mc.config.js ────────────────────────────────────────────────────────
-function writeMcConfig(framework) {
-  const configPath = path.join(ROOT, 'mc.config.js');
-  if (fs.existsSync(configPath)) return;
+// ── mc.config.{js|ts} writer ──────────────────────────────────────────────────
+function writeMcConfig(framework, isTypeScript) {
+  const ext        = isTypeScript ? 'ts' : 'js';
+  const configName = `mc.config.${ext}`;
+  const configPath = path.join(ROOT, configName);
 
-  const content = `// =============================================================================
-// mc.config.js — Mastors Core Configuration Reference
-// Auto-generated by @mastorscdn/core on install
-// Detected framework: ${framework}
+  // Never overwrite an existing config
+  if (fs.existsSync(configPath)) return configName;
+
+  // ── TypeScript version ────────────────────────────────────────────────────
+  const tsContent = `// =============================================================================
+// mc.config.ts — Mastors Core Configuration
+// Auto-generated by @mastorscdn/core on install  (framework: ${framework})
 //
-// Copy the relevant snippet from this file into your bundler config.
-// Full docs: https://mastorscdn.kehem.com/
+// Customise design tokens here — they will be passed to your SCSS as
+// @use overrides, just like Tailwind's theme config.
+//
+// Full docs: https://mastorscdn.kehem.com/docs/configuration
 // =============================================================================
 
-/** @type {import('@mastorscdn/core').McConfig} */
-const mcConfig = {
-  // Add to your bundler's scss preprocessorOptions:
+import type { McConfig } from '@mastorscdn/core';
+
+const mcConfig: McConfig = {
+  // ── Sass load path (required for bundler integration) ──────────────────────
   loadPaths: ['./node_modules'],
 
-  // Override Mastors tokens in SCSS:
+  // ── Brand colours ──────────────────────────────────────────────────────────
+  // These map directly to the SCSS token overrides below.
+  // Accepts any valid CSS colour value: hex, rgb(), hsl(), oklch(), etc.
+  theme: {
+    colors: {
+      primary:          '#6366f1',   // indigo-500  — your main brand colour
+      'primary-light':  '#a5b4fc',   // indigo-300
+      'primary-dark':   '#4338ca',   // indigo-700
+
+      secondary:        '#8b5cf6',   // violet-500
+      'secondary-light':'#c4b5fd',   // violet-300
+      'secondary-dark': '#6d28d9',   // violet-700
+
+      accent:           '#06b6d4',   // cyan-500
+      'accent-light':   '#67e8f9',   // cyan-300
+      'accent-dark':    '#0e7490',   // cyan-700
+    },
+  },
+
+  // ── SCSS @use override block (copy into your main .scss entry file) ─────────
+  //
   //   @use '@mastorscdn/core' with (
   //     $enable-dark-theme:   true,
   //     $enable-utilities:    true,
   //     $mastors-prefix:      'mc',
+  //     $mastors-colors: map.merge($mastors-colors, (
+  //       'primary':         #6366f1,
+  //       'primary-light':   #a5b4fc,
+  //       'primary-dark':    #4338ca,
+  //       'secondary':       #8b5cf6,
+  //       'secondary-light': #c4b5fd,
+  //       'secondary-dark':  #6d28d9,
+  //       'accent':          #06b6d4,
+  //       'accent-light':    #67e8f9,
+  //       'accent-dark':     #0e7490,
+  //     )),
+  //   );
+};
+
+export default mcConfig;
+`;
+
+  // ── JavaScript version ────────────────────────────────────────────────────
+  const jsContent = `// =============================================================================
+// mc.config.js — Mastors Core Configuration
+// Auto-generated by @mastorscdn/core on install  (framework: ${framework})
+//
+// Customise design tokens here — they will be passed to your SCSS as
+// @use overrides, just like Tailwind's theme config.
+//
+// Full docs: https://mastorscdn.kehem.com/docs/configuration
+// =============================================================================
+
+/** @type {import('@mastorscdn/core').McConfig} */
+const mcConfig = {
+  // ── Sass load path (required for bundler integration) ──────────────────────
+  loadPaths: ['./node_modules'],
+
+  // ── Brand colours ──────────────────────────────────────────────────────────
+  // These map directly to the SCSS token overrides below.
+  // Accepts any valid CSS colour value: hex, rgb(), hsl(), oklch(), etc.
+  theme: {
+    colors: {
+      primary:            '#6366f1',   // indigo-500  — your main brand colour
+      'primary-light':    '#a5b4fc',   // indigo-300
+      'primary-dark':     '#4338ca',   // indigo-700
+
+      secondary:          '#8b5cf6',   // violet-500
+      'secondary-light':  '#c4b5fd',   // violet-300
+      'secondary-dark':   '#6d28d9',   // violet-700
+
+      accent:             '#06b6d4',   // cyan-500
+      'accent-light':     '#67e8f9',   // cyan-300
+      'accent-dark':      '#0e7490',   // cyan-700
+    },
+  },
+
+  // ── SCSS @use override block (copy into your main .scss entry file) ─────────
+  //
+  //   @use '@mastorscdn/core' with (
+  //     $enable-dark-theme:   true,
+  //     $enable-utilities:    true,
+  //     $mastors-prefix:      'mc',
+  //     $mastors-colors: map.merge($mastors-colors, (
+  //       'primary':         #6366f1,
+  //       'primary-light':   #a5b4fc,
+  //       'primary-dark':    #4338ca,
+  //       'secondary':       #8b5cf6,
+  //       'secondary-light': #c4b5fd,
+  //       'secondary-dark':  #6d28d9,
+  //       'accent':          #06b6d4,
+  //       'accent-light':    #67e8f9,
+  //       'accent-dark':     #0e7490,
+  //     )),
   //   );
 };
 
 module.exports = mcConfig;
 `;
 
-  try { fs.writeFileSync(configPath, content, 'utf8'); } catch (_) {}
+  const content = isTypeScript ? tsContent : jsContent;
+
+  try {
+    fs.writeFileSync(configPath, content, 'utf8');
+    return configName;
+  } catch (_) {
+    return null;
+  }
+}
+
+// ── .mastors-cache.json writer ────────────────────────────────────────────────
+// Records which files were generated so preuninstall knows exactly what to remove.
+function writeCacheJson(framework, isTypeScript, generatedFiles) {
+  const cachePath = path.join(ROOT, '.mastors-cache.json');
+
+  // Read own version from package.json
+  let version = '1.0.3';
+  try {
+    const selfPkg = JSON.parse(
+      fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf8'),
+    );
+    version = selfPkg.version || version;
+  } catch (_) {}
+
+  const cache = {
+    version,
+    generatedAt:    new Date().toISOString(),
+    framework,
+    typescript:     isTypeScript,
+    generatedFiles, // ← preuninstall reads this
+  };
+
+  try {
+    fs.writeFileSync(cachePath, JSON.stringify(cache, null, 2), 'utf8');
+  } catch (_) {}
 }
 
 // ── Footer ────────────────────────────────────────────────────────────────────
-function footer(framework) {
+function footer(configName, isTypeScript) {
   console.log(b('  ─────────────────────────────────────────────'));
   console.log('');
   console.log('  ' + b('In any .scss file:'));
@@ -276,19 +404,25 @@ function footer(framework) {
   console.log(m("    @use '@mastorscdn/core' as mc;"));
   console.log('');
   console.log(gr('    .card {'));
-  console.log(gr("      color: mc.color('primary');"));
+  console.log(gr("      color:         mc.color('primary');"));
   console.log(gr("      border-radius: mc.radius('lg');"));
-  console.log(gr("      box-shadow: mc.shadow('md');"));
+  console.log(gr("      box-shadow:    mc.shadow('md');"));
   console.log(gr("      @include mc.up('md') { padding: 2rem; }"));
+  console.log(gr("      @include mc.container('lg');"));
   console.log(gr('    }'));
   console.log('');
+  if (configName) {
+    console.log('  ' + y(`📄 ${configName} written to your project root.`));
+    console.log('  ' + gr('   Edit theme.colors to set your brand palette.'));
+    console.log('');
+  }
+  if (isTypeScript) {
+    console.log('  ' + y('🔷 TypeScript detected — config created as .ts'));
+    console.log('');
+  }
   console.log('  ' + b('Docs:') + ' ' + c('https://mastorscdn.kehem.com/'));
   console.log('  ' + b('npm:')  + ' ' + c('https://www.npmjs.com/package/@mastorscdn/core'));
   console.log('');
-  if (framework !== 'node') {
-    console.log('  ' + y('📄 mc.config.js written to your project root.'));
-    console.log('');
-  }
   console.log(b(c('  Happy styling with Mastors Core! 🚀')));
   console.log('');
 }
@@ -297,11 +431,13 @@ function footer(framework) {
 function main() {
   if (process.env.CI && process.env.MASTORS_SILENT) return;
 
-  const pkg       = getUserPkg();
-  const framework = detectFramework(pkg);
+  const pkg         = getUserPkg();
+  const framework   = detectFramework(pkg);
+  const isTypeScript = detectTypeScript(pkg);
 
   banner();
   console.log(`  ${b('Detected environment:')} ${g(framework)}`);
+  console.log(`  ${b('TypeScript:')}           ${isTypeScript ? g('yes') : gr('no')}`);
   console.log('');
 
   switch (framework) {
@@ -318,8 +454,19 @@ function main() {
     default:            guideNode();             break;
   }
 
-  if (framework !== 'node') writeMcConfig(framework);
-  footer(framework);
+  // Generate config file (skip for plain Node — no bundler to configure)
+  let configName = null;
+  const generatedFiles = ['.mastors-cache.json'];
+
+  if (framework !== 'node') {
+    configName = writeMcConfig(framework, isTypeScript);
+    if (configName) generatedFiles.push(configName);
+  }
+
+  // Always write cache (tracks generated files for clean uninstall)
+  writeCacheJson(framework, isTypeScript, generatedFiles);
+
+  footer(configName, isTypeScript);
 }
 
 main();

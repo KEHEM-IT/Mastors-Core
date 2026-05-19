@@ -102,6 +102,7 @@
   cover,
   visually-hidden,
   visually-visible,
+  container,
   generate-vars,
   generate-all-vars;
 
@@ -120,4 +121,3 @@
 @forward 'helpers';
 @forward 'generators';
 @forward 'utilities';
-@forward 'mixins/css-vars';

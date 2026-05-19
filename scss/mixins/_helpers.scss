@@ -8,6 +8,7 @@
 @use '../tokens/radius' as t-radius;
 @use '../tokens/shadows' as t-shadows;
 @use '../tokens/colors' as t-colors;
+@use '../tokens/breakpoints' as t-bp;
 
 // --- Absolute Center ---
 @mixin absolute-center {
@@ -193,6 +194,20 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+// --- Container mixin — sets max-width from $mastors-containers token ---
+@mixin container($size: 'lg', $center: true) {
+  @if map.has-key(t-bp.$mastors-containers, $size) {
+    max-width: map.get(t-bp.$mastors-containers, $size);
+  } @else {
+    @warn '[mastors] container(): Unknown size key "#{$size}". Available: #{map.keys(t-bp.$mastors-containers)}';
+    max-width: map.get(t-bp.$mastors-containers, 'lg');
+  }
+  width: 100%;
+  @if $center {
+    margin-inline: auto;
+  }
 }
 
 // --- Reset visually hidden ---
